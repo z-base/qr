@@ -1,12 +1,12 @@
 {
-  "name": "@z-base/package-name",
+  "name": "@z-base/qr",
   "version": "0.0.0",
   "description": "",
   "keywords": [
     "typescript",
     "z-base"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,12 +19,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/<entity>/<package-name>.git"
+    "url": "git+https://github.com/z-base/qr.git"
   },
   "bugs": {
-    "url": "https://github.com/<entity>/<package-name>/issues"
+    "url": "https://github.com/z-base/qr/issues"
   },
-  "homepage": "https://z-base.github.io/<package-name>",
+  "homepage": "https://z-base.github.io/qr",
   "files": [
     "dist",
     "LICENSE",
@@ -55,11 +55,12 @@
     "node": ">=18"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.3.1",
-    "@commitlint/config-conventional": "^20.3.1",
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.2.3",
-    "c8": "^10.1.3",
+    "@types/escape-html": "^1.0.4",
+    "@types/node": "^25.3.3",
+    "c8": "^11.0.0",
     "fast-glob": "^3.3.3",
     "husky": "^9.1.7",
     "playwright": "^1.58.2",
@@ -67,8 +68,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@z-base/bytecodec": "^1.1.0",
-    "@z-base/cryptosuite": "^1.0.1",
-    "@z-base/zero-knowledge-credentials": "^1.0.2"
+    "qr": "^0.5.4",
+    "qr-scanner": "^1.4.2"
   }
 }
