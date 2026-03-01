@@ -1509,6 +1509,8 @@ function display(value) {
     cleaned = true;
     ac.abort();
     window.removeEventListener("pointerup", onPointerUp);
+    window.removeEventListener("mouseup", onMouseUp);
+    window.removeEventListener("touchend", onTouchEnd);
     window.removeEventListener("keydown", onKeyDown);
     img.onload = null;
     URL.revokeObjectURL(url);
@@ -1516,9 +1518,13 @@ function display(value) {
   };
   img.onload = () => URL.revokeObjectURL(url);
   const onPointerUp = () => cleanup();
+  const onMouseUp = () => cleanup();
+  const onTouchEnd = () => cleanup();
   const onKeyDown = () => cleanup();
   setTimeout(() => {
     window.addEventListener("pointerup", onPointerUp, { signal: ac.signal });
+    window.addEventListener("mouseup", onMouseUp, { signal: ac.signal });
+    window.addEventListener("touchend", onTouchEnd, { signal: ac.signal });
     window.addEventListener("keydown", onKeyDown, { signal: ac.signal });
     dialog.addEventListener("close", cleanup, { signal: ac.signal });
   }, 500);
@@ -2094,6 +2100,8 @@ async function scan() {
       settled = true;
       ac.abort();
       window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("keydown", onKeyDown);
       try {
         scanner?.stop();
@@ -2121,9 +2129,13 @@ async function scan() {
     };
     const abort = () => rejectWithQRError(new QRError("SCAN_CANCELLED", "QR-Code scanning was cancelled"));
     const onPointerUp = () => abort();
+    const onMouseUp = () => abort();
+    const onTouchEnd = () => abort();
     const onKeyDown = () => abort();
     setTimeout(() => {
       window.addEventListener("pointerup", onPointerUp, { signal: ac.signal });
+      window.addEventListener("mouseup", onMouseUp, { signal: ac.signal });
+      window.addEventListener("touchend", onTouchEnd, { signal: ac.signal });
       window.addEventListener("keydown", onKeyDown, { signal: ac.signal });
       dialog.addEventListener("cancel", (e2) => {
         e2.preventDefault();

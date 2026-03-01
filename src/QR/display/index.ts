@@ -65,6 +65,8 @@ export function display(value: string): void {
 
     ac.abort()
     window.removeEventListener('pointerup', onPointerUp)
+    window.removeEventListener('mouseup', onMouseUp)
+    window.removeEventListener('touchend', onTouchEnd)
     window.removeEventListener('keydown', onKeyDown)
 
     img.onload = null
@@ -76,10 +78,14 @@ export function display(value: string): void {
   img.onload = () => URL.revokeObjectURL(url)
 
   const onPointerUp = (): void => cleanup()
+  const onMouseUp = (): void => cleanup()
+  const onTouchEnd = (): void => cleanup()
   const onKeyDown = (): void => cleanup()
 
   setTimeout(() => {
     window.addEventListener('pointerup', onPointerUp, { signal: ac.signal })
+    window.addEventListener('mouseup', onMouseUp, { signal: ac.signal })
+    window.addEventListener('touchend', onTouchEnd, { signal: ac.signal })
     window.addEventListener('keydown', onKeyDown, { signal: ac.signal })
     dialog.addEventListener('close', cleanup, { signal: ac.signal })
   }, 500)

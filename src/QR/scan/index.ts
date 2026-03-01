@@ -63,6 +63,8 @@ export async function scan(): Promise<string> {
 
       ac.abort()
       window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('mouseup', onMouseUp)
+      window.removeEventListener('touchend', onTouchEnd)
       window.removeEventListener('keydown', onKeyDown)
 
       try {
@@ -95,10 +97,14 @@ export async function scan(): Promise<string> {
       )
 
     const onPointerUp = (): void => abort()
+    const onMouseUp = (): void => abort()
+    const onTouchEnd = (): void => abort()
     const onKeyDown = (): void => abort()
 
     setTimeout(() => {
       window.addEventListener('pointerup', onPointerUp, { signal: ac.signal })
+      window.addEventListener('mouseup', onMouseUp, { signal: ac.signal })
+      window.addEventListener('touchend', onTouchEnd, { signal: ac.signal })
       window.addEventListener('keydown', onKeyDown, { signal: ac.signal })
       dialog.addEventListener(
         'cancel',
