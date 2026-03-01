@@ -4,12 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QR</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        height: 100dvh;
+        max-width: 100%;
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        max-width: 100%;
+      }
+    </style>
   </head>
   <body>
-    <p>
-      Try using the `qr` namespace in the dev tools console. It has methods
-      `scan`, `print`, and `display`
-    </p>
-    <script type="module" src="./in-browser-testing.js"></script>
+    <section>
+      <label for="qr-value-input">Value you want a QR from:</label>
+      <input id="qr-value-input" type="text" />
+    </section>
+    <section>
+      <button id="display-qr">Display the value as a QR-Code</button>
+      <button id="print-qr">Print the value as a QR-Code</button>
+      <button id="scan-qr">Scan a QR-Code</button>
+    </section>
+    <section>
+      <label for="qr-scan-output">QR-Code Scan result:</label>
+      <output id="qr-scan-output" for="scan-qr"></output>
+    </section>
+    <section>
+      <p>
+        Try the API by using `qr` namespace in the dev tools console. It has
+        methods `scan`, `print`, and `display`
+      </p>
+    </section>
+    <script type="module" src="./in-browser-testing.js" defer></script>
   </body>
 </html>

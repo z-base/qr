@@ -1,4 +1,5 @@
 import encodeQR from 'qr'
+import { QRError } from '../../.errors/class.js'
 
 /**
  * Opens a new tab containing an A4 print layout of card-sized QR codes for the specified string.
@@ -7,10 +8,14 @@ import encodeQR from 'qr'
  * dotted cut guides and corner crop marks. The print dialog is then invoked from within the new tab.
  *
  * @param value The string to encode.
- * @throws {TypeError} Thrown if `value` is not a string.
+ * @throws {QRError} Thrown if `value` is not a string.
  */
 export function print(value: string): void {
-  if (typeof value !== 'string') throw new TypeError('value must be a string')
+  if (typeof value !== 'string')
+    throw new QRError(
+      'VALUE_IS_NOT_A_STRING',
+      'This library only accepts strings as value, use `@z-base/bytecodec` for conversions'
+    )
 
   // A4 portrait, fixed defaults
   const PAGE_MM = { w: 210, h: 297 }

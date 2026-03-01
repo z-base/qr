@@ -8,10 +8,9 @@ export class QR {
    * The QR code is rendered as an SVG image using a `blob:` URL.
    *
    * @param value The string to encode.
-   * @returns A function that removes the dialog from the document.
    * @throws {TypeError} Thrown if `value` is not a string.
    */
-  static display(value: string): Function {
+  static display(value: string): void {
     return display(value)
   }
   /**
@@ -25,7 +24,7 @@ export class QR {
    * @param options Options controlling the paper format and layout.
    * @throws {TypeError} Thrown if `value` is not a string.
    */
-  static print(value: string) {
+  static print(value: string): void {
     return print(value)
   }
   /**
@@ -33,7 +32,7 @@ export class QR {
    *
    * The dialog closes automatically once a QR code is decoded and the decoded payload is returned.
    *
-   * @returns A promise that fulfills with the decoded QR code content.
+   * @returns A promise that fulfills with the decoded QR code string.
    * @throws {Error} If no camera is available.
    */
   static async scan(): Promise<string> {

@@ -1,12 +1,12 @@
-export type PackageNameErrorCode = 'EXAMPLE_ERROR_CODE'
+export type QRErrorCode = 'VALUE_IS_NOT_A_STRING' | 'NO_CAMERA_AVAILABLE'
 
-export class PackageNameError extends Error {
-  readonly code: PackageNameErrorCode
+export class QRError extends Error {
+  readonly code: QRErrorCode
 
-  constructor(code: PackageNameErrorCode, message?: string) {
+  constructor(code: QRErrorCode, message?: string) {
     const detail = message ?? code
-    super(`{@z-base/package-name} ${detail}`)
+    super(`{@z-base/qr} ${detail}`)
     this.code = code
-    this.name = 'PackageNameError'
+    this.name = 'QRError'
   }
 }
