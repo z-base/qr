@@ -81,6 +81,38 @@ test('display renders, binds close listeners, and cleans up idempotently', () =>
   }
 })
 
+test('display also closes on mouseup and touchend', () => {
+  resetQrStub()
+
+  {
+    const dom = installDomHarness()
+    try {
+      display('close-on-mouseup')
+      dom.dispatchWindow('mouseup')
+
+      const dialog = dom.getLastElement('dialog')
+      assert.ok(dialog)
+      assert.equal(dialog.removed, true)
+    } finally {
+      dom.restore()
+    }
+  }
+
+  {
+    const dom = installDomHarness()
+    try {
+      display('close-on-touchend')
+      dom.dispatchWindow('touchend')
+
+      const dialog = dom.getLastElement('dialog')
+      assert.ok(dialog)
+      assert.equal(dialog.removed, true)
+    } finally {
+      dom.restore()
+    }
+  }
+})
+
 test('print rejects non-string values', () => {
   resetQrStub()
   const dom = installDomHarness()
@@ -275,6 +307,49 @@ test('scan rejects with SCAN_CANCELLED on dialog cancel and prevents default', a
     )
   } finally {
     dom.restore()
+  }
+})
+
+test('scan rejects with SCAN_CANCELLED on mouseup and touchend', async () => {
+  resetQrScannerStub()
+  configureQrScannerStub({ hasCameraResult: true, autoDecode: false })
+
+  {
+    const dom = installDomHarness()
+    try {
+      const promise = scan()
+      await Promise.resolve()
+      dom.dispatchWindow('mouseup')
+
+      await assert.rejects(
+        () => promise,
+        (error) => {
+          assertQRErrorCode(error, 'SCAN_CANCELLED')
+          return true
+        }
+      )
+    } finally {
+      dom.restore()
+    }
+  }
+
+  {
+    const dom = installDomHarness()
+    try {
+      const promise = scan()
+      await Promise.resolve()
+      dom.dispatchWindow('touchend')
+
+      await assert.rejects(
+        () => promise,
+        (error) => {
+          assertQRErrorCode(error, 'SCAN_CANCELLED')
+          return true
+        }
+      )
+    } finally {
+      dom.restore()
+    }
   }
 })
 
