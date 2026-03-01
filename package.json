@@ -1,8 +1,15 @@
 {
   "name": "@z-base/qr",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Simple managed QR display, print, and scan utilities for browser frontends.",
   "keywords": [
+    "qr",
+    "qrcode",
+    "scanner",
+    "browser",
+    "frontend",
+    "spa",
+    "esm",
     "typescript",
     "z-base"
   ],
