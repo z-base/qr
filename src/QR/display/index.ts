@@ -1,5 +1,6 @@
 import encodeQR from 'qr'
 import { QRError } from '../../.errors/class.js'
+import { getErrorMessage } from '../../.helpers/index.js'
 
 /**
  * Displays a modal dialog containing a QR code representation of the specified string.
@@ -7,7 +8,7 @@ import { QRError } from '../../.errors/class.js'
  * The QR is rendered as scalable SVG and sized responsively to fit the viewport.
  *
  * @param value The string to encode.
- * @throws {QRError} If `value` is not a string.
+ * @throws {QRError} If `value` is not a string or QR encoding fails.
  */
 export function display(value: string): void {
   if (typeof value !== 'string') {
@@ -29,7 +30,16 @@ export function display(value: string): void {
   dialog.style.outline = 'none'
   dialog.style.overflow = 'hidden'
 
-  const svgText = encodeQR(value, 'svg')
+  let svgText = ''
+  try {
+    svgText = encodeQR(value, 'svg')
+  } catch (error: unknown) {
+    throw new QRError(
+      'QR_ENCODE_FAILED',
+      getErrorMessage(error, 'Unable to encode value as QR SVG')
+    )
+  }
+
   const url = URL.createObjectURL(
     new Blob([svgText], { type: 'image/svg+xml' })
   )

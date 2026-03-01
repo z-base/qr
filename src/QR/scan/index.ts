@@ -1,5 +1,6 @@
 import QrScanner from 'qr-scanner'
 import { QRError } from '../../.errors/class.js'
+import { getErrorMessage } from '../../.helpers/index.js'
 
 /**
  * Displays a modal dialog that streams the device camera and scans for a QR code.
@@ -7,13 +8,24 @@ import { QRError } from '../../.errors/class.js'
  * The dialog closes once a QR code is decoded and the decoded payload is returned.
  *
  * @returns A promise that fulfills with the decoded QR code string.
- * @throws {QRError} If no camera is available.
+ * @throws {QRError} If camera availability cannot be checked, no camera is available, the scan is cancelled, or scanner startup fails.
  */
-export async function scan(): Promise<string | false> {
-  if (!(await QrScanner.hasCamera()))
+export async function scan(): Promise<string> {
+  let hasCamera = false
+
+  try {
+    hasCamera = await QrScanner.hasCamera()
+  } catch (error: unknown) {
+    throw new QRError(
+      'CAMERA_CHECK_FAILED',
+      getErrorMessage(error, 'Unable to check camera availability')
+    )
+  }
+
+  if (!hasCamera)
     throw new QRError(
       'NO_CAMERA_AVAILABLE',
-      'QR-Code Scanning requires a camera'
+      'QR-Code scanning requires a camera'
     )
 
   const dialog = document.createElement('dialog')
@@ -43,9 +55,10 @@ export async function scan(): Promise<string | false> {
   return new Promise<string>((resolve, reject) => {
     const ac = new AbortController()
     let settled = false
+    let scanner: QrScanner | undefined
 
-    const cleanup = (): void => {
-      if (settled) return
+    const finalize = (): boolean => {
+      if (settled) return false
       settled = true
 
       ac.abort()
@@ -53,38 +66,33 @@ export async function scan(): Promise<string | false> {
       window.removeEventListener('keydown', onKeyDown)
 
       try {
-        scanner.stop()
+        scanner?.stop()
       } catch {}
       try {
-        scanner.destroy()
-      } catch {}
-
-      try {
-        dialog.remove()
-      } catch {}
-    }
-
-    const abort = (): void => {
-      if (settled) return
-      settled = true
-
-      ac.abort()
-      window.removeEventListener('pointerup', onPointerUp)
-      window.removeEventListener('keydown', onKeyDown)
-
-      try {
-        scanner.stop()
-      } catch {}
-      try {
-        scanner.destroy()
+        scanner?.destroy()
       } catch {}
 
       try {
         dialog.remove()
       } catch {}
 
-      reject(false)
+      return true
     }
+
+    const rejectWithQRError = (error: QRError): void => {
+      if (!finalize()) return
+      reject(error)
+    }
+
+    const resolveWithData = (data: string): void => {
+      if (!finalize()) return
+      resolve(data)
+    }
+
+    const abort = (): void =>
+      rejectWithQRError(
+        new QRError('SCAN_CANCELLED', 'QR-Code scanning was cancelled')
+      )
 
     const onPointerUp = (): void => abort()
     const onKeyDown = (): void => abort()
@@ -103,24 +111,10 @@ export async function scan(): Promise<string | false> {
       dialog.addEventListener('close', abort, { signal: ac.signal })
     }, 500)
 
-    const scanner = new QrScanner(
+    scanner = new QrScanner(
       video,
       (result: QrScanner.ScanResult) => {
-        if (settled) return
-        settled = true
-        ac.abort()
-        window.removeEventListener('pointerup', onPointerUp)
-        window.removeEventListener('keydown', onKeyDown)
-        try {
-          scanner.stop()
-        } catch {}
-        try {
-          scanner.destroy()
-        } catch {}
-        try {
-          dialog.remove()
-        } catch {}
-        resolve(result.data)
+        resolveWithData(result.data)
       },
       {
         preferredCamera: 'environment',
@@ -131,22 +125,13 @@ export async function scan(): Promise<string | false> {
       }
     )
 
-    scanner.start().catch((err: unknown) => {
-      if (settled) return
-      settled = true
-      ac.abort()
-      window.removeEventListener('pointerup', onPointerUp)
-      window.removeEventListener('keydown', onKeyDown)
-      try {
-        scanner.stop()
-      } catch {}
-      try {
-        scanner.destroy()
-      } catch {}
-      try {
-        dialog.remove()
-      } catch {}
-      reject(err)
+    scanner.start().catch((error: unknown) => {
+      rejectWithQRError(
+        new QRError(
+          'SCAN_START_FAILED',
+          getErrorMessage(error, 'Unable to start QR scanner')
+        )
+      )
     })
   })
 }

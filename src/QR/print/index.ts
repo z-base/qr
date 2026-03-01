@@ -1,5 +1,6 @@
 import encodeQR from 'qr'
 import { QRError } from '../../.errors/class.js'
+import { getErrorMessage } from '../../.helpers/index.js'
 
 /**
  * Opens a new tab containing an A4 print layout of card-sized QR codes for the specified string.
@@ -8,7 +9,7 @@ import { QRError } from '../../.errors/class.js'
  * dotted cut guides and corner crop marks. The print dialog is then invoked from within the new tab.
  *
  * @param value The string to encode.
- * @throws {QRError} Thrown if `value` is not a string.
+ * @throws {QRError} If `value` is not a string or QR encoding fails.
  */
 export function print(value: string): void {
   if (typeof value !== 'string')
@@ -43,7 +44,15 @@ export function print(value: string): void {
   const maxQrMm = CARD_MM.h - 2 * CARD_PADDING_MM
   const qrMm = Math.max(10, Math.min(QR_ON_CARD_MM, maxQrMm))
 
-  const svg = encodeQR(value, 'svg')
+  let svg = ''
+  try {
+    svg = encodeQR(value, 'svg')
+  } catch (error: unknown) {
+    throw new QRError(
+      'QR_ENCODE_FAILED',
+      getErrorMessage(error, 'Unable to encode value as QR SVG')
+    )
+  }
 
   const tiles = Array.from({ length: count }, () => {
     return `<div class="card">
