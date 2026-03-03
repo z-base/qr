@@ -1,5 +1,6 @@
 import encodeQR from 'qr'
 import { QRError } from '../../.errors/class.js'
+import { attachFadeStyles } from '../../.helpers/fade/index.js'
 import { getErrorMessage } from '../../.helpers/index.js'
 
 /**
@@ -18,6 +19,7 @@ export function display(value: string): void {
     )
   }
 
+  const fadeMs = 500
   const dialog = document.createElement('dialog')
 
   dialog.style.border = 'none'
@@ -29,6 +31,7 @@ export function display(value: string): void {
   dialog.style.justifyContent = 'center'
   dialog.style.outline = 'none'
   dialog.style.overflow = 'hidden'
+  const dialogFade = attachFadeStyles(dialog, fadeMs)
 
   let svgText = ''
   try {
@@ -51,13 +54,16 @@ export function display(value: string): void {
   img.style.height = 'auto'
   img.style.aspectRatio = '1 / 1'
   img.style.display = 'block'
+  const imgFade = attachFadeStyles(img, fadeMs)
 
   dialog.append(img)
   document.body.append(dialog)
   dialog.showModal()
+  dialogFade.reveal()
 
   const ac = new AbortController()
   let cleaned = false
+  let closing = false
 
   const cleanup = (): void => {
     if (cleaned) return
@@ -72,15 +78,39 @@ export function display(value: string): void {
     img.onload = null
     URL.revokeObjectURL(url)
 
+    dialogFade.detach()
+    imgFade.detach()
     dialog.remove()
   }
 
-  img.onload = () => URL.revokeObjectURL(url)
+  const requestClose = (): void => {
+    if (closing || cleaned) return
+    closing = true
 
-  const onPointerUp = (): void => cleanup()
-  const onMouseUp = (): void => cleanup()
-  const onTouchEnd = (): void => cleanup()
-  const onKeyDown = (): void => cleanup()
+    dialogFade.hide()
+    imgFade.hide()
+
+    setTimeout(() => {
+      try {
+        dialog.close()
+      } catch {}
+      cleanup()
+    }, fadeMs)
+  }
+
+  img.onload = () => {
+    URL.revokeObjectURL(url)
+    imgFade.reveal()
+  }
+  if (img.complete) {
+    URL.revokeObjectURL(url)
+    imgFade.reveal()
+  }
+
+  const onPointerUp = (): void => requestClose()
+  const onMouseUp = (): void => requestClose()
+  const onTouchEnd = (): void => requestClose()
+  const onKeyDown = (): void => requestClose()
 
   setTimeout(() => {
     window.addEventListener('pointerup', onPointerUp, { signal: ac.signal })
@@ -88,5 +118,5 @@ export function display(value: string): void {
     window.addEventListener('touchend', onTouchEnd, { signal: ac.signal })
     window.addEventListener('keydown', onKeyDown, { signal: ac.signal })
     dialog.addEventListener('close', cleanup, { signal: ac.signal })
-  }, 500)
+  }, fadeMs)
 }

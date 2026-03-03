@@ -1,5 +1,6 @@
 import QrScanner from 'qr-scanner'
 import { QRError } from '../../.errors/class.js'
+import { attachFadeStyles } from '../../.helpers/fade/index.js'
 import { getErrorMessage } from '../../.helpers/index.js'
 
 /**
@@ -27,7 +28,7 @@ export async function scan(): Promise<string> {
       'NO_CAMERA_AVAILABLE',
       'QR-Code scanning requires a camera'
     )
-
+  const fadeMs = 500
   const dialog = document.createElement('dialog')
 
   dialog.style.border = 'none'
@@ -38,6 +39,7 @@ export async function scan(): Promise<string> {
   dialog.style.width = 'min(80vw, 400px)'
   dialog.style.aspectRatio = '1 / 1'
   dialog.style.overflow = 'hidden'
+  const dialogFade = attachFadeStyles(dialog, fadeMs)
 
   const video = document.createElement('video')
   video.setAttribute('playsinline', 'true')
@@ -47,18 +49,21 @@ export async function scan(): Promise<string> {
   video.style.display = 'block'
   video.style.objectFit = 'cover'
   video.style.aspectRatio = '1 / 1'
+  const videoFade = attachFadeStyles(video, fadeMs)
 
   dialog.append(video)
   document.body.append(dialog)
   dialog.showModal()
+  dialogFade.reveal()
+  videoFade.reveal()
 
   return new Promise<string>((resolve, reject) => {
     const ac = new AbortController()
     let settled = false
     let scanner: QrScanner | undefined
 
-    const finalize = (): boolean => {
-      if (settled) return false
+    const finalize = (done: () => void): void => {
+      if (settled) return
       settled = true
 
       ac.abort()
@@ -67,28 +72,34 @@ export async function scan(): Promise<string> {
       window.removeEventListener('touchend', onTouchEnd)
       window.removeEventListener('keydown', onKeyDown)
 
-      try {
-        scanner?.stop()
-      } catch {}
-      try {
-        scanner?.destroy()
-      } catch {}
+      dialogFade.hide()
+      videoFade.hide()
 
-      try {
-        dialog.remove()
-      } catch {}
+      setTimeout(() => {
+        try {
+          scanner?.stop()
+        } catch {}
+        try {
+          scanner?.destroy()
+        } catch {}
 
-      return true
+        dialogFade.detach()
+        videoFade.detach()
+
+        try {
+          dialog.remove()
+        } catch {}
+
+        done()
+      }, fadeMs)
     }
 
     const rejectWithQRError = (error: QRError): void => {
-      if (!finalize()) return
-      reject(error)
+      finalize(() => reject(error))
     }
 
     const resolveWithData = (data: string): void => {
-      if (!finalize()) return
-      resolve(data)
+      finalize(() => resolve(data))
     }
 
     const abort = (): void =>
@@ -115,7 +126,7 @@ export async function scan(): Promise<string> {
         { signal: ac.signal }
       )
       dialog.addEventListener('close', abort, { signal: ac.signal })
-    }, 500)
+    }, fadeMs)
 
     scanner = new QrScanner(
       video,

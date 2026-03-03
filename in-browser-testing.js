@@ -1460,6 +1460,33 @@ var QRError = class extends Error {
   }
 };
 
+// dist/.helpers/fade/index.js
+function runAfterPaint(callback) {
+  if (typeof globalThis.requestAnimationFrame === "function") {
+    globalThis.requestAnimationFrame(() => {
+      globalThis.requestAnimationFrame(callback);
+    });
+    return;
+  }
+  setTimeout(callback, 0);
+}
+function attachFadeStyles(element, durationMs) {
+  element.style.opacity = "0";
+  element.style.transitionProperty = "opacity";
+  element.style.transitionDuration = `${durationMs}ms`;
+  element.style.transitionTimingFunction = "ease";
+  return {
+    reveal: () => runAfterPaint(() => element.style.opacity = "1"),
+    hide: () => element.style.opacity = "0",
+    detach: () => {
+      element.style.transitionProperty = "";
+      element.style.transitionDuration = "";
+      element.style.transitionTimingFunction = "";
+      element.style.opacity = "";
+    }
+  };
+}
+
 // dist/.helpers/index.js
 function getErrorMessage(error, fallback) {
   if (error instanceof Error && error.message.trim().length > 0)
@@ -1474,6 +1501,7 @@ function display(value) {
   if (typeof value !== "string") {
     throw new QRError("VALUE_IS_NOT_A_STRING", "This library only accepts strings as value, use `@z-base/bytecodec` for conversions");
   }
+  const fadeMs = 500;
   const dialog = document.createElement("dialog");
   dialog.style.border = "none";
   dialog.style.padding = "0";
@@ -1484,6 +1512,7 @@ function display(value) {
   dialog.style.justifyContent = "center";
   dialog.style.outline = "none";
   dialog.style.overflow = "hidden";
+  const dialogFade = attachFadeStyles(dialog, fadeMs);
   let svgText = "";
   try {
     svgText = qr_default(value, "svg");
@@ -1498,11 +1527,14 @@ function display(value) {
   img.style.height = "auto";
   img.style.aspectRatio = "1 / 1";
   img.style.display = "block";
+  const imgFade = attachFadeStyles(img, fadeMs);
   dialog.append(img);
   document.body.append(dialog);
   dialog.showModal();
+  dialogFade.reveal();
   const ac = new AbortController();
   let cleaned = false;
+  let closing = false;
   const cleanup = () => {
     if (cleaned)
       return;
@@ -1514,20 +1546,43 @@ function display(value) {
     window.removeEventListener("keydown", onKeyDown);
     img.onload = null;
     URL.revokeObjectURL(url);
+    dialogFade.detach();
+    imgFade.detach();
     dialog.remove();
   };
-  img.onload = () => URL.revokeObjectURL(url);
-  const onPointerUp = () => cleanup();
-  const onMouseUp = () => cleanup();
-  const onTouchEnd = () => cleanup();
-  const onKeyDown = () => cleanup();
+  const requestClose = () => {
+    if (closing || cleaned)
+      return;
+    closing = true;
+    dialogFade.hide();
+    imgFade.hide();
+    setTimeout(() => {
+      try {
+        dialog.close();
+      } catch {
+      }
+      cleanup();
+    }, fadeMs);
+  };
+  img.onload = () => {
+    URL.revokeObjectURL(url);
+    imgFade.reveal();
+  };
+  if (img.complete) {
+    URL.revokeObjectURL(url);
+    imgFade.reveal();
+  }
+  const onPointerUp = () => requestClose();
+  const onMouseUp = () => requestClose();
+  const onTouchEnd = () => requestClose();
+  const onKeyDown = () => requestClose();
   setTimeout(() => {
     window.addEventListener("pointerup", onPointerUp, { signal: ac.signal });
     window.addEventListener("mouseup", onMouseUp, { signal: ac.signal });
     window.addEventListener("touchend", onTouchEnd, { signal: ac.signal });
     window.addEventListener("keydown", onKeyDown, { signal: ac.signal });
     dialog.addEventListener("close", cleanup, { signal: ac.signal });
-  }, 500);
+  }, fadeMs);
 }
 
 // dist/QR/print/index.js
@@ -2070,6 +2125,7 @@ async function scan() {
   }
   if (!hasCamera)
     throw new QRError("NO_CAMERA_AVAILABLE", "QR-Code scanning requires a camera");
+  const fadeMs = 500;
   const dialog = document.createElement("dialog");
   dialog.style.border = "none";
   dialog.style.padding = "0";
@@ -2079,6 +2135,7 @@ async function scan() {
   dialog.style.width = "min(80vw, 400px)";
   dialog.style.aspectRatio = "1 / 1";
   dialog.style.overflow = "hidden";
+  const dialogFade = attachFadeStyles(dialog, fadeMs);
   const video = document.createElement("video");
   video.setAttribute("playsinline", "true");
   video.muted = true;
@@ -2087,45 +2144,50 @@ async function scan() {
   video.style.display = "block";
   video.style.objectFit = "cover";
   video.style.aspectRatio = "1 / 1";
+  const videoFade = attachFadeStyles(video, fadeMs);
   dialog.append(video);
   document.body.append(dialog);
   dialog.showModal();
+  dialogFade.reveal();
+  videoFade.reveal();
   return new Promise((resolve, reject) => {
     const ac = new AbortController();
     let settled = false;
     let scanner;
-    const finalize = () => {
+    const finalize = (done) => {
       if (settled)
-        return false;
+        return;
       settled = true;
       ac.abort();
       window.removeEventListener("pointerup", onPointerUp);
       window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("keydown", onKeyDown);
-      try {
-        scanner?.stop();
-      } catch {
-      }
-      try {
-        scanner?.destroy();
-      } catch {
-      }
-      try {
-        dialog.remove();
-      } catch {
-      }
-      return true;
+      dialogFade.hide();
+      videoFade.hide();
+      setTimeout(() => {
+        try {
+          scanner?.stop();
+        } catch {
+        }
+        try {
+          scanner?.destroy();
+        } catch {
+        }
+        dialogFade.detach();
+        videoFade.detach();
+        try {
+          dialog.remove();
+        } catch {
+        }
+        done();
+      }, fadeMs);
     };
     const rejectWithQRError = (error) => {
-      if (!finalize())
-        return;
-      reject(error);
+      finalize(() => reject(error));
     };
     const resolveWithData = (data) => {
-      if (!finalize())
-        return;
-      resolve(data);
+      finalize(() => resolve(data));
     };
     const abort = () => rejectWithQRError(new QRError("SCAN_CANCELLED", "QR-Code scanning was cancelled"));
     const onPointerUp = () => abort();
@@ -2142,7 +2204,7 @@ async function scan() {
         abort();
       }, { signal: ac.signal });
       dialog.addEventListener("close", abort, { signal: ac.signal });
-    }, 500);
+    }, fadeMs);
     scanner = new qr_scanner_min_default(video, (result) => {
       resolveWithData(result.data);
     }, {
