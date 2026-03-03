@@ -1,10 +1,8 @@
 import encodeQR from 'qr'
 import { QRError } from '../../.errors/class.js'
-import {
-  attachDialogBackdropFade,
-  attachFadeStyles,
-} from '../../.helpers/fade/index.js'
-import { getErrorMessage } from '../../.helpers/index.js'
+import { attachFadeStyles } from '../../.helpers/attachFadeStyles/index.js'
+import { attachDialogBackdropFade } from '../../.helpers/attachDialogBackdropFade/index.js'
+import { getErrorMessage } from '../../.helpers/getErrorMessage/index.js'
 
 /**
  * Displays a modal dialog containing a QR code representation of the specified string.
@@ -22,7 +20,7 @@ export function display(value: string): void {
     )
   }
 
-  const fadeMs = 500
+  const fadeMs = 333
   const dialog = document.createElement('dialog')
 
   dialog.style.border = 'none'

@@ -1,6 +1,6 @@
 import encodeQR from 'qr'
 import { QRError } from '../../.errors/class.js'
-import { getErrorMessage } from '../../.helpers/index.js'
+import { getErrorMessage } from '../../.helpers/getErrorMessage/index.js'
 
 /**
  * Opens a new tab containing an A4 print layout of card-sized QR codes for the specified string.

@@ -1460,7 +1460,7 @@ var QRError = class extends Error {
   }
 };
 
-// dist/.helpers/fade/index.js
+// dist/.helpers/attachFadeStyles/index.js
 function runAfterPaint(callback) {
   if (typeof globalThis.requestAnimationFrame === "function") {
     globalThis.requestAnimationFrame(() => {
@@ -1486,6 +1486,8 @@ function attachFadeStyles(element, durationMs) {
     }
   };
 }
+
+// dist/.helpers/attachDialogBackdropFade/index.js
 function attachDialogBackdropFade(dialog, durationMs) {
   let animation;
   const animateBackdrop = (from, to) => {
@@ -1514,7 +1516,7 @@ function attachDialogBackdropFade(dialog, durationMs) {
   };
 }
 
-// dist/.helpers/index.js
+// dist/.helpers/getErrorMessage/index.js
 function getErrorMessage(error, fallback) {
   if (error instanceof Error && error.message.trim().length > 0)
     return error.message;
@@ -1528,7 +1530,7 @@ function display(value) {
   if (typeof value !== "string") {
     throw new QRError("VALUE_IS_NOT_A_STRING", "This library only accepts strings as value, use `@z-base/bytecodec` for conversions");
   }
-  const fadeMs = 500;
+  const fadeMs = 333;
   const dialog = document.createElement("dialog");
   dialog.style.border = "none";
   dialog.style.padding = "0";
@@ -2156,7 +2158,7 @@ async function scan() {
   }
   if (!hasCamera)
     throw new QRError("NO_CAMERA_AVAILABLE", "QR-Code scanning requires a camera");
-  const fadeMs = 500;
+  const fadeMs = 333;
   const dialog = document.createElement("dialog");
   dialog.style.border = "none";
   dialog.style.padding = "0";

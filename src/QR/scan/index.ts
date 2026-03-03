@@ -1,10 +1,8 @@
 import QrScanner from 'qr-scanner'
 import { QRError } from '../../.errors/class.js'
-import {
-  attachDialogBackdropFade,
-  attachFadeStyles,
-} from '../../.helpers/fade/index.js'
-import { getErrorMessage } from '../../.helpers/index.js'
+import { attachFadeStyles } from '../../.helpers/attachFadeStyles/index.js'
+import { attachDialogBackdropFade } from '../../.helpers/attachDialogBackdropFade/index.js'
+import { getErrorMessage } from '../../.helpers/getErrorMessage/index.js'
 
 /**
  * Displays a modal dialog that streams the device camera and scans for a QR code.
@@ -31,7 +29,7 @@ export async function scan(): Promise<string> {
       'NO_CAMERA_AVAILABLE',
       'QR-Code scanning requires a camera'
     )
-  const fadeMs = 500
+  const fadeMs = 333
   const dialog = document.createElement('dialog')
 
   dialog.style.border = 'none'
@@ -77,7 +75,8 @@ export async function scan(): Promise<string> {
 
     const registerChildFade = (node: unknown): void => {
       if (node === video) return
-      if (typeof node !== 'object' || node === null || !('style' in node)) return
+      if (typeof node !== 'object' || node === null || !('style' in node))
+        return
       const fade = attachFadeStyles(node as HTMLElement, fadeMs)
       childFades.push(fade)
       if (childrenVisible) fade.reveal()
