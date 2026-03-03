@@ -3,9 +3,32 @@ export function attachDialogBackdropFade(
   durationMs: number
 ): { reveal: () => void; hide: () => void; detach: () => void } {
   let animation: Animation | undefined
+  let supportsBackdropAnimation: boolean | undefined
+  let closeListener: (() => void) | undefined
+  let fallbackTimeout: ReturnType<typeof setTimeout> | undefined
+  let fallbackOverlay: HTMLDivElement | undefined
 
-  const animateBackdrop = (from: number, to: number): void => {
-    if (typeof dialog.animate !== 'function') return
+  const detachFallbackOverlay = (): void => {
+    if (fallbackTimeout) {
+      clearTimeout(fallbackTimeout)
+      fallbackTimeout = undefined
+    }
+    fallbackOverlay?.remove()
+    fallbackOverlay = undefined
+  }
+
+  const detachCloseListener = (): void => {
+    if (!closeListener) return
+    dialog.removeEventListener('close', closeListener)
+    closeListener = undefined
+  }
+
+  const animateBackdrop = (from: number, to: number): boolean => {
+    if (supportsBackdropAnimation === false) return false
+    if (typeof dialog.animate !== 'function') {
+      supportsBackdropAnimation = false
+      return false
+    }
     try {
       animation?.cancel()
       animation = dialog.animate([{ opacity: from }, { opacity: to }], {
@@ -14,13 +37,72 @@ export function attachDialogBackdropFade(
         fill: 'forwards',
         pseudoElement: '::backdrop',
       })
-    } catch {}
+      supportsBackdropAnimation = true
+      return true
+    } catch {
+      supportsBackdropAnimation = false
+      return false
+    }
   }
 
   return {
-    reveal: () => animateBackdrop(0, 1),
-    hide: () => animateBackdrop(1, 0),
+    reveal: () => {
+      detachCloseListener()
+      detachFallbackOverlay()
+      animateBackdrop(0, 1)
+    },
+    hide: () => {
+      if (animateBackdrop(1, 0)) return
+
+      detachCloseListener()
+      detachFallbackOverlay()
+
+      closeListener = () => {
+        closeListener = undefined
+
+        if (!document.body) return
+
+        let backdropColor = 'rgba(0, 0, 0, 0.3)'
+        if (typeof globalThis.getComputedStyle === 'function') {
+          try {
+            const computed = globalThis.getComputedStyle(dialog, '::backdrop')
+            if (computed.backgroundColor.trim().length > 0)
+              backdropColor = computed.backgroundColor
+          } catch {}
+        }
+
+        const overlay = document.createElement('div')
+        fallbackOverlay = overlay
+        overlay.style.position = 'fixed'
+        overlay.style.inset = '0'
+        overlay.style.pointerEvents = 'none'
+        overlay.style.opacity = '1'
+        overlay.style.background = backdropColor
+        overlay.style.transitionProperty = 'opacity'
+        overlay.style.transitionDuration = `${durationMs}ms`
+        overlay.style.transitionTimingFunction = 'ease'
+        overlay.style.zIndex = '2147483647'
+        document.body.append(overlay)
+
+        const fadeOverlay = (): void => {
+          overlay.style.opacity = '0'
+          fallbackTimeout = setTimeout(() => {
+            if (fallbackOverlay === overlay) fallbackOverlay = undefined
+            overlay.remove()
+            fallbackTimeout = undefined
+          }, durationMs)
+        }
+
+        if (typeof globalThis.requestAnimationFrame === 'function')
+          globalThis.requestAnimationFrame(fadeOverlay)
+        else setTimeout(fadeOverlay, 0)
+      }
+
+      dialog.addEventListener('close', closeListener, { once: true })
+    },
     detach: () => {
+      detachCloseListener()
+      detachFallbackOverlay()
       try {
         animation?.cancel()
       } catch {}

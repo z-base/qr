@@ -13,6 +13,11 @@ export function attachFadeStyles(
   element: HTMLElement,
   durationMs: number
 ): { reveal: () => void; hide: () => void; detach: () => void } {
+  const previousOpacity = element.style.opacity
+  const previousTransitionProperty = element.style.transitionProperty
+  const previousTransitionDuration = element.style.transitionDuration
+  const previousTransitionTimingFunction = element.style.transitionTimingFunction
+
   element.style.opacity = '0'
   element.style.transitionProperty = 'opacity'
   element.style.transitionDuration = `${durationMs}ms`
@@ -22,10 +27,10 @@ export function attachFadeStyles(
     reveal: () => runAfterPaint(() => (element.style.opacity = '1')),
     hide: () => (element.style.opacity = '0'),
     detach: () => {
-      element.style.transitionProperty = ''
-      element.style.transitionDuration = ''
-      element.style.transitionTimingFunction = ''
-      element.style.opacity = ''
+      element.style.transitionProperty = previousTransitionProperty
+      element.style.transitionDuration = previousTransitionDuration
+      element.style.transitionTimingFunction = previousTransitionTimingFunction
+      element.style.opacity = previousOpacity
     },
   }
 }

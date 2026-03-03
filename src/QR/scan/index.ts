@@ -64,22 +64,34 @@ export async function scan(): Promise<string> {
     let settled = false
     let scanner: QrScanner | undefined
     let childrenVisible = false
-    const childFades: Array<ReturnType<typeof attachFadeStyles>> = []
+    const childFades = new Map<HTMLElement, ReturnType<typeof attachFadeStyles>>()
 
     const revealChildren = (): void => {
       if (childrenVisible) return
       childrenVisible = true
       videoFade.reveal()
-      for (const childFade of childFades) childFade.reveal()
+      for (const childFade of childFades.values()) childFade.reveal()
     }
 
     const registerChildFade = (node: unknown): void => {
       if (node === video) return
       if (typeof node !== 'object' || node === null || !('style' in node))
         return
-      const fade = attachFadeStyles(node as HTMLElement, fadeMs)
-      childFades.push(fade)
+      const element = node as HTMLElement
+      if (childFades.has(element)) return
+      const fade = attachFadeStyles(element, fadeMs)
+      childFades.set(element, fade)
       if (childrenVisible) fade.reveal()
+    }
+
+    const unregisterChildFade = (node: unknown): void => {
+      if (typeof node !== 'object' || node === null || !('style' in node))
+        return
+      const element = node as HTMLElement
+      const fade = childFades.get(element)
+      if (!fade) return
+      fade.detach()
+      childFades.delete(element)
     }
 
     const onVideoLoadedData = (): void => revealChildren()
@@ -96,6 +108,9 @@ export async function scan(): Promise<string> {
             for (const record of records) {
               for (const node of Array.from(record.addedNodes)) {
                 registerChildFade(node)
+              }
+              for (const node of Array.from(record.removedNodes)) {
+                unregisterChildFade(node)
               }
             }
           })
@@ -116,7 +131,7 @@ export async function scan(): Promise<string> {
       dialogBackdropFade.hide()
       dialogFade.hide()
       videoFade.hide()
-      for (const childFade of childFades) childFade.hide()
+      for (const childFade of childFades.values()) childFade.hide()
 
       setTimeout(() => {
         try {
@@ -129,7 +144,8 @@ export async function scan(): Promise<string> {
         dialogBackdropFade.detach()
         dialogFade.detach()
         videoFade.detach()
-        for (const childFade of childFades) childFade.detach()
+        for (const childFade of childFades.values()) childFade.detach()
+        childFades.clear()
 
         try {
           dialog.remove()
