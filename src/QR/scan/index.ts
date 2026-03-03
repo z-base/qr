@@ -32,7 +32,7 @@ export async function scan(): Promise<string> {
 
   dialog.style.border = 'none'
   dialog.style.padding = '0'
-  dialog.style.background = '#fff'
+  dialog.style.background = 'transparent'
   dialog.style.borderRadius = '1rem'
   dialog.style.outline = 'none'
   dialog.style.width = 'min(80vw, 400px)'
