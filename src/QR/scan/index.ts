@@ -55,18 +55,55 @@ export async function scan(): Promise<string> {
   document.body.append(dialog)
   dialog.showModal()
   dialogFade.reveal()
-  videoFade.reveal()
 
   return new Promise<string>((resolve, reject) => {
     const ac = new AbortController()
     let settled = false
     let scanner: QrScanner | undefined
+    let childrenVisible = false
+    const childFades: Array<ReturnType<typeof attachFadeStyles>> = []
+
+    const revealChildren = (): void => {
+      if (childrenVisible) return
+      childrenVisible = true
+      videoFade.reveal()
+      for (const childFade of childFades) childFade.reveal()
+    }
+
+    const registerChildFade = (node: unknown): void => {
+      if (node === video) return
+      if (typeof node !== 'object' || node === null || !('style' in node)) return
+      const fade = attachFadeStyles(node as HTMLElement, fadeMs)
+      childFades.push(fade)
+      if (childrenVisible) fade.reveal()
+    }
+
+    const onVideoLoadedData = (): void => revealChildren()
+    const onVideoPlaying = (): void => revealChildren()
+    video.addEventListener('loadeddata', onVideoLoadedData, {
+      signal: ac.signal,
+    })
+    video.addEventListener('playing', onVideoPlaying, { signal: ac.signal })
+    if (video.readyState >= 2) revealChildren()
+
+    const childObserver =
+      typeof globalThis.MutationObserver === 'function'
+        ? new globalThis.MutationObserver((records) => {
+            for (const record of records) {
+              for (const node of Array.from(record.addedNodes)) {
+                registerChildFade(node)
+              }
+            }
+          })
+        : undefined
+    childObserver?.observe(dialog, { childList: true })
 
     const finalize = (done: () => void): void => {
       if (settled) return
       settled = true
 
       ac.abort()
+      childObserver?.disconnect()
       window.removeEventListener('pointerup', onPointerUp)
       window.removeEventListener('mouseup', onMouseUp)
       window.removeEventListener('touchend', onTouchEnd)
@@ -74,6 +111,7 @@ export async function scan(): Promise<string> {
 
       dialogFade.hide()
       videoFade.hide()
+      for (const childFade of childFades) childFade.hide()
 
       setTimeout(() => {
         try {
@@ -85,6 +123,7 @@ export async function scan(): Promise<string> {
 
         dialogFade.detach()
         videoFade.detach()
+        for (const childFade of childFades) childFade.detach()
 
         try {
           dialog.remove()

@@ -2149,22 +2149,60 @@ async function scan() {
   document.body.append(dialog);
   dialog.showModal();
   dialogFade.reveal();
-  videoFade.reveal();
   return new Promise((resolve, reject) => {
     const ac = new AbortController();
     let settled = false;
     let scanner;
+    let childrenVisible = false;
+    const childFades = [];
+    const revealChildren = () => {
+      if (childrenVisible)
+        return;
+      childrenVisible = true;
+      videoFade.reveal();
+      for (const childFade of childFades)
+        childFade.reveal();
+    };
+    const registerChildFade = (node) => {
+      if (node === video)
+        return;
+      if (typeof node !== "object" || node === null || !("style" in node))
+        return;
+      const fade = attachFadeStyles(node, fadeMs);
+      childFades.push(fade);
+      if (childrenVisible)
+        fade.reveal();
+    };
+    const onVideoLoadedData = () => revealChildren();
+    const onVideoPlaying = () => revealChildren();
+    video.addEventListener("loadeddata", onVideoLoadedData, {
+      signal: ac.signal
+    });
+    video.addEventListener("playing", onVideoPlaying, { signal: ac.signal });
+    if (video.readyState >= 2)
+      revealChildren();
+    const childObserver = typeof globalThis.MutationObserver === "function" ? new globalThis.MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of Array.from(record.addedNodes)) {
+          registerChildFade(node);
+        }
+      }
+    }) : void 0;
+    childObserver?.observe(dialog, { childList: true });
     const finalize = (done) => {
       if (settled)
         return;
       settled = true;
       ac.abort();
+      childObserver?.disconnect();
       window.removeEventListener("pointerup", onPointerUp);
       window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("keydown", onKeyDown);
       dialogFade.hide();
       videoFade.hide();
+      for (const childFade of childFades)
+        childFade.hide();
       setTimeout(() => {
         try {
           scanner?.stop();
@@ -2176,6 +2214,8 @@ async function scan() {
         }
         dialogFade.detach();
         videoFade.detach();
+        for (const childFade of childFades)
+          childFade.detach();
         try {
           dialog.remove();
         } catch {
