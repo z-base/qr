@@ -201,7 +201,9 @@ test('attachDialogBackdropFade fallback timeout removes temporary overlay', () =
     }),
   }
 
-  globalThis.getComputedStyle = () => ({ backgroundColor: 'rgba(9, 8, 7, 0.6)' })
+  globalThis.getComputedStyle = () => ({
+    backgroundColor: 'rgba(9, 8, 7, 0.6)',
+  })
   globalThis.requestAnimationFrame = undefined
   globalThis.setTimeout = (callback, _delay, ...args) => {
     callback(...args)

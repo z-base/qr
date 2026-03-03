@@ -16,7 +16,8 @@ export function attachFadeStyles(
   const previousOpacity = element.style.opacity
   const previousTransitionProperty = element.style.transitionProperty
   const previousTransitionDuration = element.style.transitionDuration
-  const previousTransitionTimingFunction = element.style.transitionTimingFunction
+  const previousTransitionTimingFunction =
+    element.style.transitionTimingFunction
 
   element.style.opacity = '0'
   element.style.transitionProperty = 'opacity'

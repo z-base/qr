@@ -1,22 +1,27 @@
-var __defProp = Object.defineProperty;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
+var __defProp = Object.defineProperty
+var __getOwnPropNames = Object.getOwnPropertyNames
+var __esm = (fn, res) =>
+  function __init() {
+    return (fn && (res = (0, fn[__getOwnPropNames(fn)[0]])((fn = 0))), res)
+  }
 var __export = (target, all) => {
   for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
+    __defProp(target, name, { get: all[name], enumerable: true })
+}
 
 // node_modules/qr-scanner/qr-scanner-worker.min.js
-var qr_scanner_worker_min_exports = {};
+var qr_scanner_worker_min_exports = {}
 __export(qr_scanner_worker_min_exports, {
-  createWorker: () => createWorker
-});
-var createWorker;
+  createWorker: () => createWorker,
+})
+var createWorker
 var init_qr_scanner_worker_min = __esm({
-  "node_modules/qr-scanner/qr-scanner-worker.min.js"() {
-    createWorker = () => new Worker(URL.createObjectURL(new Blob([`class x{constructor(a,b){this.width=b;this.height=a.length/b;this.data=a}static createEmpty(a,b){return new x(new Uint8ClampedArray(a*b),a)}get(a,b){return 0>a||a>=this.width||0>b||b>=this.height?!1:!!this.data[b*this.width+a]}set(a,b,c){this.data[b*this.width+a]=c?1:0}setRegion(a,b,c,d,e){for(let f=b;f<b+d;f++)for(let g=a;g<a+c;g++)this.set(g,f,!!e)}}
+  'node_modules/qr-scanner/qr-scanner-worker.min.js'() {
+    createWorker = () =>
+      new Worker(
+        URL.createObjectURL(
+          new Blob([
+            `class x{constructor(a,b){this.width=b;this.height=a.length/b;this.data=a}static createEmpty(a,b){return new x(new Uint8ClampedArray(a*b),a)}get(a,b){return 0>a||a>=this.width||0>b||b>=this.height?!1:!!this.data[b*this.width+a]}set(a,b,c){this.data[b*this.width+a]=c?1:0}setRegion(a,b,c,d,e){for(let f=b;f<b+d;f++)for(let g=a;g<a+c;g++)this.set(g,f,!!e)}}
 class A{constructor(a,b,c){this.width=a;a*=b;if(c&&c.length!==a)throw Error("Wrong buffer size");this.data=c||new Uint8ClampedArray(a)}get(a,b){return this.data[b*this.width+a]}set(a,b,c){this.data[b*this.width+a]=c}}
 class ba{constructor(a){this.bitOffset=this.byteOffset=0;this.bytes=a}readBits(a){if(1>a||32<a||a>this.available())throw Error("Cannot read "+a.toString()+" bits");var b=0;if(0<this.bitOffset){b=8-this.bitOffset;var c=a<b?a:b;b-=c;b=(this.bytes[this.byteOffset]&255>>8-c<<b)>>b;a-=c;this.bitOffset+=c;8===this.bitOffset&&(this.bitOffset=0,this.byteOffset++)}if(0<a){for(;8<=a;)b=b<<8|this.bytes[this.byteOffset]&255,this.byteOffset++,a-=8;0<a&&(c=8-a,b=b<<a|(this.bytes[this.byteOffset]&255>>c<<c)>>c,
 this.bitOffset+=a)}return b}available(){return 8*(this.bytes.length-this.byteOffset)-this.bitOffset}}var B,C=B||(B={});C.Numeric="numeric";C.Alphanumeric="alphanumeric";C.Byte="byte";C.Kanji="kanji";C.ECI="eci";C.StructuredAppend="structuredappend";var D,E=D||(D={});E[E.Terminator=0]="Terminator";E[E.Numeric=1]="Numeric";E[E.Alphanumeric=2]="Alphanumeric";E[E.Byte=4]="Byte";E[E.Kanji=8]="Kanji";E[E.ECI=7]="ECI";E[E.StructuredAppend=3]="StructuredAppend";let F="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:".split("");
@@ -113,628 +118,624 @@ u.set(r,q,v)}h?(q=new Uint8ClampedArray(a.buffer,m,k),m+=k,q=new x(q,b)):q=x.cre
 y:z))||"attemptBoth"!==e.inversionAttempts&&"invertFirst"!==e.inversionAttempts||(f=V(d?z:y));return f}X.default=X;let Y="dontInvert",Z={red:77,green:150,blue:29,useIntegerApproximation:!0};
 self.onmessage=a=>{let b=a.data.id,c=a.data.data;switch(a.data.type){case "decode":(a=X(c.data,c.width,c.height,{inversionAttempts:Y,greyScaleWeights:Z}))?self.postMessage({id:b,type:"qrResult",data:a.data,cornerPoints:[a.location.topLeftCorner,a.location.topRightCorner,a.location.bottomRightCorner,a.location.bottomLeftCorner]}):self.postMessage({id:b,type:"qrResult",data:null});break;case "grayscaleWeights":Z.red=c.red;Z.green=c.green;Z.blue=c.blue;Z.useIntegerApproximation=c.useIntegerApproximation;
 break;case "inversionMode":switch(c){case "original":Y="dontInvert";break;case "invert":Y="onlyInvert";break;case "both":Y="attemptBoth";break;default:throw Error("Invalid inversion mode");}break;case "close":self.close()}}
-`]), { type: "application/javascript" }));
-  }
-});
+`,
+          ]),
+          { type: 'application/javascript' }
+        )
+      )
+  },
+})
 
 // node_modules/qr/index.js
-var chCodes = { newline: 10, reset: 27 };
+var chCodes = { newline: 10, reset: 27 }
 function assertNumber(n) {
-  if (!Number.isSafeInteger(n))
-    throw new Error(`integer expected: ${n}`);
+  if (!Number.isSafeInteger(n)) throw new Error(`integer expected: ${n}`)
 }
 function validateVersion(ver) {
   if (!Number.isSafeInteger(ver) || ver < 1 || ver > 40)
-    throw new Error(`Invalid version=${ver}. Expected number [1..40]`);
+    throw new Error(`Invalid version=${ver}. Expected number [1..40]`)
 }
 function bin(dec, pad) {
-  return dec.toString(2).padStart(pad, "0");
+  return dec.toString(2).padStart(pad, '0')
 }
 function mod(a, b) {
-  const result = a % b;
-  return result >= 0 ? result : b + result;
+  const result = a % b
+  return result >= 0 ? result : b + result
 }
 function fillArr(length, val) {
-  return new Array(length).fill(val);
+  return new Array(length).fill(val)
 }
 function popcnt(n) {
-  n = n - (n >>> 1 & 1431655765);
-  n = (n & 858993459) + (n >>> 2 & 858993459);
-  return (n + (n >>> 4) & 252645135) * 16843009 >>> 24;
+  n = n - ((n >>> 1) & 1431655765)
+  n = (n & 858993459) + ((n >>> 2) & 858993459)
+  return (((n + (n >>> 4)) & 252645135) * 16843009) >>> 24
 }
 function interleaveBytes(blocks) {
-  let maxLen = 0;
-  let totalLen = 0;
+  let maxLen = 0
+  let totalLen = 0
   for (const block of blocks) {
-    maxLen = Math.max(maxLen, block.length);
-    totalLen += block.length;
+    maxLen = Math.max(maxLen, block.length)
+    totalLen += block.length
   }
-  const result = new Uint8Array(totalLen);
-  let idx = 0;
+  const result = new Uint8Array(totalLen)
+  let idx = 0
   for (let i = 0; i < maxLen; i++) {
     for (const block of blocks) {
-      if (i < block.length)
-        result[idx++] = block[i];
+      if (i < block.length) result[idx++] = block[i]
     }
   }
-  return result;
+  return result
 }
 function best() {
-  let best2;
-  let bestScore = Infinity;
+  let best2
+  let bestScore = Infinity
   return {
     add(score, value) {
-      if (score >= bestScore)
-        return;
-      best2 = value;
-      bestScore = score;
+      if (score >= bestScore) return
+      best2 = value
+      bestScore = score
     },
     get: () => best2,
-    score: () => bestScore
-  };
+    score: () => bestScore,
+  }
 }
 function alphabet(alphabet2) {
   return {
     has: (char) => alphabet2.includes(char),
     decode: (input) => {
-      if (!Array.isArray(input) || input.length && typeof input[0] !== "string")
-        throw new Error("alphabet.decode input should be array of strings");
+      if (
+        !Array.isArray(input) ||
+        (input.length && typeof input[0] !== 'string')
+      )
+        throw new Error('alphabet.decode input should be array of strings')
       return input.map((letter) => {
-        if (typeof letter !== "string")
-          throw new Error(`alphabet.decode: not string element=${letter}`);
-        const index = alphabet2.indexOf(letter);
+        if (typeof letter !== 'string')
+          throw new Error(`alphabet.decode: not string element=${letter}`)
+        const index = alphabet2.indexOf(letter)
         if (index === -1)
-          throw new Error(`Unknown letter: "${letter}". Allowed: ${alphabet2}`);
-        return index;
-      });
+          throw new Error(`Unknown letter: "${letter}". Allowed: ${alphabet2}`)
+        return index
+      })
     },
     encode: (digits) => {
-      if (!Array.isArray(digits) || digits.length && typeof digits[0] !== "number")
-        throw new Error("alphabet.encode input should be an array of numbers");
+      if (
+        !Array.isArray(digits) ||
+        (digits.length && typeof digits[0] !== 'number')
+      )
+        throw new Error('alphabet.encode input should be an array of numbers')
       return digits.map((i) => {
-        assertNumber(i);
+        assertNumber(i)
         if (i < 0 || i >= alphabet2.length)
-          throw new Error(`Digit index outside alphabet: ${i} (alphabet: ${alphabet2.length})`);
-        return alphabet2[i];
-      });
-    }
-  };
+          throw new Error(
+            `Digit index outside alphabet: ${i} (alphabet: ${alphabet2.length})`
+          )
+        return alphabet2[i]
+      })
+    },
+  }
 }
 function transpose32(a) {
-  if (a.length !== 32)
-    throw new Error("expects 32 element matrix");
-  const masks = [1431655765, 858993459, 252645135, 16711935, 65535];
+  if (a.length !== 32) throw new Error('expects 32 element matrix')
+  const masks = [1431655765, 858993459, 252645135, 16711935, 65535]
   for (let stage = 0; stage < 5; stage++) {
-    const m = masks[stage] >>> 0;
-    const s = 1 << stage;
-    const step = s << 1;
+    const m = masks[stage] >>> 0
+    const s = 1 << stage
+    const step = s << 1
     for (let i = 0; i < 32; i += step) {
       for (let k = 0; k < s; k++) {
-        const i0 = i + k;
-        const i1 = i0 + s;
-        const x = a[i0] >>> 0;
-        const y = a[i1] >>> 0;
-        const t = (x >>> s ^ y) & m;
-        a[i0] = (x ^ t << s) >>> 0;
-        a[i1] = (y ^ t) >>> 0;
+        const i0 = i + k
+        const i1 = i0 + s
+        const x = a[i0] >>> 0
+        const y = a[i1] >>> 0
+        const t = ((x >>> s) ^ y) & m
+        a[i0] = (x ^ (t << s)) >>> 0
+        a[i1] = (y ^ t) >>> 0
       }
     }
   }
 }
-var bitMask = (x) => 1 << (x & 31) >>> 0;
+var bitMask = (x) => (1 << (x & 31)) >>> 0
 var rangeMask = (shift, len) => {
-  if (len === 0)
-    return 0;
-  if (len === 32)
-    return 4294967295;
-  return (1 << len) - 1 << shift >>> 0;
-};
+  if (len === 0) return 0
+  if (len === 32) return 4294967295
+  return (((1 << len) - 1) << shift) >>> 0
+}
 var Bitmap = class _Bitmap {
   static size(size, limit) {
-    if (typeof size === "number")
-      size = { height: size, width: size };
+    if (typeof size === 'number') size = { height: size, width: size }
     if (!Number.isSafeInteger(size.height) && size.height !== Infinity)
-      throw new Error(`Bitmap: invalid height=${size.height} (${typeof size.height})`);
+      throw new Error(
+        `Bitmap: invalid height=${size.height} (${typeof size.height})`
+      )
     if (!Number.isSafeInteger(size.width) && size.width !== Infinity)
-      throw new Error(`Bitmap: invalid width=${size.width} (${typeof size.width})`);
+      throw new Error(
+        `Bitmap: invalid width=${size.width} (${typeof size.width})`
+      )
     if (limit !== void 0) {
       size = {
         width: Math.min(size.width, limit.width),
-        height: Math.min(size.height, limit.height)
-      };
+        height: Math.min(size.height, limit.height),
+      }
     }
-    return size;
+    return size
   }
   static fromString(s) {
-    s = s.replace(/^\n+/g, "").replace(/\n+$/g, "");
-    const lines = s.split(String.fromCharCode(chCodes.newline));
-    const height = lines.length;
-    let width;
-    const rows = [];
+    s = s.replace(/^\n+/g, '').replace(/\n+$/g, '')
+    const lines = s.split(String.fromCharCode(chCodes.newline))
+    const height = lines.length
+    let width
+    const rows = []
     for (const line of lines) {
-      const row = line.split("").map((i) => {
-        if (i === "X")
-          return true;
-        if (i === " ")
-          return false;
-        if (i === "?")
-          return void 0;
-        throw new Error(`Bitmap.fromString: unknown symbol=${i}`);
-      });
+      const row = line.split('').map((i) => {
+        if (i === 'X') return true
+        if (i === ' ') return false
+        if (i === '?') return void 0
+        throw new Error(`Bitmap.fromString: unknown symbol=${i}`)
+      })
       if (width !== void 0 && row.length !== width)
-        throw new Error(`Bitmap.fromString different row sizes: width=${width} cur=${row.length}`);
-      width = row.length;
-      rows.push(row);
+        throw new Error(
+          `Bitmap.fromString different row sizes: width=${width} cur=${row.length}`
+        )
+      width = row.length
+      rows.push(row)
     }
-    if (width === void 0)
-      width = 0;
-    return new _Bitmap({ height, width }, rows);
+    if (width === void 0) width = 0
+    return new _Bitmap({ height, width }, rows)
   }
   // Two bitsets:
   // defined=0 -> undefined
   // defined=1,value=0 -> false
   // defined=1,value=1 -> true
-  defined;
-  value;
-  tailMask;
-  words;
-  fullWords;
-  height;
-  width;
+  defined
+  value
+  tailMask
+  words
+  fullWords
+  height
+  width
   constructor(size, data) {
-    const { height, width } = _Bitmap.size(size);
-    this.height = height;
-    this.width = width;
-    this.tailMask = rangeMask(0, width & 31 || 32);
-    this.words = Math.ceil(width / 32) | 0;
-    this.fullWords = Math.floor(width / 32) | 0;
-    this.value = new Uint32Array(this.words * height);
-    this.defined = new Uint32Array(this.value.length);
+    const { height, width } = _Bitmap.size(size)
+    this.height = height
+    this.width = width
+    this.tailMask = rangeMask(0, width & 31 || 32)
+    this.words = Math.ceil(width / 32) | 0
+    this.fullWords = Math.floor(width / 32) | 0
+    this.value = new Uint32Array(this.words * height)
+    this.defined = new Uint32Array(this.value.length)
     if (data) {
       if (data.length !== height)
-        throw new Error(`Bitmap: data height mismatch: exp=${height} got=${data.length}`);
+        throw new Error(
+          `Bitmap: data height mismatch: exp=${height} got=${data.length}`
+        )
       for (let y = 0; y < height; y++) {
-        const row = data[y];
+        const row = data[y]
         if (!row || row.length !== width)
-          throw new Error(`Bitmap: data width mismatch at y=${y}: exp=${width} got=${row?.length}`);
-        for (let x = 0; x < width; x++)
-          this.set(x, y, row[x]);
+          throw new Error(
+            `Bitmap: data width mismatch at y=${y}: exp=${width} got=${row?.length}`
+          )
+        for (let x = 0; x < width; x++) this.set(x, y, row[x])
       }
     }
   }
   point(p) {
-    return this.get(p.x, p.y);
+    return this.get(p.x, p.y)
   }
   isInside(p) {
-    return 0 <= p.x && p.x < this.width && 0 <= p.y && p.y < this.height;
+    return 0 <= p.x && p.x < this.width && 0 <= p.y && p.y < this.height
   }
   size(offset) {
-    if (!offset)
-      return { height: this.height, width: this.width };
-    const { x, y } = this.xy(offset);
-    return { height: this.height - y, width: this.width - x };
+    if (!offset) return { height: this.height, width: this.width }
+    const { x, y } = this.xy(offset)
+    return { height: this.height - y, width: this.width - x }
   }
   xy(c) {
-    if (typeof c === "number")
-      c = { x: c, y: c };
-    if (!Number.isSafeInteger(c.x))
-      throw new Error(`Bitmap: invalid x=${c.x}`);
-    if (!Number.isSafeInteger(c.y))
-      throw new Error(`Bitmap: invalid y=${c.y}`);
-    c.x = mod(c.x, this.width);
-    c.y = mod(c.y, this.height);
-    return c;
+    if (typeof c === 'number') c = { x: c, y: c }
+    if (!Number.isSafeInteger(c.x)) throw new Error(`Bitmap: invalid x=${c.x}`)
+    if (!Number.isSafeInteger(c.y)) throw new Error(`Bitmap: invalid y=${c.y}`)
+    c.x = mod(c.x, this.width)
+    c.y = mod(c.y, this.height)
+    return c
   }
   /**
    * Return pixel bit index
    */
   wordIndex(x, y) {
-    return y * this.words + (x >>> 5);
+    return y * this.words + (x >>> 5)
   }
   bitIndex(x, y) {
-    return { word: this.wordIndex(x, y), bit: x & 31 };
+    return { word: this.wordIndex(x, y), bit: x & 31 }
   }
   isDefined(x, y) {
-    const wi = this.wordIndex(x, y);
-    const m = bitMask(x);
-    return (this.defined[wi] & m) !== 0;
+    const wi = this.wordIndex(x, y)
+    const m = bitMask(x)
+    return (this.defined[wi] & m) !== 0
   }
   get(x, y) {
-    const wi = this.wordIndex(x, y);
-    const m = bitMask(x);
-    return (this.value[wi] & m) !== 0;
+    const wi = this.wordIndex(x, y)
+    const m = bitMask(x)
+    return (this.value[wi] & m) !== 0
   }
   maskWord(wi, mask, v) {
-    const { defined, value } = this;
-    defined[wi] |= mask;
-    value[wi] = value[wi] & ~mask | -v & mask;
+    const { defined, value } = this
+    defined[wi] |= mask
+    value[wi] = (value[wi] & ~mask) | (-v & mask)
   }
   set(x, y, v) {
-    if (v === void 0)
-      return;
-    this.maskWord(this.wordIndex(x, y), bitMask(x), v);
+    if (v === void 0) return
+    this.maskWord(this.wordIndex(x, y), bitMask(x), v)
   }
   // word-span fill for constant values (fast path)
   fillRectConst(x0, y0, w, h, v) {
-    if (w <= 0 || h <= 0)
-      return;
-    if (v === void 0)
-      return;
-    const { value, defined, words } = this;
-    const startWord = x0 >>> 5;
-    const endWord = x0 + w - 1 >>> 5;
-    const startBit = x0 & 31;
-    const endBit = x0 + w - 1 & 31;
+    if (w <= 0 || h <= 0) return
+    if (v === void 0) return
+    const { value, defined, words } = this
+    const startWord = x0 >>> 5
+    const endWord = (x0 + w - 1) >>> 5
+    const startBit = x0 & 31
+    const endBit = (x0 + w - 1) & 31
     for (let ry = 0; ry < h; ry++) {
-      const rowBase = (y0 + ry) * words;
+      const rowBase = (y0 + ry) * words
       if (startWord === endWord) {
-        const mask = rangeMask(startBit, endBit - startBit + 1);
-        this.maskWord(rowBase + startWord, mask, v);
-        continue;
+        const mask = rangeMask(startBit, endBit - startBit + 1)
+        this.maskWord(rowBase + startWord, mask, v)
+        continue
       }
-      this.maskWord(rowBase + startWord, rangeMask(startBit, 32 - startBit), v);
+      this.maskWord(rowBase + startWord, rangeMask(startBit, 32 - startBit), v)
       for (let i = startWord + 1; i < endWord; i++) {
-        defined[rowBase + i] = 4294967295;
-        value[rowBase + i] = v ? 4294967295 : 0;
+        defined[rowBase + i] = 4294967295
+        value[rowBase + i] = v ? 4294967295 : 0
       }
-      this.maskWord(rowBase + endWord, rangeMask(0, endBit + 1), v);
+      this.maskWord(rowBase + endWord, rangeMask(0, endBit + 1), v)
     }
   }
   rectWords(x, y, width, height, cb) {
     for (let yPos = 0; yPos < height; yPos++) {
-      const Py = y + yPos;
+      const Py = y + yPos
       for (let xPos = 0; xPos < width; ) {
-        const bitX = x + xPos;
-        const { bit, word } = this.bitIndex(bitX, Py);
-        const bitsPerWord = Math.min(32 - bit, width - xPos);
-        cb(word, bitX, xPos, yPos, bitsPerWord);
-        xPos += bitsPerWord;
+        const bitX = x + xPos
+        const { bit, word } = this.bitIndex(bitX, Py)
+        const bitsPerWord = Math.min(32 - bit, width - xPos)
+        cb(word, bitX, xPos, yPos, bitsPerWord)
+        xPos += bitsPerWord
       }
     }
   }
   // Basically every operation can be represented as rect
   rect(c, size, fn) {
-    const { x, y } = this.xy(c);
-    const { height, width } = _Bitmap.size(size, this.size({ x, y }));
-    if (typeof fn !== "function") {
-      this.fillRectConst(x, y, width, height, fn);
-      return this;
+    const { x, y } = this.xy(c)
+    const { height, width } = _Bitmap.size(size, this.size({ x, y }))
+    if (typeof fn !== 'function') {
+      this.fillRectConst(x, y, width, height, fn)
+      return this
     }
-    const { defined, value } = this;
+    const { defined, value } = this
     this.rectWords(x, y, width, height, (wi, bitX, xPos, yPos, n) => {
-      let defWord = 0;
-      let valWord = value[wi];
+      let defWord = 0
+      let valWord = value[wi]
       for (let b = 0; b < n; b++) {
-        const mask = bitMask(bitX + b);
-        const res = fn({ x: xPos + b, y: yPos }, (valWord & mask) !== 0);
-        if (res === void 0)
-          continue;
-        defWord |= mask;
-        valWord = valWord & ~mask | -res & mask;
+        const mask = bitMask(bitX + b)
+        const res = fn({ x: xPos + b, y: yPos }, (valWord & mask) !== 0)
+        if (res === void 0) continue
+        defWord |= mask
+        valWord = (valWord & ~mask) | (-res & mask)
       }
-      defined[wi] |= defWord;
-      value[wi] = valWord;
-    });
-    return this;
+      defined[wi] |= defWord
+      value[wi] = valWord
+    })
+    return this
   }
   // returns rectangular part of bitmap
   rectRead(c, size, fn) {
-    const { x, y } = this.xy(c);
-    const { height, width } = _Bitmap.size(size, this.size({ x, y }));
-    const { value } = this;
+    const { x, y } = this.xy(c)
+    const { height, width } = _Bitmap.size(size, this.size({ x, y }))
+    const { value } = this
     this.rectWords(x, y, width, height, (wi, bitX, xPos, yPos, n) => {
-      const valWord = value[wi];
+      const valWord = value[wi]
       for (let b = 0; b < n; b++) {
-        const mask = bitMask(bitX + b);
-        fn({ x: xPos + b, y: yPos }, (valWord & mask) !== 0);
+        const mask = bitMask(bitX + b)
+        fn({ x: xPos + b, y: yPos }, (valWord & mask) !== 0)
       }
-    });
-    return this;
+    })
+    return this
   }
   // Horizontal & vertical lines
   hLine(c, len, value) {
-    return this.rect(c, { width: len, height: 1 }, value);
+    return this.rect(c, { width: len, height: 1 }, value)
   }
   vLine(c, len, value) {
-    return this.rect(c, { width: 1, height: len }, value);
+    return this.rect(c, { width: 1, height: len }, value)
   }
   // add border
   border(border = 2, value) {
-    const height = this.height + 2 * border;
-    const width = this.width + 2 * border;
-    const out = new _Bitmap({ height, width });
-    out.rect(0, Infinity, value);
-    out.embed({ x: border, y: border }, this);
-    return out;
+    const height = this.height + 2 * border
+    const width = this.width + 2 * border
+    const out = new _Bitmap({ height, width })
+    out.rect(0, Infinity, value)
+    out.embed({ x: border, y: border }, this)
+    return out
   }
   // Embed another bitmap on coordinates
   embed(c, src) {
-    const { x, y } = this.xy(c);
-    const { height, width } = _Bitmap.size(src.size(), this.size({ x, y }));
-    if (width <= 0 || height <= 0)
-      return this;
-    const { value, defined } = this;
-    const { words: srcStride, value: srcValue } = src;
+    const { x, y } = this.xy(c)
+    const { height, width } = _Bitmap.size(src.size(), this.size({ x, y }))
+    if (width <= 0 || height <= 0) return this
+    const { value, defined } = this
+    const { words: srcStride, value: srcValue } = src
     for (let yPos = 0; yPos < height; yPos++) {
-      const srcRow = yPos * srcStride;
+      const srcRow = yPos * srcStride
       for (let xPos = 0; xPos < width; ) {
-        const dstX = x + xPos;
-        const { word: dstWord, bit: dstBit } = this.bitIndex(dstX, y + yPos);
-        const { word: srcWord, bit: srcBit } = src.bitIndex(xPos, yPos);
-        const len = Math.min(32 - dstBit, width - xPos);
-        const w0 = srcValue[srcWord];
-        const w1 = srcBit && srcWord + 1 < srcRow + srcStride ? srcValue[srcWord + 1] : 0;
-        const sVal = srcBit ? (w0 >>> srcBit | w1 << 32 - srcBit) >>> 0 : w0;
-        const dstMask = rangeMask(dstBit, len);
-        const valBits = (sVal & rangeMask(0, len)) << dstBit >>> 0;
-        defined[dstWord] |= dstMask;
-        value[dstWord] = value[dstWord] & ~dstMask | valBits;
-        xPos += len;
+        const dstX = x + xPos
+        const { word: dstWord, bit: dstBit } = this.bitIndex(dstX, y + yPos)
+        const { word: srcWord, bit: srcBit } = src.bitIndex(xPos, yPos)
+        const len = Math.min(32 - dstBit, width - xPos)
+        const w0 = srcValue[srcWord]
+        const w1 =
+          srcBit && srcWord + 1 < srcRow + srcStride ? srcValue[srcWord + 1] : 0
+        const sVal = srcBit
+          ? ((w0 >>> srcBit) | (w1 << (32 - srcBit))) >>> 0
+          : w0
+        const dstMask = rangeMask(dstBit, len)
+        const valBits = ((sVal & rangeMask(0, len)) << dstBit) >>> 0
+        defined[dstWord] |= dstMask
+        value[dstWord] = (value[dstWord] & ~dstMask) | valBits
+        xPos += len
       }
     }
-    return this;
+    return this
   }
   // returns rectangular part of bitmap
   rectSlice(c, size = this.size()) {
-    const { x, y } = this.xy(c);
-    const { height, width } = _Bitmap.size(size, this.size({ x, y }));
-    const rect = new _Bitmap({ height, width });
+    const { x, y } = this.xy(c)
+    const { height, width } = _Bitmap.size(size, this.size({ x, y }))
+    const rect = new _Bitmap({ height, width })
     this.rectRead({ x, y }, { height, width }, (p, cur) => {
       if (this.isDefined(x + p.x, y + p.y)) {
-        rect.set(p.x, p.y, cur);
+        rect.set(p.x, p.y, cur)
       }
-    });
-    return rect;
+    })
+    return rect
   }
   // Change shape, replace rows with columns (data[y][x] -> data[x][y])
   transpose() {
-    const { height, width, value, defined, words } = this;
-    const dst = new _Bitmap({ height: width, width: height });
-    const { words: dstStride, value: dstValue, defined: dstDefined, tailMask: dstTail } = dst;
-    const tmpV = new Uint32Array(32);
-    const tmpD = new Uint32Array(32);
+    const { height, width, value, defined, words } = this
+    const dst = new _Bitmap({ height: width, width: height })
+    const {
+      words: dstStride,
+      value: dstValue,
+      defined: dstDefined,
+      tailMask: dstTail,
+    } = dst
+    const tmpV = new Uint32Array(32)
+    const tmpD = new Uint32Array(32)
     for (let by = 0; by < height; by += 32) {
       for (let bx = 0; bx < words; bx++) {
-        const rows = Math.min(32, height - by);
+        const rows = Math.min(32, height - by)
         for (let r = 0; r < rows; r++) {
-          const wi = this.wordIndex(32 * bx, by + r);
-          tmpV[r] = value[wi];
-          tmpD[r] = defined[wi];
+          const wi = this.wordIndex(32 * bx, by + r)
+          tmpV[r] = value[wi]
+          tmpD[r] = defined[wi]
         }
-        tmpV.fill(0, rows);
-        tmpD.fill(0, rows);
-        transpose32(tmpV);
-        transpose32(tmpD);
+        tmpV.fill(0, rows)
+        tmpD.fill(0, rows)
+        transpose32(tmpV)
+        transpose32(tmpD)
         for (let i = 0; i < 32; i++) {
-          const dstY = bx * 32 + i;
-          if (dstY >= width)
-            break;
-          const dstPos = dst.wordIndex(by, dstY);
-          const curMask = by >>> 5 === dstStride - 1 ? dstTail : 4294967295;
-          dstValue[dstPos] = tmpV[i] & curMask;
-          dstDefined[dstPos] = tmpD[i] & curMask;
+          const dstY = bx * 32 + i
+          if (dstY >= width) break
+          const dstPos = dst.wordIndex(by, dstY)
+          const curMask = by >>> 5 === dstStride - 1 ? dstTail : 4294967295
+          dstValue[dstPos] = tmpV[i] & curMask
+          dstDefined[dstPos] = tmpD[i] & curMask
         }
       }
     }
-    return dst;
+    return dst
   }
   // black <-> white (inplace)
   negate() {
-    const n = this.defined.length;
+    const n = this.defined.length
     for (let i = 0; i < n; i++) {
-      this.value[i] = ~this.value[i];
-      this.defined[i] = 4294967295;
+      this.value[i] = ~this.value[i]
+      this.defined[i] = 4294967295
     }
-    return this;
+    return this
   }
   // Each pixel size is multiplied by factor
   scale(factor) {
     if (!Number.isSafeInteger(factor) || factor > 1024)
-      throw new Error(`invalid scale factor: ${factor}`);
-    const { height, width } = this;
-    const res = new _Bitmap({ height: factor * height, width: factor * width });
-    return res.rect({ x: 0, y: 0 }, Infinity, ({ x, y }) => this.get(x / factor | 0, y / factor | 0));
+      throw new Error(`invalid scale factor: ${factor}`)
+    const { height, width } = this
+    const res = new _Bitmap({ height: factor * height, width: factor * width })
+    return res.rect({ x: 0, y: 0 }, Infinity, ({ x, y }) =>
+      this.get((x / factor) | 0, (y / factor) | 0)
+    )
   }
   clone() {
-    const res = new _Bitmap(this.size());
-    res.defined.set(this.defined);
-    res.value.set(this.value);
-    return res;
+    const res = new _Bitmap(this.size())
+    res.defined.set(this.defined)
+    res.value.set(this.value)
+    return res
   }
   // Ensure that there is no undefined values left
   assertDrawn() {
-    const { height, width, defined, tailMask, fullWords, words } = this;
-    if (!height || !width)
-      return;
+    const { height, width, defined, tailMask, fullWords, words } = this
+    if (!height || !width) return
     for (let y = 0; y < height; y++) {
-      const rowBase = y * words;
+      const rowBase = y * words
       for (let wi = 0; wi < fullWords; wi++) {
         if (defined[rowBase + wi] !== 4294967295)
-          throw new Error(`Invalid color type=undefined`);
+          throw new Error(`Invalid color type=undefined`)
       }
-      if (words !== fullWords && (defined[rowBase + fullWords] & tailMask) !== tailMask)
-        throw new Error(`Invalid color type=undefined`);
+      if (
+        words !== fullWords &&
+        (defined[rowBase + fullWords] & tailMask) !== tailMask
+      )
+        throw new Error(`Invalid color type=undefined`)
     }
   }
   countPatternInRow(y, patternLen, ...patterns) {
-    if (patternLen <= 0 || patternLen >= 32)
-      throw new Error("wrong patternLen");
-    const mask = (1 << patternLen) - 1;
-    const { width, value, words } = this;
-    let count = 0;
-    const rowBase = this.wordIndex(0, y);
+    if (patternLen <= 0 || patternLen >= 32) throw new Error('wrong patternLen')
+    const mask = (1 << patternLen) - 1
+    const { width, value, words } = this
+    let count = 0
+    const rowBase = this.wordIndex(0, y)
     for (let i = 0, window2 = 0; i < words; i++) {
-      const w = value[rowBase + i];
-      const bitEnd = i === words - 1 ? width & 31 || 32 : 32;
+      const w = value[rowBase + i]
+      const bitEnd = i === words - 1 ? width & 31 || 32 : 32
       for (let b = 0; b < bitEnd; b++) {
-        window2 = (window2 << 1 | w >>> b & 1) & mask;
-        if (i * 32 + b + 1 < patternLen)
-          continue;
+        window2 = ((window2 << 1) | ((w >>> b) & 1)) & mask
+        if (i * 32 + b + 1 < patternLen) continue
         for (const p of patterns) {
-          if (window2 !== p)
-            continue;
-          count++;
-          break;
+          if (window2 !== p) continue
+          count++
+          break
         }
       }
     }
-    return count;
+    return count
   }
   getRuns(y, fn) {
-    const { width, value, words } = this;
-    if (width === 0)
-      return;
-    let runLen = 0;
-    let runValue;
-    const rowBase = this.wordIndex(0, y);
+    const { width, value, words } = this
+    if (width === 0) return
+    let runLen = 0
+    let runValue
+    const rowBase = this.wordIndex(0, y)
     for (let i = 0; i < words; i++) {
-      const word = value[rowBase + i];
-      const bitEnd = i === words - 1 ? width & 31 || 32 : 32;
+      const word = value[rowBase + i]
+      const bitEnd = i === words - 1 ? width & 31 || 32 : 32
       for (let b = 0; b < bitEnd; b++) {
-        const bit = (word & 1 << b) !== 0;
+        const bit = (word & (1 << b)) !== 0
         if (bit === runValue) {
-          runLen++;
-          continue;
+          runLen++
+          continue
         }
-        if (runValue !== void 0)
-          fn(runLen, runValue);
-        runValue = bit;
-        runLen = 1;
+        if (runValue !== void 0) fn(runLen, runValue)
+        runValue = bit
+        runLen = 1
       }
     }
-    if (runValue !== void 0)
-      fn(runLen, runValue);
+    if (runValue !== void 0) fn(runLen, runValue)
   }
   popcnt() {
-    const { height, width, words, fullWords, tailMask } = this;
-    if (!height || !width)
-      return 0;
-    let count = 0;
+    const { height, width, words, fullWords, tailMask } = this
+    if (!height || !width) return 0
+    let count = 0
     for (let y = 0; y < height; y++) {
-      const rowBase = y * words;
+      const rowBase = y * words
       for (let wi = 0; wi < fullWords; wi++)
-        count += popcnt(this.value[rowBase + wi]);
+        count += popcnt(this.value[rowBase + wi])
       if (words !== fullWords)
-        count += popcnt(this.value[rowBase + fullWords] & tailMask);
+        count += popcnt(this.value[rowBase + fullWords] & tailMask)
     }
-    return count;
+    return count
   }
   countBoxes2x2(y) {
-    const { width, words } = this;
-    if (width < 2 || (y | 0) < 0 || y + 1 >= this.height)
-      return 0;
-    const base0 = this.wordIndex(0, y) | 0;
-    const base1 = this.wordIndex(0, y + 1) | 0;
-    const tailBits = width & 31;
-    const validLast = tailBits === 0 ? 2147483647 : rangeMask(0, width - 1 & 31);
-    let boxes = 0;
+    const { width, words } = this
+    if (width < 2 || (y | 0) < 0 || y + 1 >= this.height) return 0
+    const base0 = this.wordIndex(0, y) | 0
+    const base1 = this.wordIndex(0, y + 1) | 0
+    const tailBits = width & 31
+    const validLast =
+      tailBits === 0 ? 2147483647 : rangeMask(0, (width - 1) & 31)
+    let boxes = 0
     for (let wi = 0; wi < words; wi++) {
-      const a0 = this.value[base0 + wi];
-      const a1 = this.value[base1 + wi];
-      const eqV = ~(a0 ^ a1) >>> 0;
-      const n0 = wi + 1 < words ? this.value[base0 + wi + 1] >>> 0 : 0;
-      const eqH0 = ~(a0 ^ (a0 >>> 1 | (n0 & 1) << 31) >>> 0) >>> 0;
-      const n1 = wi + 1 < words ? this.value[base1 + wi + 1] >>> 0 : 0;
-      const eqH1 = ~(a1 ^ (a1 >>> 1 | (n1 & 1) << 31) >>> 0) >>> 0;
-      let m = (eqV & eqH0 & eqH1) >>> 0;
-      if (wi === words - 1)
-        m &= validLast;
-      boxes += popcnt(m);
+      const a0 = this.value[base0 + wi]
+      const a1 = this.value[base1 + wi]
+      const eqV = ~(a0 ^ a1) >>> 0
+      const n0 = wi + 1 < words ? this.value[base0 + wi + 1] >>> 0 : 0
+      const eqH0 = ~(a0 ^ (((a0 >>> 1) | ((n0 & 1) << 31)) >>> 0)) >>> 0
+      const n1 = wi + 1 < words ? this.value[base1 + wi + 1] >>> 0 : 0
+      const eqH1 = ~(a1 ^ (((a1 >>> 1) | ((n1 & 1) << 31)) >>> 0)) >>> 0
+      let m = (eqV & eqH0 & eqH1) >>> 0
+      if (wi === words - 1) m &= validLast
+      boxes += popcnt(m)
     }
-    return boxes;
+    return boxes
   }
   // Export
   toString() {
-    const nl = String.fromCharCode(chCodes.newline);
-    let out = "";
+    const nl = String.fromCharCode(chCodes.newline)
+    let out = ''
     for (let y = 0; y < this.height; y++) {
-      let line = "";
+      let line = ''
       for (let x = 0; x < this.width; x++) {
-        const v = this.get(x, y);
-        line += !this.isDefined(x, y) ? "?" : v ? "X" : " ";
+        const v = this.get(x, y)
+        line += !this.isDefined(x, y) ? '?' : v ? 'X' : ' '
       }
-      out += line + (y + 1 === this.height ? "" : nl);
+      out += line + (y + 1 === this.height ? '' : nl)
     }
-    return out;
+    return out
   }
   toRaw() {
-    const out = Array.from({ length: this.height }, () => new Array(this.width));
+    const out = Array.from({ length: this.height }, () => new Array(this.width))
     for (let y = 0; y < this.height; y++) {
-      const row = out[y];
-      for (let x = 0; x < this.width; x++)
-        row[x] = this.get(x, y);
+      const row = out[y]
+      for (let x = 0; x < this.width; x++) row[x] = this.get(x, y)
     }
-    return out;
+    return out
   }
   toASCII() {
-    const { height, width } = this;
-    let out = "";
+    const { height, width } = this
+    let out = ''
     for (let y = 0; y < height; y += 2) {
       for (let x = 0; x < width; x++) {
-        const first = this.get(x, y);
-        const second = y + 1 >= height ? true : this.get(x, y + 1);
-        if (!first && !second)
-          out += "\u2588";
-        else if (!first && second)
-          out += "\u2580";
-        else if (first && !second)
-          out += "\u2584";
-        else if (first && second)
-          out += " ";
+        const first = this.get(x, y)
+        const second = y + 1 >= height ? true : this.get(x, y + 1)
+        if (!first && !second) out += '\u2588'
+        else if (!first && second) out += '\u2580'
+        else if (first && !second) out += '\u2584'
+        else if (first && second) out += ' '
       }
-      out += String.fromCharCode(chCodes.newline);
+      out += String.fromCharCode(chCodes.newline)
     }
-    return out;
+    return out
   }
   toTerm() {
-    const cc = String.fromCharCode(chCodes.reset);
-    const reset = cc + "[0m";
-    const whiteBG = cc + "[1;47m  " + reset;
-    const darkBG = cc + `[40m  ` + reset;
-    const nl = String.fromCharCode(chCodes.newline);
-    let out = "";
+    const cc = String.fromCharCode(chCodes.reset)
+    const reset = cc + '[0m'
+    const whiteBG = cc + '[1;47m  ' + reset
+    const darkBG = cc + `[40m  ` + reset
+    const nl = String.fromCharCode(chCodes.newline)
+    let out = ''
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
-        const v = this.get(x, y);
-        out += v ? darkBG : whiteBG;
+        const v = this.get(x, y)
+        out += v ? darkBG : whiteBG
       }
-      out += nl;
+      out += nl
     }
-    return out;
+    return out
   }
   toSVG(optimize = true) {
-    let out = `<svg viewBox="0 0 ${this.width} ${this.height}" xmlns="http://www.w3.org/2000/svg">`;
-    let pathData = "";
-    let prevPoint;
+    let out = `<svg viewBox="0 0 ${this.width} ${this.height}" xmlns="http://www.w3.org/2000/svg">`
+    let pathData = ''
+    let prevPoint
     this.rectRead(0, Infinity, (point, val) => {
-      if (!val)
-        return;
-      const { x, y } = point;
+      if (!val) return
+      const { x, y } = point
       if (!optimize) {
-        out += `<rect x="${x}" y="${y}" width="1" height="1" />`;
-        return;
+        out += `<rect x="${x}" y="${y}" width="1" height="1" />`
+        return
       }
-      let m = `M${x} ${y}`;
+      let m = `M${x} ${y}`
       if (prevPoint) {
-        const relM = `m${x - prevPoint.x} ${y - prevPoint.y}`;
-        if (relM.length <= m.length)
-          m = relM;
+        const relM = `m${x - prevPoint.x} ${y - prevPoint.y}`
+        if (relM.length <= m.length) m = relM
       }
-      const bH = x < 10 ? `H${x}` : "h-1";
-      pathData += `${m}h1v1${bH}Z`;
-      prevPoint = point;
-    });
-    if (optimize)
-      out += `<path d="${pathData}"/>`;
-    out += `</svg>`;
-    return out;
+      const bH = x < 10 ? `H${x}` : 'h-1'
+      pathData += `${m}h1v1${bH}Z`
+      prevPoint = point
+    })
+    if (optimize) out += `<path d="${pathData}"/>`
+    out += `</svg>`
+    return out
   }
   toGIF() {
-    const u16le = (i) => [i & 255, i >>> 8 & 255];
-    const dims = [...u16le(this.width), ...u16le(this.height)];
-    const data = [];
-    this.rectRead(0, Infinity, (_, cur) => data.push(+(cur === true)));
-    const N = 126;
+    const u16le = (i) => [i & 255, (i >>> 8) & 255]
+    const dims = [...u16le(this.width), ...u16le(this.height)]
+    const data = []
+    this.rectRead(0, Infinity, (_, cur) => data.push(+(cur === true)))
+    const N = 126
     const bytes = [
       71,
       73,
@@ -757,141 +758,132 @@ var Bitmap = class _Bitmap {
       0,
       ...dims,
       0,
-      7
-    ];
-    const fullChunks = Math.floor(data.length / N);
+      7,
+    ]
+    const fullChunks = Math.floor(data.length / N)
     for (let i = 0; i < fullChunks; i++)
-      bytes.push(N + 1, 128, ...data.slice(N * i, N * (i + 1)).map((i2) => +i2));
-    bytes.push(data.length % N + 1, 128, ...data.slice(fullChunks * N).map((i) => +i));
-    bytes.push(1, 129, 0, 59);
-    return new Uint8Array(bytes);
+      bytes.push(N + 1, 128, ...data.slice(N * i, N * (i + 1)).map((i2) => +i2))
+    bytes.push(
+      (data.length % N) + 1,
+      128,
+      ...data.slice(fullChunks * N).map((i) => +i)
+    )
+    bytes.push(1, 129, 0, 59)
+    return new Uint8Array(bytes)
   }
   toImage(isRGB = false) {
-    const { height, width } = this.size();
-    const data = new Uint8Array(height * width * (isRGB ? 3 : 4));
-    let i = 0;
+    const { height, width } = this.size()
+    const data = new Uint8Array(height * width * (isRGB ? 3 : 4))
+    let i = 0
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        const value = this.get(x, y) ? 0 : 255;
-        data[i++] = value;
-        data[i++] = value;
-        data[i++] = value;
-        if (!isRGB)
-          data[i++] = 255;
+        const value = this.get(x, y) ? 0 : 255
+        data[i++] = value
+        data[i++] = value
+        data[i++] = value
+        if (!isRGB) data[i++] = 255
       }
     }
-    return { height, width, data };
+    return { height, width, data }
   }
-};
-var ECMode = ["low", "medium", "quartile", "high"];
-var Encoding = ["numeric", "alphanumeric", "byte", "kanji", "eci"];
+}
+var ECMode = ['low', 'medium', 'quartile', 'high']
+var Encoding = ['numeric', 'alphanumeric', 'byte', 'kanji', 'eci']
 var BYTES = [
   // 1,  2,  3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,  14,  15,  16,  17,  18,  19,   20,
   26,
-  44,
-  70,
-  100,
-  134,
-  172,
-  196,
-  242,
-  292,
-  346,
-  404,
-  466,
-  532,
-  581,
-  655,
-  733,
-  815,
-  901,
-  991,
-  1085,
+  44, 70, 100, 134, 172, 196, 242, 292, 346, 404, 466, 532, 581, 655, 733, 815,
+  901, 991, 1085,
   //  21,   22,   23,   24,   25,   26,   27,   28,   29,   30,   31,   32,   33,   34,   35,   36,   37,   38,   39,   40
   1156,
-  1258,
-  1364,
-  1474,
-  1588,
-  1706,
-  1828,
-  1921,
-  2051,
-  2185,
-  2323,
-  2465,
-  2611,
-  2761,
-  2876,
-  3034,
-  3196,
-  3362,
-  3532,
-  3706
-];
+  1258, 1364, 1474, 1588, 1706, 1828, 1921, 2051, 2185, 2323, 2465, 2611, 2761,
+  2876, 3034, 3196, 3362, 3532, 3706,
+]
 var WORDS_PER_BLOCK = {
   // Version 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40
-  low: [7, 10, 15, 20, 26, 18, 20, 24, 30, 18, 20, 24, 26, 30, 22, 24, 28, 30, 28, 28, 28, 28, 30, 30, 26, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
-  medium: [10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26, 26, 26, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
-  quartile: [13, 22, 18, 26, 18, 24, 18, 22, 20, 24, 28, 26, 24, 20, 30, 24, 28, 28, 26, 30, 28, 30, 30, 30, 30, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
-  high: [17, 28, 22, 16, 22, 28, 26, 26, 24, 28, 24, 28, 22, 24, 24, 30, 28, 28, 26, 28, 30, 24, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30]
-};
+  low: [
+    7, 10, 15, 20, 26, 18, 20, 24, 30, 18, 20, 24, 26, 30, 22, 24, 28, 30, 28,
+    28, 28, 28, 30, 30, 26, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+    30, 30,
+  ],
+  medium: [
+    10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24, 28, 28, 26, 26,
+    26, 26, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28,
+    28, 28,
+  ],
+  quartile: [
+    13, 22, 18, 26, 18, 24, 18, 22, 20, 24, 28, 26, 24, 20, 30, 24, 28, 28, 26,
+    30, 28, 30, 30, 30, 30, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+    30, 30,
+  ],
+  high: [
+    17, 28, 22, 16, 22, 28, 26, 26, 24, 28, 24, 28, 22, 24, 24, 30, 28, 28, 26,
+    28, 30, 24, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+    30, 30,
+  ],
+}
 var ECC_BLOCKS = {
   // Version   1, 2, 3, 4, 5, 6, 7, 8, 9,10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40
-  low: [1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 12, 12, 12, 13, 14, 15, 16, 17, 18, 19, 19, 20, 21, 22, 24, 25],
-  medium: [1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10, 10, 11, 13, 14, 16, 17, 17, 18, 20, 21, 23, 25, 26, 28, 29, 31, 33, 35, 37, 38, 40, 43, 45, 47, 49],
-  quartile: [1, 1, 2, 2, 4, 4, 6, 6, 8, 8, 8, 10, 12, 16, 12, 17, 16, 18, 21, 20, 23, 23, 25, 27, 29, 34, 34, 35, 38, 40, 43, 45, 48, 51, 53, 56, 59, 62, 65, 68],
-  high: [1, 1, 2, 4, 4, 4, 5, 6, 8, 8, 11, 11, 16, 16, 18, 16, 19, 21, 25, 25, 25, 34, 30, 32, 35, 37, 40, 42, 45, 48, 51, 54, 57, 60, 63, 66, 70, 74, 77, 81]
-};
+  low: [
+    1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 7, 8, 8, 9, 9, 10, 12,
+    12, 12, 13, 14, 15, 16, 17, 18, 19, 19, 20, 21, 22, 24, 25,
+  ],
+  medium: [
+    1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10, 10, 11, 13, 14, 16, 17, 17,
+    18, 20, 21, 23, 25, 26, 28, 29, 31, 33, 35, 37, 38, 40, 43, 45, 47, 49,
+  ],
+  quartile: [
+    1, 1, 2, 2, 4, 4, 6, 6, 8, 8, 8, 10, 12, 16, 12, 17, 16, 18, 21, 20, 23, 23,
+    25, 27, 29, 34, 34, 35, 38, 40, 43, 45, 48, 51, 53, 56, 59, 62, 65, 68,
+  ],
+  high: [
+    1, 1, 2, 4, 4, 4, 5, 6, 8, 8, 11, 11, 16, 16, 18, 16, 19, 21, 25, 25, 25,
+    34, 30, 32, 35, 37, 40, 42, 45, 48, 51, 54, 57, 60, 63, 66, 70, 74, 77, 81,
+  ],
+}
 var info = {
   size: {
     encode: (ver) => 21 + 4 * (ver - 1),
     // ver1 = 21, ver40=177 blocks
-    decode: (size) => (size - 17) / 4
+    decode: (size) => (size - 17) / 4,
   },
   sizeType: (ver) => Math.floor((ver + 7) / 17),
   // Based on https://codereview.stackexchange.com/questions/74925/algorithm-to-generate-this-alignment-pattern-locations-table-for-qr-codes
   alignmentPatterns(ver) {
-    if (ver === 1)
-      return [];
-    const first = 6;
-    const last = info.size.encode(ver) - first - 1;
-    const distance = last - first;
-    const count = Math.ceil(distance / 28);
-    let interval = Math.floor(distance / count);
-    if (interval % 2)
-      interval += 1;
-    else if (distance % count * 2 >= count)
-      interval += 2;
-    const res = [first];
-    for (let m = 1; m < count; m++)
-      res.push(last - (count - m) * interval);
-    res.push(last);
-    return res;
+    if (ver === 1) return []
+    const first = 6
+    const last = info.size.encode(ver) - first - 1
+    const distance = last - first
+    const count = Math.ceil(distance / 28)
+    let interval = Math.floor(distance / count)
+    if (interval % 2) interval += 1
+    else if ((distance % count) * 2 >= count) interval += 2
+    const res = [first]
+    for (let m = 1; m < count; m++) res.push(last - (count - m) * interval)
+    res.push(last)
+    return res
   },
   ECCode: {
     low: 1,
     medium: 0,
     quartile: 3,
-    high: 2
+    high: 2,
   },
   formatMask: 21522,
   formatBits(ecc, maskIdx) {
-    const data = info.ECCode[ecc] << 3 | maskIdx;
-    let d = data;
-    for (let i = 0; i < 10; i++)
-      d = d << 1 ^ (d >> 9) * 1335;
-    return (data << 10 | d) ^ info.formatMask;
+    const data = (info.ECCode[ecc] << 3) | maskIdx
+    let d = data
+    for (let i = 0; i < 10; i++) d = (d << 1) ^ ((d >> 9) * 1335)
+    return ((data << 10) | d) ^ info.formatMask
   },
   versionBits(ver) {
-    let d = ver;
-    for (let i = 0; i < 12; i++)
-      d = d << 1 ^ (d >> 11) * 7973;
-    return ver << 12 | d;
+    let d = ver
+    for (let i = 0; i < 12; i++) d = (d << 1) ^ ((d >> 11) * 7973)
+    return (ver << 12) | d
   },
   alphabet: {
-    numeric: alphabet("0123456789"),
-    alphanumerc: alphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:")
+    numeric: alphabet('0123456789'),
+    alphanumerc: alphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:'),
   },
   // as Record<EncodingType, ReturnType<typeof alphabet>>,
   lengthBits(ver, type) {
@@ -900,836 +892,809 @@ var info = {
       alphanumeric: [9, 11, 13],
       byte: [8, 16, 16],
       kanji: [8, 10, 12],
-      eci: [0, 0, 0]
-    };
-    return table[type][info.sizeType(ver)];
+      eci: [0, 0, 0],
+    }
+    return table[type][info.sizeType(ver)]
   },
   modeBits: {
-    numeric: "0001",
-    alphanumeric: "0010",
-    byte: "0100",
-    kanji: "1000",
-    eci: "0111"
+    numeric: '0001',
+    alphanumeric: '0010',
+    byte: '0100',
+    kanji: '1000',
+    eci: '0111',
   },
   capacity(ver, ecc) {
-    const bytes = BYTES[ver - 1];
-    const words = WORDS_PER_BLOCK[ecc][ver - 1];
-    const numBlocks = ECC_BLOCKS[ecc][ver - 1];
-    const blockLen = Math.floor(bytes / numBlocks) - words;
-    const shortBlocks = numBlocks - bytes % numBlocks;
+    const bytes = BYTES[ver - 1]
+    const words = WORDS_PER_BLOCK[ecc][ver - 1]
+    const numBlocks = ECC_BLOCKS[ecc][ver - 1]
+    const blockLen = Math.floor(bytes / numBlocks) - words
+    const shortBlocks = numBlocks - (bytes % numBlocks)
     return {
       words,
       numBlocks,
       shortBlocks,
       blockLen,
       capacity: (bytes - words * numBlocks) * 8,
-      total: (words + blockLen) * numBlocks + numBlocks - shortBlocks
-    };
-  }
-};
+      total: (words + blockLen) * numBlocks + numBlocks - shortBlocks,
+    }
+  },
+}
 var PATTERNS = [
   (x, y) => (x + y) % 2 == 0,
   (_x, y) => y % 2 == 0,
   (x, _y) => x % 3 == 0,
   (x, y) => (x + y) % 3 == 0,
   (x, y) => (Math.floor(y / 2) + Math.floor(x / 3)) % 2 == 0,
-  (x, y) => x * y % 2 + x * y % 3 == 0,
-  (x, y) => (x * y % 2 + x * y % 3) % 2 == 0,
-  (x, y) => ((x + y) % 2 + x * y % 3) % 2 == 0
-];
+  (x, y) => ((x * y) % 2) + ((x * y) % 3) == 0,
+  (x, y) => (((x * y) % 2) + ((x * y) % 3)) % 2 == 0,
+  (x, y) => (((x + y) % 2) + ((x * y) % 3)) % 2 == 0,
+]
 var GF = {
   tables: ((p_poly) => {
-    const exp = fillArr(256, 0);
-    const log = fillArr(256, 0);
+    const exp = fillArr(256, 0)
+    const log = fillArr(256, 0)
     for (let i = 0, x = 1; i < 256; i++) {
-      exp[i] = x;
-      log[x] = i;
-      x <<= 1;
-      if (x & 256)
-        x ^= p_poly;
+      exp[i] = x
+      log[x] = i
+      x <<= 1
+      if (x & 256) x ^= p_poly
     }
-    return { exp, log };
+    return { exp, log }
   })(285),
   exp: (x) => GF.tables.exp[x],
   log(x) {
-    if (x === 0)
-      throw new Error(`GF.log: invalid arg=${x}`);
-    return GF.tables.log[x] % 255;
+    if (x === 0) throw new Error(`GF.log: invalid arg=${x}`)
+    return GF.tables.log[x] % 255
   },
   mul(x, y) {
-    if (x === 0 || y === 0)
-      return 0;
-    return GF.tables.exp[(GF.tables.log[x] + GF.tables.log[y]) % 255];
+    if (x === 0 || y === 0) return 0
+    return GF.tables.exp[(GF.tables.log[x] + GF.tables.log[y]) % 255]
   },
   add: (x, y) => x ^ y,
-  pow: (x, e2) => GF.tables.exp[GF.tables.log[x] * e2 % 255],
+  pow: (x, e2) => GF.tables.exp[(GF.tables.log[x] * e2) % 255],
   inv(x) {
-    if (x === 0)
-      throw new Error(`GF.inverse: invalid arg=${x}`);
-    return GF.tables.exp[255 - GF.tables.log[x]];
+    if (x === 0) throw new Error(`GF.inverse: invalid arg=${x}`)
+    return GF.tables.exp[255 - GF.tables.log[x]]
   },
   polynomial(poly) {
-    if (poly.length == 0)
-      throw new Error("GF.polymomial: invalid length");
-    if (poly[0] !== 0)
-      return poly;
-    let i = 0;
-    for (; i < poly.length - 1 && poly[i] == 0; i++)
-      ;
-    return poly.slice(i);
+    if (poly.length == 0) throw new Error('GF.polymomial: invalid length')
+    if (poly[0] !== 0) return poly
+    let i = 0
+    for (; i < poly.length - 1 && poly[i] == 0; i++);
+    return poly.slice(i)
   },
   monomial(degree, coefficient) {
-    if (degree < 0)
-      throw new Error(`GF.monomial: invalid degree=${degree}`);
-    if (coefficient == 0)
-      return [0];
-    let coefficients = fillArr(degree + 1, 0);
-    coefficients[0] = coefficient;
-    return GF.polynomial(coefficients);
+    if (degree < 0) throw new Error(`GF.monomial: invalid degree=${degree}`)
+    if (coefficient == 0) return [0]
+    let coefficients = fillArr(degree + 1, 0)
+    coefficients[0] = coefficient
+    return GF.polynomial(coefficients)
   },
   degree: (a) => a.length - 1,
   coefficient: (a, degree) => a[GF.degree(a) - degree],
   mulPoly(a, b) {
-    if (a[0] === 0 || b[0] === 0)
-      return [0];
-    const res = fillArr(a.length + b.length - 1, 0);
+    if (a[0] === 0 || b[0] === 0) return [0]
+    const res = fillArr(a.length + b.length - 1, 0)
     for (let i = 0; i < a.length; i++) {
       for (let j = 0; j < b.length; j++) {
-        res[i + j] = GF.add(res[i + j], GF.mul(a[i], b[j]));
+        res[i + j] = GF.add(res[i + j], GF.mul(a[i], b[j]))
       }
     }
-    return GF.polynomial(res);
+    return GF.polynomial(res)
   },
   mulPolyScalar(a, scalar) {
-    if (scalar == 0)
-      return [0];
-    if (scalar == 1)
-      return a;
-    const res = fillArr(a.length, 0);
-    for (let i = 0; i < a.length; i++)
-      res[i] = GF.mul(a[i], scalar);
-    return GF.polynomial(res);
+    if (scalar == 0) return [0]
+    if (scalar == 1) return a
+    const res = fillArr(a.length, 0)
+    for (let i = 0; i < a.length; i++) res[i] = GF.mul(a[i], scalar)
+    return GF.polynomial(res)
   },
   mulPolyMonomial(a, degree, coefficient) {
-    if (degree < 0)
-      throw new Error("GF.mulPolyMonomial: invalid degree");
-    if (coefficient == 0)
-      return [0];
-    const res = fillArr(a.length + degree, 0);
-    for (let i = 0; i < a.length; i++)
-      res[i] = GF.mul(a[i], coefficient);
-    return GF.polynomial(res);
+    if (degree < 0) throw new Error('GF.mulPolyMonomial: invalid degree')
+    if (coefficient == 0) return [0]
+    const res = fillArr(a.length + degree, 0)
+    for (let i = 0; i < a.length; i++) res[i] = GF.mul(a[i], coefficient)
+    return GF.polynomial(res)
   },
   addPoly(a, b) {
-    if (a[0] === 0)
-      return b;
-    if (b[0] === 0)
-      return a;
-    let smaller = a;
-    let larger = b;
-    if (smaller.length > larger.length)
-      [smaller, larger] = [larger, smaller];
-    let sumDiff = fillArr(larger.length, 0);
-    let lengthDiff = larger.length - smaller.length;
-    let s = larger.slice(0, lengthDiff);
-    for (let i = 0; i < s.length; i++)
-      sumDiff[i] = s[i];
+    if (a[0] === 0) return b
+    if (b[0] === 0) return a
+    let smaller = a
+    let larger = b
+    if (smaller.length > larger.length) [smaller, larger] = [larger, smaller]
+    let sumDiff = fillArr(larger.length, 0)
+    let lengthDiff = larger.length - smaller.length
+    let s = larger.slice(0, lengthDiff)
+    for (let i = 0; i < s.length; i++) sumDiff[i] = s[i]
     for (let i = lengthDiff; i < larger.length; i++)
-      sumDiff[i] = GF.add(smaller[i - lengthDiff], larger[i]);
-    return GF.polynomial(sumDiff);
+      sumDiff[i] = GF.add(smaller[i - lengthDiff], larger[i])
+    return GF.polynomial(sumDiff)
   },
   remainderPoly(data, divisor) {
-    const out = Array.from(data);
+    const out = Array.from(data)
     for (let i = 0; i < data.length - divisor.length + 1; i++) {
-      const elm = out[i];
-      if (elm === 0)
-        continue;
+      const elm = out[i]
+      if (elm === 0) continue
       for (let j = 1; j < divisor.length; j++) {
         if (divisor[j] !== 0)
-          out[i + j] = GF.add(out[i + j], GF.mul(divisor[j], elm));
+          out[i + j] = GF.add(out[i + j], GF.mul(divisor[j], elm))
       }
     }
-    return out.slice(data.length - divisor.length + 1, out.length);
+    return out.slice(data.length - divisor.length + 1, out.length)
   },
   divisorPoly(degree) {
-    let g = [1];
-    for (let i = 0; i < degree; i++)
-      g = GF.mulPoly(g, [1, GF.pow(2, i)]);
-    return g;
+    let g = [1]
+    for (let i = 0; i < degree; i++) g = GF.mulPoly(g, [1, GF.pow(2, i)])
+    return g
   },
   evalPoly(poly, a) {
-    if (a == 0)
-      return GF.coefficient(poly, 0);
-    let res = poly[0];
-    for (let i = 1; i < poly.length; i++)
-      res = GF.add(GF.mul(a, res), poly[i]);
-    return res;
+    if (a == 0) return GF.coefficient(poly, 0)
+    let res = poly[0]
+    for (let i = 1; i < poly.length; i++) res = GF.add(GF.mul(a, res), poly[i])
+    return res
   },
   // TODO: cleanup
   euclidian(a, b, R) {
-    if (GF.degree(a) < GF.degree(b))
-      [a, b] = [b, a];
-    let rLast = a;
-    let r = b;
-    let tLast = [0];
-    let t = [1];
+    if (GF.degree(a) < GF.degree(b)) [a, b] = [b, a]
+    let rLast = a
+    let r = b
+    let tLast = [0]
+    let t = [1]
     while (2 * GF.degree(r) >= R) {
-      let rLastLast = rLast;
-      let tLastLast = tLast;
-      rLast = r;
-      tLast = t;
-      if (rLast[0] === 0)
-        throw new Error("rLast[0] === 0");
-      r = rLastLast;
-      let q = [0];
-      const dltInverse = GF.inv(rLast[0]);
+      let rLastLast = rLast
+      let tLastLast = tLast
+      rLast = r
+      tLast = t
+      if (rLast[0] === 0) throw new Error('rLast[0] === 0')
+      r = rLastLast
+      let q = [0]
+      const dltInverse = GF.inv(rLast[0])
       while (GF.degree(r) >= GF.degree(rLast) && r[0] !== 0) {
-        const degreeDiff = GF.degree(r) - GF.degree(rLast);
-        const scale = GF.mul(r[0], dltInverse);
-        q = GF.addPoly(q, GF.monomial(degreeDiff, scale));
-        r = GF.addPoly(r, GF.mulPolyMonomial(rLast, degreeDiff, scale));
+        const degreeDiff = GF.degree(r) - GF.degree(rLast)
+        const scale = GF.mul(r[0], dltInverse)
+        q = GF.addPoly(q, GF.monomial(degreeDiff, scale))
+        r = GF.addPoly(r, GF.mulPolyMonomial(rLast, degreeDiff, scale))
       }
-      q = GF.mulPoly(q, tLast);
-      t = GF.addPoly(q, tLastLast);
+      q = GF.mulPoly(q, tLast)
+      t = GF.addPoly(q, tLastLast)
       if (GF.degree(r) >= GF.degree(rLast))
-        throw new Error(`Division failed r: ${r}, rLast: ${rLast}`);
+        throw new Error(`Division failed r: ${r}, rLast: ${rLast}`)
     }
-    const sigmaTildeAtZero = GF.coefficient(t, 0);
-    if (sigmaTildeAtZero == 0)
-      throw new Error("sigmaTilde(0) was zero");
-    const inverse = GF.inv(sigmaTildeAtZero);
-    return [GF.mulPolyScalar(t, inverse), GF.mulPolyScalar(r, inverse)];
-  }
-};
+    const sigmaTildeAtZero = GF.coefficient(t, 0)
+    if (sigmaTildeAtZero == 0) throw new Error('sigmaTilde(0) was zero')
+    const inverse = GF.inv(sigmaTildeAtZero)
+    return [GF.mulPolyScalar(t, inverse), GF.mulPolyScalar(r, inverse)]
+  },
+}
 function RS(eccWords) {
   return {
     encode(from) {
-      const d = GF.divisorPoly(eccWords);
-      const pol = Array.from(from);
-      pol.push(...d.slice(0, -1).fill(0));
-      return Uint8Array.from(GF.remainderPoly(pol, d));
+      const d = GF.divisorPoly(eccWords)
+      const pol = Array.from(from)
+      pol.push(...d.slice(0, -1).fill(0))
+      return Uint8Array.from(GF.remainderPoly(pol, d))
     },
     decode(to) {
-      const res = to.slice();
-      const poly = GF.polynomial(Array.from(to));
-      let syndrome = fillArr(eccWords, 0);
-      let hasError = false;
+      const res = to.slice()
+      const poly = GF.polynomial(Array.from(to))
+      let syndrome = fillArr(eccWords, 0)
+      let hasError = false
       for (let i = 0; i < eccWords; i++) {
-        const evl = GF.evalPoly(poly, GF.exp(i));
-        syndrome[syndrome.length - 1 - i] = evl;
-        if (evl !== 0)
-          hasError = true;
+        const evl = GF.evalPoly(poly, GF.exp(i))
+        syndrome[syndrome.length - 1 - i] = evl
+        if (evl !== 0) hasError = true
       }
-      if (!hasError)
-        return res;
-      syndrome = GF.polynomial(syndrome);
-      const monomial = GF.monomial(eccWords, 1);
-      const [errorLocator, errorEvaluator] = GF.euclidian(monomial, syndrome, eccWords);
-      const locations = fillArr(GF.degree(errorLocator), 0);
-      let e2 = 0;
+      if (!hasError) return res
+      syndrome = GF.polynomial(syndrome)
+      const monomial = GF.monomial(eccWords, 1)
+      const [errorLocator, errorEvaluator] = GF.euclidian(
+        monomial,
+        syndrome,
+        eccWords
+      )
+      const locations = fillArr(GF.degree(errorLocator), 0)
+      let e2 = 0
       for (let i = 1; i < 256 && e2 < locations.length; i++) {
-        if (GF.evalPoly(errorLocator, i) === 0)
-          locations[e2++] = GF.inv(i);
+        if (GF.evalPoly(errorLocator, i) === 0) locations[e2++] = GF.inv(i)
       }
       if (e2 !== locations.length)
-        throw new Error("RS.decode: invalid errors number");
+        throw new Error('RS.decode: invalid errors number')
       for (let i = 0; i < locations.length; i++) {
-        const pos = res.length - 1 - GF.log(locations[i]);
-        if (pos < 0)
-          throw new Error("RS.decode: invalid error location");
-        const xiInverse = GF.inv(locations[i]);
-        let denominator = 1;
+        const pos = res.length - 1 - GF.log(locations[i])
+        if (pos < 0) throw new Error('RS.decode: invalid error location')
+        const xiInverse = GF.inv(locations[i])
+        let denominator = 1
         for (let j = 0; j < locations.length; j++) {
-          if (i === j)
-            continue;
-          denominator = GF.mul(denominator, GF.add(1, GF.mul(locations[j], xiInverse)));
+          if (i === j) continue
+          denominator = GF.mul(
+            denominator,
+            GF.add(1, GF.mul(locations[j], xiInverse))
+          )
         }
-        res[pos] = GF.add(res[pos], GF.mul(GF.evalPoly(errorEvaluator, xiInverse), GF.inv(denominator)));
+        res[pos] = GF.add(
+          res[pos],
+          GF.mul(GF.evalPoly(errorEvaluator, xiInverse), GF.inv(denominator))
+        )
       }
-      return res;
-    }
-  };
+      return res
+    },
+  }
 }
 function interleave(ver, ecc) {
-  const { words, shortBlocks, numBlocks, blockLen, total } = info.capacity(ver, ecc);
-  const rs = RS(words);
+  const { words, shortBlocks, numBlocks, blockLen, total } = info.capacity(
+    ver,
+    ecc
+  )
+  const rs = RS(words)
   return {
     encode(bytes) {
-      const blocks = [];
-      const eccBlocks = [];
+      const blocks = []
+      const eccBlocks = []
       for (let i = 0; i < numBlocks; i++) {
-        const isShort = i < shortBlocks;
-        const len = blockLen + (isShort ? 0 : 1);
-        blocks.push(bytes.subarray(0, len));
-        eccBlocks.push(rs.encode(bytes.subarray(0, len)));
-        bytes = bytes.subarray(len);
+        const isShort = i < shortBlocks
+        const len = blockLen + (isShort ? 0 : 1)
+        blocks.push(bytes.subarray(0, len))
+        eccBlocks.push(rs.encode(bytes.subarray(0, len)))
+        bytes = bytes.subarray(len)
       }
-      const resBlocks = interleaveBytes(blocks);
-      const resECC = interleaveBytes(eccBlocks);
-      const res = new Uint8Array(resBlocks.length + resECC.length);
-      res.set(resBlocks);
-      res.set(resECC, resBlocks.length);
-      return res;
+      const resBlocks = interleaveBytes(blocks)
+      const resECC = interleaveBytes(eccBlocks)
+      const res = new Uint8Array(resBlocks.length + resECC.length)
+      res.set(resBlocks)
+      res.set(resECC, resBlocks.length)
+      return res
     },
     decode(data) {
       if (data.length !== total)
-        throw new Error(`interleave.decode: len(data)=${data.length}, total=${total}`);
-      const blocks = [];
+        throw new Error(
+          `interleave.decode: len(data)=${data.length}, total=${total}`
+        )
+      const blocks = []
       for (let i = 0; i < numBlocks; i++) {
-        const isShort = i < shortBlocks;
-        blocks.push(new Uint8Array(words + blockLen + (isShort ? 0 : 1)));
+        const isShort = i < shortBlocks
+        blocks.push(new Uint8Array(words + blockLen + (isShort ? 0 : 1)))
       }
-      let pos = 0;
+      let pos = 0
       for (let i = 0; i < blockLen; i++) {
-        for (let j = 0; j < numBlocks; j++)
-          blocks[j][i] = data[pos++];
+        for (let j = 0; j < numBlocks; j++) blocks[j][i] = data[pos++]
       }
       for (let j = shortBlocks; j < numBlocks; j++)
-        blocks[j][blockLen] = data[pos++];
+        blocks[j][blockLen] = data[pos++]
       for (let i = blockLen; i < blockLen + words; i++) {
         for (let j = 0; j < numBlocks; j++) {
-          const isShort = j < shortBlocks;
-          blocks[j][i + (isShort ? 0 : 1)] = data[pos++];
+          const isShort = j < shortBlocks
+          blocks[j][i + (isShort ? 0 : 1)] = data[pos++]
         }
       }
-      const res = [];
+      const res = []
       for (const block of blocks)
-        res.push(...Array.from(rs.decode(block)).slice(0, -words));
-      return Uint8Array.from(res);
-    }
-  };
+        res.push(...Array.from(rs.decode(block)).slice(0, -words))
+      return Uint8Array.from(res)
+    },
+  }
 }
 function drawTemplate(ver, ecc, maskIdx, test = false) {
-  const size = info.size.encode(ver);
-  let b = new Bitmap(size + 2);
-  const finder = new Bitmap(3).rect(0, 3, true).border(1, false).border(1, true).border(1, false);
-  b = b.embed(0, finder).embed({ x: -finder.width, y: 0 }, finder).embed({ x: 0, y: -finder.height }, finder);
-  b = b.rectSlice(1, size);
-  const align = new Bitmap(1).rect(0, 1, true).border(1, false).border(1, true);
-  const alignPos = info.alignmentPatterns(ver);
+  const size = info.size.encode(ver)
+  let b = new Bitmap(size + 2)
+  const finder = new Bitmap(3)
+    .rect(0, 3, true)
+    .border(1, false)
+    .border(1, true)
+    .border(1, false)
+  b = b
+    .embed(0, finder)
+    .embed({ x: -finder.width, y: 0 }, finder)
+    .embed({ x: 0, y: -finder.height }, finder)
+  b = b.rectSlice(1, size)
+  const align = new Bitmap(1).rect(0, 1, true).border(1, false).border(1, true)
+  const alignPos = info.alignmentPatterns(ver)
   for (const y of alignPos) {
     for (const x of alignPos) {
-      if (b.isDefined(x, y))
-        continue;
-      b.embed({ x: x - 2, y: y - 2 }, align);
+      if (b.isDefined(x, y)) continue
+      b.embed({ x: x - 2, y: y - 2 }, align)
     }
   }
-  b = b.hLine({ x: 0, y: 6 }, Infinity, ({ x }) => b.isDefined(x, 6) ? void 0 : x % 2 == 0).vLine({ x: 6, y: 0 }, Infinity, ({ y }) => b.isDefined(6, y) ? void 0 : y % 2 == 0);
+  b = b
+    .hLine({ x: 0, y: 6 }, Infinity, ({ x }) =>
+      b.isDefined(x, 6) ? void 0 : x % 2 == 0
+    )
+    .vLine({ x: 6, y: 0 }, Infinity, ({ y }) =>
+      b.isDefined(6, y) ? void 0 : y % 2 == 0
+    )
   {
-    const bits = info.formatBits(ecc, maskIdx);
-    const getBit = (i) => !test && (bits >> i & 1) == 1;
-    for (let i = 0; i < 6; i++)
-      b.set(8, i, getBit(i));
-    for (let i = 6; i < 8; i++)
-      b.set(8, i + 1, getBit(i));
-    for (let i = 8; i < 15; i++)
-      b.set(8, size - 15 + i, getBit(i));
-    for (let i = 0; i < 8; i++)
-      b.set(size - i - 1, 8, getBit(i));
-    for (let i = 8; i < 9; i++)
-      b.set(15 - i - 1 + 1, 8, getBit(i));
-    for (let i = 9; i < 15; i++)
-      b.set(15 - i - 1, 8, getBit(i));
-    b.set(8, size - 8, !test);
+    const bits = info.formatBits(ecc, maskIdx)
+    const getBit = (i) => !test && ((bits >> i) & 1) == 1
+    for (let i = 0; i < 6; i++) b.set(8, i, getBit(i))
+    for (let i = 6; i < 8; i++) b.set(8, i + 1, getBit(i))
+    for (let i = 8; i < 15; i++) b.set(8, size - 15 + i, getBit(i))
+    for (let i = 0; i < 8; i++) b.set(size - i - 1, 8, getBit(i))
+    for (let i = 8; i < 9; i++) b.set(15 - i - 1 + 1, 8, getBit(i))
+    for (let i = 9; i < 15; i++) b.set(15 - i - 1, 8, getBit(i))
+    b.set(8, size - 8, !test)
   }
   if (ver >= 7) {
-    const bits = info.versionBits(ver);
+    const bits = info.versionBits(ver)
     for (let i = 0; i < 18; i += 1) {
-      const bit = !test && (bits >> i & 1) == 1;
-      const x = Math.floor(i / 3);
-      const y = i % 3 + size - 8 - 3;
-      b.set(y, x, bit);
-      b.set(x, y, bit);
+      const bit = !test && ((bits >> i) & 1) == 1
+      const x = Math.floor(i / 3)
+      const y = (i % 3) + size - 8 - 3
+      b.set(y, x, bit)
+      b.set(x, y, bit)
     }
   }
-  return b;
+  return b
 }
 function zigzag(tpl, maskIdx, fn) {
-  const size = tpl.height;
-  const pattern = PATTERNS[maskIdx];
-  let dir = -1;
-  let y = size - 1;
+  const size = tpl.height
+  const pattern = PATTERNS[maskIdx]
+  let dir = -1
+  let y = size - 1
   for (let xOffset = size - 1; xOffset > 0; xOffset -= 2) {
-    if (xOffset == 6)
-      xOffset = 5;
+    if (xOffset == 6) xOffset = 5
     for (; ; y += dir) {
       for (let j = 0; j < 2; j += 1) {
-        const x = xOffset - j;
-        if (tpl.isDefined(x, y))
-          continue;
-        fn(x, y, pattern(x, y));
+        const x = xOffset - j
+        if (tpl.isDefined(x, y)) continue
+        fn(x, y, pattern(x, y))
       }
-      if (y + dir < 0 || y + dir >= size)
-        break;
+      if (y + dir < 0 || y + dir >= size) break
     }
-    dir = -dir;
+    dir = -dir
   }
 }
 function detectType(str) {
-  let type = "numeric";
+  let type = 'numeric'
   for (let x of str) {
-    if (info.alphabet.numeric.has(x))
-      continue;
-    type = "alphanumeric";
-    if (!info.alphabet.alphanumerc.has(x))
-      return "byte";
+    if (info.alphabet.numeric.has(x)) continue
+    type = 'alphanumeric'
+    if (!info.alphabet.alphanumerc.has(x)) return 'byte'
   }
-  return type;
+  return type
 }
 function utf8ToBytes(str) {
-  if (typeof str !== "string")
-    throw new Error(`utf8ToBytes expected string, got ${typeof str}`);
-  return new Uint8Array(new TextEncoder().encode(str));
+  if (typeof str !== 'string')
+    throw new Error(`utf8ToBytes expected string, got ${typeof str}`)
+  return new Uint8Array(new TextEncoder().encode(str))
 }
 function encode(ver, ecc, data, type, encoder = utf8ToBytes) {
-  let encoded = "";
-  let dataLen = data.length;
-  if (type === "numeric") {
-    const t = info.alphabet.numeric.decode(data.split(""));
-    const n = t.length;
+  let encoded = ''
+  let dataLen = data.length
+  if (type === 'numeric') {
+    const t = info.alphabet.numeric.decode(data.split(''))
+    const n = t.length
     for (let i = 0; i < n - 2; i += 3)
-      encoded += bin(t[i] * 100 + t[i + 1] * 10 + t[i + 2], 10);
+      encoded += bin(t[i] * 100 + t[i + 1] * 10 + t[i + 2], 10)
     if (n % 3 === 1) {
-      encoded += bin(t[n - 1], 4);
+      encoded += bin(t[n - 1], 4)
     } else if (n % 3 === 2) {
-      encoded += bin(t[n - 2] * 10 + t[n - 1], 7);
+      encoded += bin(t[n - 2] * 10 + t[n - 1], 7)
     }
-  } else if (type === "alphanumeric") {
-    const t = info.alphabet.alphanumerc.decode(data.split(""));
-    const n = t.length;
-    for (let i = 0; i < n - 1; i += 2)
-      encoded += bin(t[i] * 45 + t[i + 1], 11);
-    if (n % 2 == 1)
-      encoded += bin(t[n - 1], 6);
-  } else if (type === "byte") {
-    const utf8 = encoder(data);
-    dataLen = utf8.length;
-    encoded = Array.from(utf8).map((i) => bin(i, 8)).join("");
+  } else if (type === 'alphanumeric') {
+    const t = info.alphabet.alphanumerc.decode(data.split(''))
+    const n = t.length
+    for (let i = 0; i < n - 1; i += 2) encoded += bin(t[i] * 45 + t[i + 1], 11)
+    if (n % 2 == 1) encoded += bin(t[n - 1], 6)
+  } else if (type === 'byte') {
+    const utf8 = encoder(data)
+    dataLen = utf8.length
+    encoded = Array.from(utf8)
+      .map((i) => bin(i, 8))
+      .join('')
   } else {
-    throw new Error("encode: unsupported type");
+    throw new Error('encode: unsupported type')
   }
-  const { capacity } = info.capacity(ver, ecc);
-  const len = bin(dataLen, info.lengthBits(ver, type));
-  let bits = info.modeBits[type] + len + encoded;
-  if (bits.length > capacity)
-    throw new Error("Capacity overflow");
-  bits += "0".repeat(Math.min(4, Math.max(0, capacity - bits.length)));
-  if (bits.length % 8)
-    bits += "0".repeat(8 - bits.length % 8);
-  const padding = "1110110000010001";
+  const { capacity } = info.capacity(ver, ecc)
+  const len = bin(dataLen, info.lengthBits(ver, type))
+  let bits = info.modeBits[type] + len + encoded
+  if (bits.length > capacity) throw new Error('Capacity overflow')
+  bits += '0'.repeat(Math.min(4, Math.max(0, capacity - bits.length)))
+  if (bits.length % 8) bits += '0'.repeat(8 - (bits.length % 8))
+  const padding = '1110110000010001'
   for (let idx = 0; bits.length !== capacity; idx++)
-    bits += padding[idx % padding.length];
-  const bytes = Uint8Array.from(bits.match(/(.{8})/g).map((i) => Number(`0b${i}`)));
-  return interleave(ver, ecc).encode(bytes);
+    bits += padding[idx % padding.length]
+  const bytes = Uint8Array.from(
+    bits.match(/(.{8})/g).map((i) => Number(`0b${i}`))
+  )
+  return interleave(ver, ecc).encode(bytes)
 }
 function drawQR(ver, ecc, data, maskIdx, test = false) {
-  const b = drawTemplate(ver, ecc, maskIdx, test);
-  let i = 0;
-  const need = 8 * data.length;
+  const b = drawTemplate(ver, ecc, maskIdx, test)
+  let i = 0
+  const need = 8 * data.length
   zigzag(b, maskIdx, (x, y, mask) => {
-    let value = false;
+    let value = false
     if (i < need) {
-      value = (data[i >>> 3] >> (7 - i & 7) & 1) !== 0;
-      i++;
+      value = ((data[i >>> 3] >> ((7 - i) & 7)) & 1) !== 0
+      i++
     }
-    b.set(x, y, value !== mask);
-  });
-  if (i !== need)
-    throw new Error("QR: bytes left after draw");
-  return b;
+    b.set(x, y, value !== mask)
+  })
+  if (i !== need) throw new Error('QR: bytes left after draw')
+  return b
 }
 var mkPattern = (pattern) => {
-  const s = pattern.map((i) => i ? "1" : "0").join("");
-  return { len: s.length, n: Number(`0b${s}`) };
-};
-var finderPattern = [true, false, true, true, true, false, true];
-var lightPattern = [false, false, false, false];
-var P1 = mkPattern([...finderPattern, ...lightPattern]);
-var P2 = mkPattern([...lightPattern, ...finderPattern]);
+  const s = pattern.map((i) => (i ? '1' : '0')).join('')
+  return { len: s.length, n: Number(`0b${s}`) }
+}
+var finderPattern = [true, false, true, true, true, false, true]
+var lightPattern = [false, false, false, false]
+var P1 = mkPattern([...finderPattern, ...lightPattern])
+var P2 = mkPattern([...lightPattern, ...finderPattern])
 function penalty(bm) {
-  const { width, height } = bm;
-  const transposed = bm.transpose();
-  let adjacent = 0;
+  const { width, height } = bm
+  const transposed = bm.transpose()
+  let adjacent = 0
   for (let y = 0; y < height; y++) {
     bm.getRuns(y, (len) => {
-      if (len >= 5)
-        adjacent += 3 + (len - 5);
-    });
+      if (len >= 5) adjacent += 3 + (len - 5)
+    })
   }
   for (let y = 0; y < width; y++) {
     transposed.getRuns(y, (len) => {
-      if (len >= 5)
-        adjacent += 3 + (len - 5);
-    });
+      if (len >= 5) adjacent += 3 + (len - 5)
+    })
   }
-  let box = 0;
-  for (let y = 0; y < height - 1; y++)
-    box += 3 * bm.countBoxes2x2(y);
-  let finder = 0;
+  let box = 0
+  for (let y = 0; y < height - 1; y++) box += 3 * bm.countBoxes2x2(y)
+  let finder = 0
   for (let y = 0; y < height; y++)
-    finder += 40 * bm.countPatternInRow(y, P1.len, P1.n, P2.n);
+    finder += 40 * bm.countPatternInRow(y, P1.len, P1.n, P2.n)
   for (let y = 0; y < width; y++)
-    finder += 40 * transposed.countPatternInRow(y, P1.len, P1.n, P2.n);
-  let darkPixels = 0;
-  darkPixels = bm.popcnt();
-  const darkPercent = darkPixels / (height * width) * 100;
-  const dark = 10 * Math.floor(Math.abs(darkPercent - 50) / 5);
-  return adjacent + box + finder + dark;
+    finder += 40 * transposed.countPatternInRow(y, P1.len, P1.n, P2.n)
+  let darkPixels = 0
+  darkPixels = bm.popcnt()
+  const darkPercent = (darkPixels / (height * width)) * 100
+  const dark = 10 * Math.floor(Math.abs(darkPercent - 50) / 5)
+  return adjacent + box + finder + dark
 }
 function drawQRBest(ver, ecc, data, maskIdx) {
   if (maskIdx === void 0) {
-    const bestMask = best();
+    const bestMask = best()
     for (let mask = 0; mask < PATTERNS.length; mask++)
-      bestMask.add(penalty(drawQR(ver, ecc, data, mask, true)), mask);
-    maskIdx = bestMask.get();
+      bestMask.add(penalty(drawQR(ver, ecc, data, mask, true)), mask)
+    maskIdx = bestMask.get()
   }
-  if (maskIdx === void 0)
-    throw new Error("Cannot find mask");
-  return drawQR(ver, ecc, data, maskIdx);
+  if (maskIdx === void 0) throw new Error('Cannot find mask')
+  return drawQR(ver, ecc, data, maskIdx)
 }
 function validateECC(ec) {
   if (!ECMode.includes(ec))
-    throw new Error(`Invalid error correction mode=${ec}. Expected: ${ECMode}`);
+    throw new Error(`Invalid error correction mode=${ec}. Expected: ${ECMode}`)
 }
 function validateEncoding(enc) {
   if (!Encoding.includes(enc))
-    throw new Error(`Encoding: invalid mode=${enc}. Expected: ${Encoding}`);
-  if (enc === "kanji" || enc === "eci")
-    throw new Error(`Encoding: ${enc} is not supported (yet?).`);
+    throw new Error(`Encoding: invalid mode=${enc}. Expected: ${Encoding}`)
+  if (enc === 'kanji' || enc === 'eci')
+    throw new Error(`Encoding: ${enc} is not supported (yet?).`)
 }
 function validateMask(mask) {
   if (![0, 1, 2, 3, 4, 5, 6, 7].includes(mask) || !PATTERNS[mask])
-    throw new Error(`Invalid mask=${mask}. Expected number [0..7]`);
+    throw new Error(`Invalid mask=${mask}. Expected number [0..7]`)
 }
-function encodeQR(text, output = "raw", opts = {}) {
-  const ecc = opts.ecc !== void 0 ? opts.ecc : "medium";
-  validateECC(ecc);
-  const encoding = opts.encoding !== void 0 ? opts.encoding : detectType(text);
-  validateEncoding(encoding);
-  if (opts.mask !== void 0)
-    validateMask(opts.mask);
-  let ver = opts.version;
-  let data, err = new Error("Unknown error");
+function encodeQR(text, output = 'raw', opts = {}) {
+  const ecc = opts.ecc !== void 0 ? opts.ecc : 'medium'
+  validateECC(ecc)
+  const encoding = opts.encoding !== void 0 ? opts.encoding : detectType(text)
+  validateEncoding(encoding)
+  if (opts.mask !== void 0) validateMask(opts.mask)
+  let ver = opts.version
+  let data,
+    err = new Error('Unknown error')
   if (ver !== void 0) {
-    validateVersion(ver);
-    data = encode(ver, ecc, text, encoding, opts.textEncoder);
+    validateVersion(ver)
+    data = encode(ver, ecc, text, encoding, opts.textEncoder)
   } else {
     for (let i = 1; i <= 40; i++) {
       try {
-        data = encode(i, ecc, text, encoding, opts.textEncoder);
-        ver = i;
-        break;
+        data = encode(i, ecc, text, encoding, opts.textEncoder)
+        ver = i
+        break
       } catch (e2) {
-        err = e2;
+        err = e2
       }
     }
   }
-  if (!ver || !data)
-    throw err;
-  let res = drawQRBest(ver, ecc, data, opts.mask);
-  res.assertDrawn();
-  const border = opts.border === void 0 ? 2 : opts.border;
+  if (!ver || !data) throw err
+  let res = drawQRBest(ver, ecc, data, opts.mask)
+  res.assertDrawn()
+  const border = opts.border === void 0 ? 2 : opts.border
   if (!Number.isSafeInteger(border))
-    throw new Error(`invalid border type=${typeof border}`);
-  res = res.border(border, false);
-  if (opts.scale !== void 0)
-    res = res.scale(opts.scale);
-  if (output === "raw")
-    return res.toRaw();
-  else if (output === "ascii")
-    return res.toASCII();
-  else if (output === "svg")
-    return res.toSVG(opts.optimize);
-  else if (output === "gif")
-    return res.toGIF();
-  else if (output === "term")
-    return res.toTerm();
-  else
-    throw new Error(`Unknown output: ${output}`);
+    throw new Error(`invalid border type=${typeof border}`)
+  res = res.border(border, false)
+  if (opts.scale !== void 0) res = res.scale(opts.scale)
+  if (output === 'raw') return res.toRaw()
+  else if (output === 'ascii') return res.toASCII()
+  else if (output === 'svg') return res.toSVG(opts.optimize)
+  else if (output === 'gif') return res.toGIF()
+  else if (output === 'term') return res.toTerm()
+  else throw new Error(`Unknown output: ${output}`)
 }
-var qr_default = encodeQR;
+var qr_default = encodeQR
 
 // dist/.errors/class.js
 var QRError = class extends Error {
-  code;
+  code
   constructor(code, message) {
-    const detail = message ?? code;
-    super(`{@z-base/qr} ${detail}`);
-    this.code = code;
-    this.name = "QRError";
+    const detail = message ?? code
+    super(`{@z-base/qr} ${detail}`)
+    this.code = code
+    this.name = 'QRError'
   }
-};
+}
 
 // dist/.helpers/attachFadeStyles/index.js
 function runAfterPaint(callback) {
-  if (typeof globalThis.requestAnimationFrame === "function") {
+  if (typeof globalThis.requestAnimationFrame === 'function') {
     globalThis.requestAnimationFrame(() => {
-      globalThis.requestAnimationFrame(callback);
-    });
-    return;
+      globalThis.requestAnimationFrame(callback)
+    })
+    return
   }
-  setTimeout(callback, 0);
+  setTimeout(callback, 0)
 }
 function attachFadeStyles(element, durationMs) {
-  const previousOpacity = element.style.opacity;
-  const previousTransitionProperty = element.style.transitionProperty;
-  const previousTransitionDuration = element.style.transitionDuration;
-  const previousTransitionTimingFunction = element.style.transitionTimingFunction;
-  element.style.opacity = "0";
-  element.style.transitionProperty = "opacity";
-  element.style.transitionDuration = `${durationMs}ms`;
-  element.style.transitionTimingFunction = "ease";
+  const previousOpacity = element.style.opacity
+  const previousTransitionProperty = element.style.transitionProperty
+  const previousTransitionDuration = element.style.transitionDuration
+  const previousTransitionTimingFunction =
+    element.style.transitionTimingFunction
+  element.style.opacity = '0'
+  element.style.transitionProperty = 'opacity'
+  element.style.transitionDuration = `${durationMs}ms`
+  element.style.transitionTimingFunction = 'ease'
   return {
-    reveal: () => runAfterPaint(() => element.style.opacity = "1"),
-    hide: () => element.style.opacity = "0",
+    reveal: () => runAfterPaint(() => (element.style.opacity = '1')),
+    hide: () => (element.style.opacity = '0'),
     detach: () => {
-      element.style.transitionProperty = previousTransitionProperty;
-      element.style.transitionDuration = previousTransitionDuration;
-      element.style.transitionTimingFunction = previousTransitionTimingFunction;
-      element.style.opacity = previousOpacity;
-    }
-  };
+      element.style.transitionProperty = previousTransitionProperty
+      element.style.transitionDuration = previousTransitionDuration
+      element.style.transitionTimingFunction = previousTransitionTimingFunction
+      element.style.opacity = previousOpacity
+    },
+  }
 }
 
 // dist/.helpers/attachDialogBackdropFade/index.js
 function attachDialogBackdropFade(dialog, durationMs) {
-  let animation;
-  let supportsBackdropAnimation;
-  let closeListener;
-  let fallbackTimeout;
-  let fallbackOverlay;
+  let animation
+  let supportsBackdropAnimation
+  let closeListener
+  let fallbackTimeout
+  let fallbackOverlay
   const detachFallbackOverlay = () => {
     if (fallbackTimeout) {
-      clearTimeout(fallbackTimeout);
-      fallbackTimeout = void 0;
+      clearTimeout(fallbackTimeout)
+      fallbackTimeout = void 0
     }
-    fallbackOverlay?.remove();
-    fallbackOverlay = void 0;
-  };
+    fallbackOverlay?.remove()
+    fallbackOverlay = void 0
+  }
   const detachCloseListener = () => {
-    if (!closeListener)
-      return;
-    dialog.removeEventListener("close", closeListener);
-    closeListener = void 0;
-  };
+    if (!closeListener) return
+    dialog.removeEventListener('close', closeListener)
+    closeListener = void 0
+  }
   const animateBackdrop = (from, to) => {
-    if (supportsBackdropAnimation === false)
-      return false;
-    if (typeof dialog.animate !== "function") {
-      supportsBackdropAnimation = false;
-      return false;
+    if (supportsBackdropAnimation === false) return false
+    if (typeof dialog.animate !== 'function') {
+      supportsBackdropAnimation = false
+      return false
     }
     try {
-      animation?.cancel();
+      animation?.cancel()
       animation = dialog.animate([{ opacity: from }, { opacity: to }], {
         duration: durationMs,
-        easing: "ease",
-        fill: "forwards",
-        pseudoElement: "::backdrop"
-      });
-      supportsBackdropAnimation = true;
-      return true;
+        easing: 'ease',
+        fill: 'forwards',
+        pseudoElement: '::backdrop',
+      })
+      supportsBackdropAnimation = true
+      return true
     } catch {
-      supportsBackdropAnimation = false;
-      return false;
+      supportsBackdropAnimation = false
+      return false
     }
-  };
+  }
   return {
     reveal: () => {
-      detachCloseListener();
-      detachFallbackOverlay();
-      animateBackdrop(0, 1);
+      detachCloseListener()
+      detachFallbackOverlay()
+      animateBackdrop(0, 1)
     },
     hide: () => {
-      if (animateBackdrop(1, 0))
-        return;
-      detachCloseListener();
-      detachFallbackOverlay();
+      if (animateBackdrop(1, 0)) return
+      detachCloseListener()
+      detachFallbackOverlay()
       closeListener = () => {
-        closeListener = void 0;
-        if (!document.body)
-          return;
-        let backdropColor = "rgba(0, 0, 0, 0.3)";
-        if (typeof globalThis.getComputedStyle === "function") {
+        closeListener = void 0
+        if (!document.body) return
+        let backdropColor = 'rgba(0, 0, 0, 0.3)'
+        if (typeof globalThis.getComputedStyle === 'function') {
           try {
-            const computed = globalThis.getComputedStyle(dialog, "::backdrop");
+            const computed = globalThis.getComputedStyle(dialog, '::backdrop')
             if (computed.backgroundColor.trim().length > 0)
-              backdropColor = computed.backgroundColor;
-          } catch {
-          }
+              backdropColor = computed.backgroundColor
+          } catch {}
         }
-        const overlay = document.createElement("div");
-        fallbackOverlay = overlay;
-        overlay.style.position = "fixed";
-        overlay.style.inset = "0";
-        overlay.style.pointerEvents = "none";
-        overlay.style.opacity = "1";
-        overlay.style.background = backdropColor;
-        overlay.style.transitionProperty = "opacity";
-        overlay.style.transitionDuration = `${durationMs}ms`;
-        overlay.style.transitionTimingFunction = "ease";
-        overlay.style.zIndex = "2147483647";
-        document.body.append(overlay);
+        const overlay = document.createElement('div')
+        fallbackOverlay = overlay
+        overlay.style.position = 'fixed'
+        overlay.style.inset = '0'
+        overlay.style.pointerEvents = 'none'
+        overlay.style.opacity = '1'
+        overlay.style.background = backdropColor
+        overlay.style.transitionProperty = 'opacity'
+        overlay.style.transitionDuration = `${durationMs}ms`
+        overlay.style.transitionTimingFunction = 'ease'
+        overlay.style.zIndex = '2147483647'
+        document.body.append(overlay)
         const fadeOverlay = () => {
-          overlay.style.opacity = "0";
+          overlay.style.opacity = '0'
           fallbackTimeout = setTimeout(() => {
-            if (fallbackOverlay === overlay)
-              fallbackOverlay = void 0;
-            overlay.remove();
-            fallbackTimeout = void 0;
-          }, durationMs);
-        };
-        if (typeof globalThis.requestAnimationFrame === "function")
-          globalThis.requestAnimationFrame(fadeOverlay);
-        else
-          setTimeout(fadeOverlay, 0);
-      };
-      dialog.addEventListener("close", closeListener, { once: true });
+            if (fallbackOverlay === overlay) fallbackOverlay = void 0
+            overlay.remove()
+            fallbackTimeout = void 0
+          }, durationMs)
+        }
+        if (typeof globalThis.requestAnimationFrame === 'function')
+          globalThis.requestAnimationFrame(fadeOverlay)
+        else setTimeout(fadeOverlay, 0)
+      }
+      dialog.addEventListener('close', closeListener, { once: true })
     },
     detach: () => {
-      detachCloseListener();
-      detachFallbackOverlay();
+      detachCloseListener()
+      detachFallbackOverlay()
       try {
-        animation?.cancel();
-      } catch {
-      }
-    }
-  };
+        animation?.cancel()
+      } catch {}
+    },
+  }
 }
 
 // dist/.helpers/getErrorMessage/index.js
 function getErrorMessage(error, fallback) {
   if (error instanceof Error && error.message.trim().length > 0)
-    return error.message;
-  if (typeof error === "string" && error.trim().length > 0)
-    return error;
-  return fallback;
+    return error.message
+  if (typeof error === 'string' && error.trim().length > 0) return error
+  return fallback
 }
 
 // dist/QR/display/index.js
 function display(value) {
-  if (typeof value !== "string") {
-    throw new QRError("VALUE_IS_NOT_A_STRING", "This library only accepts strings as value, use `@z-base/bytecodec` for conversions");
+  if (typeof value !== 'string') {
+    throw new QRError(
+      'VALUE_IS_NOT_A_STRING',
+      'This library only accepts strings as value, use `@z-base/bytecodec` for conversions'
+    )
   }
-  const fadeMs = 333;
-  const dialog = document.createElement("dialog");
-  dialog.style.border = "none";
-  dialog.style.padding = "0";
-  dialog.style.background = "#fff";
-  dialog.style.borderRadius = "1rem";
-  dialog.style.display = "flex";
-  dialog.style.alignItems = "center";
-  dialog.style.justifyContent = "center";
-  dialog.style.outline = "none";
-  dialog.style.overflow = "hidden";
-  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs);
-  const dialogFade = attachFadeStyles(dialog, fadeMs);
-  let svgText = "";
+  const fadeMs = 333
+  const dialog = document.createElement('dialog')
+  dialog.style.border = 'none'
+  dialog.style.padding = '0'
+  dialog.style.background = '#fff'
+  dialog.style.borderRadius = '1rem'
+  dialog.style.display = 'flex'
+  dialog.style.alignItems = 'center'
+  dialog.style.justifyContent = 'center'
+  dialog.style.outline = 'none'
+  dialog.style.overflow = 'hidden'
+  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs)
+  const dialogFade = attachFadeStyles(dialog, fadeMs)
+  let svgText = ''
   try {
-    svgText = qr_default(value, "svg");
+    svgText = qr_default(value, 'svg')
   } catch (error) {
-    throw new QRError("QR_ENCODE_FAILED", getErrorMessage(error, "Unable to encode value as QR SVG"));
+    throw new QRError(
+      'QR_ENCODE_FAILED',
+      getErrorMessage(error, 'Unable to encode value as QR SVG')
+    )
   }
-  const url = URL.createObjectURL(new Blob([svgText], { type: "image/svg+xml" }));
-  const img = document.createElement("img");
-  img.src = url;
-  img.alt = "QR code";
-  img.style.width = "min(80vw, 400px)";
-  img.style.height = "auto";
-  img.style.aspectRatio = "1 / 1";
-  img.style.display = "block";
-  const imgFade = attachFadeStyles(img, fadeMs);
-  dialog.append(img);
-  document.body.append(dialog);
-  dialog.showModal();
-  dialogBackdropFade.reveal();
-  dialogFade.reveal();
-  const ac = new AbortController();
-  let cleaned = false;
-  let closing = false;
+  const url = URL.createObjectURL(
+    new Blob([svgText], { type: 'image/svg+xml' })
+  )
+  const img = document.createElement('img')
+  img.src = url
+  img.alt = 'QR code'
+  img.style.width = 'min(80vw, 400px)'
+  img.style.height = 'auto'
+  img.style.aspectRatio = '1 / 1'
+  img.style.display = 'block'
+  const imgFade = attachFadeStyles(img, fadeMs)
+  dialog.append(img)
+  document.body.append(dialog)
+  dialog.showModal()
+  dialogBackdropFade.reveal()
+  dialogFade.reveal()
+  const ac = new AbortController()
+  let cleaned = false
+  let closing = false
   const cleanup = () => {
-    if (cleaned)
-      return;
-    cleaned = true;
-    ac.abort();
-    window.removeEventListener("pointerup", onPointerUp);
-    window.removeEventListener("mouseup", onMouseUp);
-    window.removeEventListener("touchend", onTouchEnd);
-    window.removeEventListener("keydown", onKeyDown);
-    img.onload = null;
-    URL.revokeObjectURL(url);
-    dialogBackdropFade.detach();
-    dialogFade.detach();
-    imgFade.detach();
-    dialog.remove();
-  };
+    if (cleaned) return
+    cleaned = true
+    ac.abort()
+    window.removeEventListener('pointerup', onPointerUp)
+    window.removeEventListener('mouseup', onMouseUp)
+    window.removeEventListener('touchend', onTouchEnd)
+    window.removeEventListener('keydown', onKeyDown)
+    img.onload = null
+    URL.revokeObjectURL(url)
+    dialogBackdropFade.detach()
+    dialogFade.detach()
+    imgFade.detach()
+    dialog.remove()
+  }
   const requestClose = () => {
-    if (closing || cleaned)
-      return;
-    closing = true;
-    dialogBackdropFade.hide();
-    dialogFade.hide();
-    imgFade.hide();
+    if (closing || cleaned) return
+    closing = true
+    dialogBackdropFade.hide()
+    dialogFade.hide()
+    imgFade.hide()
     setTimeout(() => {
       try {
-        dialog.close();
-      } catch {
-      }
-      cleanup();
-    }, fadeMs);
-  };
-  img.onload = () => {
-    URL.revokeObjectURL(url);
-    imgFade.reveal();
-  };
-  if (img.complete) {
-    URL.revokeObjectURL(url);
-    imgFade.reveal();
+        dialog.close()
+      } catch {}
+      cleanup()
+    }, fadeMs)
   }
-  const onPointerUp = () => requestClose();
-  const onMouseUp = () => requestClose();
-  const onTouchEnd = () => requestClose();
-  const onKeyDown = () => requestClose();
+  img.onload = () => {
+    URL.revokeObjectURL(url)
+    imgFade.reveal()
+  }
+  if (img.complete) {
+    URL.revokeObjectURL(url)
+    imgFade.reveal()
+  }
+  const onPointerUp = () => requestClose()
+  const onMouseUp = () => requestClose()
+  const onTouchEnd = () => requestClose()
+  const onKeyDown = () => requestClose()
   setTimeout(() => {
-    window.addEventListener("pointerup", onPointerUp, { signal: ac.signal });
-    window.addEventListener("mouseup", onMouseUp, { signal: ac.signal });
-    window.addEventListener("touchend", onTouchEnd, { signal: ac.signal });
-    window.addEventListener("keydown", onKeyDown, { signal: ac.signal });
-    dialog.addEventListener("close", cleanup, { signal: ac.signal });
-  }, fadeMs);
+    window.addEventListener('pointerup', onPointerUp, { signal: ac.signal })
+    window.addEventListener('mouseup', onMouseUp, { signal: ac.signal })
+    window.addEventListener('touchend', onTouchEnd, { signal: ac.signal })
+    window.addEventListener('keydown', onKeyDown, { signal: ac.signal })
+    dialog.addEventListener('close', cleanup, { signal: ac.signal })
+  }, fadeMs)
 }
 
 // dist/QR/print/index.js
 function print(value) {
-  if (typeof value !== "string")
-    throw new QRError("VALUE_IS_NOT_A_STRING", "This library only accepts strings as value, use `@z-base/bytecodec` for conversions");
-  const PAGE_MM = { w: 210, h: 297 };
-  const PAGE_MARGIN_MM = 8;
-  const CARD_MM = { w: 85.6, h: 53.98 };
-  const CARD_PADDING_MM = 4;
-  const QR_ON_CARD_MM = 42;
-  const CUTLINE_MM = 0.35;
-  const CROP_LEN_MM = 3.5;
-  const CROP_OFF_MM = 1.2;
-  const printableW = PAGE_MM.w - 2 * PAGE_MARGIN_MM;
-  const printableH = PAGE_MM.h - 2 * PAGE_MARGIN_MM;
-  const cols = Math.max(1, Math.floor(printableW / CARD_MM.w));
-  const rows = Math.max(1, Math.floor(printableH / CARD_MM.h));
-  const count = cols * rows;
-  const maxQrMm = CARD_MM.h - 2 * CARD_PADDING_MM;
-  const qrMm = Math.max(10, Math.min(QR_ON_CARD_MM, maxQrMm));
-  let svg = "";
+  if (typeof value !== 'string')
+    throw new QRError(
+      'VALUE_IS_NOT_A_STRING',
+      'This library only accepts strings as value, use `@z-base/bytecodec` for conversions'
+    )
+  const PAGE_MM = { w: 210, h: 297 }
+  const PAGE_MARGIN_MM = 8
+  const CARD_MM = { w: 85.6, h: 53.98 }
+  const CARD_PADDING_MM = 4
+  const QR_ON_CARD_MM = 42
+  const CUTLINE_MM = 0.35
+  const CROP_LEN_MM = 3.5
+  const CROP_OFF_MM = 1.2
+  const printableW = PAGE_MM.w - 2 * PAGE_MARGIN_MM
+  const printableH = PAGE_MM.h - 2 * PAGE_MARGIN_MM
+  const cols = Math.max(1, Math.floor(printableW / CARD_MM.w))
+  const rows = Math.max(1, Math.floor(printableH / CARD_MM.h))
+  const count = cols * rows
+  const maxQrMm = CARD_MM.h - 2 * CARD_PADDING_MM
+  const qrMm = Math.max(10, Math.min(QR_ON_CARD_MM, maxQrMm))
+  let svg = ''
   try {
-    svg = qr_default(value, "svg");
+    svg = qr_default(value, 'svg')
   } catch (error) {
-    throw new QRError("QR_ENCODE_FAILED", getErrorMessage(error, "Unable to encode value as QR SVG"));
+    throw new QRError(
+      'QR_ENCODE_FAILED',
+      getErrorMessage(error, 'Unable to encode value as QR SVG')
+    )
   }
   const tiles = Array.from({ length: count }, () => {
     return `<div class="card">
       <div class="qr">${svg}</div>
       <i class="crop tl"></i><i class="crop tr"></i><i class="crop bl"></i><i class="crop br"></i>
-    </div>`;
-  }).join("");
+    </div>`
+  }).join('')
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -1834,566 +1799,843 @@ function print(value) {
     });
   <\/script>
 </body>
-</html>`;
-  const url = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
-  const a = document.createElement("a");
-  a.href = url;
-  a.target = "_blank";
-  a.rel = "noopener noreferrer";
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 6e4);
+</html>`
+  const url = URL.createObjectURL(
+    new Blob([html], { type: 'text/html;charset=utf-8' })
+  )
+  const a = document.createElement('a')
+  a.href = url
+  a.target = '_blank'
+  a.rel = 'noopener noreferrer'
+  a.click()
+  setTimeout(() => URL.revokeObjectURL(url), 6e4)
 }
 
 // node_modules/qr-scanner/qr-scanner.min.js
 var e = class _e {
   constructor(a, b, c, d, f) {
-    this._legacyCanvasSize = _e.DEFAULT_CANVAS_SIZE;
-    this._preferredCamera = "environment";
-    this._maxScansPerSecond = 25;
-    this._lastScanTimestamp = -1;
-    this._destroyed = this._flashOn = this._paused = this._active = false;
-    this.$video = a;
-    this.$canvas = document.createElement("canvas");
-    c && "object" === typeof c ? this._onDecode = b : (c || d || f ? console.warn("You're using a deprecated version of the QrScanner constructor which will be removed in the future") : console.warn("Note that the type of the scan result passed to onDecode will change in the future. To already switch to the new api today, you can pass returnDetailedScanResult: true."), this._legacyOnDecode = b);
-    b = "object" === typeof c ? c : {};
-    this._onDecodeError = b.onDecodeError || ("function" === typeof c ? c : this._onDecodeError);
-    this._calculateScanRegion = b.calculateScanRegion || ("function" === typeof d ? d : this._calculateScanRegion);
-    this._preferredCamera = b.preferredCamera || f || this._preferredCamera;
-    this._legacyCanvasSize = "number" === typeof c ? c : "number" === typeof d ? d : this._legacyCanvasSize;
-    this._maxScansPerSecond = b.maxScansPerSecond || this._maxScansPerSecond;
-    this._onPlay = this._onPlay.bind(this);
-    this._onLoadedMetaData = this._onLoadedMetaData.bind(this);
-    this._onVisibilityChange = this._onVisibilityChange.bind(this);
-    this._updateOverlay = this._updateOverlay.bind(this);
-    a.disablePictureInPicture = true;
-    a.playsInline = true;
-    a.muted = true;
-    let h = false;
-    a.hidden && (a.hidden = false, h = true);
-    document.body.contains(a) || (document.body.appendChild(a), h = true);
-    c = a.parentElement;
+    this._legacyCanvasSize = _e.DEFAULT_CANVAS_SIZE
+    this._preferredCamera = 'environment'
+    this._maxScansPerSecond = 25
+    this._lastScanTimestamp = -1
+    this._destroyed = this._flashOn = this._paused = this._active = false
+    this.$video = a
+    this.$canvas = document.createElement('canvas')
+    c && 'object' === typeof c
+      ? (this._onDecode = b)
+      : (c || d || f
+          ? console.warn(
+              "You're using a deprecated version of the QrScanner constructor which will be removed in the future"
+            )
+          : console.warn(
+              'Note that the type of the scan result passed to onDecode will change in the future. To already switch to the new api today, you can pass returnDetailedScanResult: true.'
+            ),
+        (this._legacyOnDecode = b))
+    b = 'object' === typeof c ? c : {}
+    this._onDecodeError =
+      b.onDecodeError || ('function' === typeof c ? c : this._onDecodeError)
+    this._calculateScanRegion =
+      b.calculateScanRegion ||
+      ('function' === typeof d ? d : this._calculateScanRegion)
+    this._preferredCamera = b.preferredCamera || f || this._preferredCamera
+    this._legacyCanvasSize =
+      'number' === typeof c
+        ? c
+        : 'number' === typeof d
+          ? d
+          : this._legacyCanvasSize
+    this._maxScansPerSecond = b.maxScansPerSecond || this._maxScansPerSecond
+    this._onPlay = this._onPlay.bind(this)
+    this._onLoadedMetaData = this._onLoadedMetaData.bind(this)
+    this._onVisibilityChange = this._onVisibilityChange.bind(this)
+    this._updateOverlay = this._updateOverlay.bind(this)
+    a.disablePictureInPicture = true
+    a.playsInline = true
+    a.muted = true
+    let h = false
+    a.hidden && ((a.hidden = false), (h = true))
+    document.body.contains(a) || (document.body.appendChild(a), (h = true))
+    c = a.parentElement
     if (b.highlightScanRegion || b.highlightCodeOutline) {
-      d = !!b.overlay;
-      this.$overlay = b.overlay || document.createElement("div");
-      f = this.$overlay.style;
-      f.position = "absolute";
-      f.display = "none";
-      f.pointerEvents = "none";
-      this.$overlay.classList.add("scan-region-highlight");
+      d = !!b.overlay
+      this.$overlay = b.overlay || document.createElement('div')
+      f = this.$overlay.style
+      f.position = 'absolute'
+      f.display = 'none'
+      f.pointerEvents = 'none'
+      this.$overlay.classList.add('scan-region-highlight')
       if (!d && b.highlightScanRegion) {
-        this.$overlay.innerHTML = '<svg class="scan-region-highlight-svg" viewBox="0 0 238 238" preserveAspectRatio="none" style="position:absolute;width:100%;height:100%;left:0;top:0;fill:none;stroke:#e9b213;stroke-width:4;stroke-linecap:round;stroke-linejoin:round"><path d="M31 2H10a8 8 0 0 0-8 8v21M207 2h21a8 8 0 0 1 8 8v21m0 176v21a8 8 0 0 1-8 8h-21m-176 0H10a8 8 0 0 1-8-8v-21"/></svg>';
+        this.$overlay.innerHTML =
+          '<svg class="scan-region-highlight-svg" viewBox="0 0 238 238" preserveAspectRatio="none" style="position:absolute;width:100%;height:100%;left:0;top:0;fill:none;stroke:#e9b213;stroke-width:4;stroke-linecap:round;stroke-linejoin:round"><path d="M31 2H10a8 8 0 0 0-8 8v21M207 2h21a8 8 0 0 1 8 8v21m0 176v21a8 8 0 0 1-8 8h-21m-176 0H10a8 8 0 0 1-8-8v-21"/></svg>'
         try {
-          this.$overlay.firstElementChild.animate({ transform: [
-            "scale(.98)",
-            "scale(1.01)"
-          ] }, { duration: 400, iterations: Infinity, direction: "alternate", easing: "ease-in-out" });
-        } catch (m) {
-        }
-        c.insertBefore(this.$overlay, this.$video.nextSibling);
+          this.$overlay.firstElementChild.animate(
+            { transform: ['scale(.98)', 'scale(1.01)'] },
+            {
+              duration: 400,
+              iterations: Infinity,
+              direction: 'alternate',
+              easing: 'ease-in-out',
+            }
+          )
+        } catch (m) {}
+        c.insertBefore(this.$overlay, this.$video.nextSibling)
       }
-      b.highlightCodeOutline && (this.$overlay.insertAdjacentHTML("beforeend", '<svg class="code-outline-highlight" preserveAspectRatio="none" style="display:none;width:100%;height:100%;fill:none;stroke:#e9b213;stroke-width:5;stroke-dasharray:25;stroke-linecap:round;stroke-linejoin:round"><polygon/></svg>'), this.$codeOutlineHighlight = this.$overlay.lastElementChild);
+      b.highlightCodeOutline &&
+        (this.$overlay.insertAdjacentHTML(
+          'beforeend',
+          '<svg class="code-outline-highlight" preserveAspectRatio="none" style="display:none;width:100%;height:100%;fill:none;stroke:#e9b213;stroke-width:5;stroke-dasharray:25;stroke-linecap:round;stroke-linejoin:round"><polygon/></svg>'
+        ),
+        (this.$codeOutlineHighlight = this.$overlay.lastElementChild))
     }
-    this._scanRegion = this._calculateScanRegion(a);
+    this._scanRegion = this._calculateScanRegion(a)
     requestAnimationFrame(() => {
-      let m = window.getComputedStyle(a);
-      "none" === m.display && (a.style.setProperty("display", "block", "important"), h = true);
-      "visible" !== m.visibility && (a.style.setProperty("visibility", "visible", "important"), h = true);
-      h && (console.warn("QrScanner has overwritten the video hiding style to avoid Safari stopping the playback."), a.style.opacity = "0", a.style.width = "0", a.style.height = "0", this.$overlay && this.$overlay.parentElement && this.$overlay.parentElement.removeChild(this.$overlay), delete this.$overlay, delete this.$codeOutlineHighlight);
-      this.$overlay && this._updateOverlay();
-    });
-    a.addEventListener("play", this._onPlay);
-    a.addEventListener("loadedmetadata", this._onLoadedMetaData);
-    document.addEventListener("visibilitychange", this._onVisibilityChange);
-    window.addEventListener("resize", this._updateOverlay);
-    this._qrEnginePromise = _e.createQrEngine();
+      let m = window.getComputedStyle(a)
+      'none' === m.display &&
+        (a.style.setProperty('display', 'block', 'important'), (h = true))
+      'visible' !== m.visibility &&
+        (a.style.setProperty('visibility', 'visible', 'important'), (h = true))
+      h &&
+        (console.warn(
+          'QrScanner has overwritten the video hiding style to avoid Safari stopping the playback.'
+        ),
+        (a.style.opacity = '0'),
+        (a.style.width = '0'),
+        (a.style.height = '0'),
+        this.$overlay &&
+          this.$overlay.parentElement &&
+          this.$overlay.parentElement.removeChild(this.$overlay),
+        delete this.$overlay,
+        delete this.$codeOutlineHighlight)
+      this.$overlay && this._updateOverlay()
+    })
+    a.addEventListener('play', this._onPlay)
+    a.addEventListener('loadedmetadata', this._onLoadedMetaData)
+    document.addEventListener('visibilitychange', this._onVisibilityChange)
+    window.addEventListener('resize', this._updateOverlay)
+    this._qrEnginePromise = _e.createQrEngine()
   }
   static set WORKER_PATH(a) {
-    console.warn("Setting QrScanner.WORKER_PATH is not required and not supported anymore. Have a look at the README for new setup instructions.");
+    console.warn(
+      'Setting QrScanner.WORKER_PATH is not required and not supported anymore. Have a look at the README for new setup instructions.'
+    )
   }
   static async hasCamera() {
     try {
-      return !!(await _e.listCameras(false)).length;
+      return !!(await _e.listCameras(false)).length
     } catch (a) {
-      return false;
+      return false
     }
   }
   static async listCameras(a = false) {
-    if (!navigator.mediaDevices) return [];
-    let b = async () => (await navigator.mediaDevices.enumerateDevices()).filter((d) => "videoinput" === d.kind), c;
+    if (!navigator.mediaDevices) return []
+    let b = async () =>
+        (await navigator.mediaDevices.enumerateDevices()).filter(
+          (d) => 'videoinput' === d.kind
+        ),
+      c
     try {
-      a && (await b()).every((d) => !d.label) && (c = await navigator.mediaDevices.getUserMedia({ audio: false, video: true }));
-    } catch (d) {
-    }
+      a &&
+        (await b()).every((d) => !d.label) &&
+        (c = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: true,
+        }))
+    } catch (d) {}
     try {
-      return (await b()).map((d, f) => ({ id: d.deviceId, label: d.label || (0 === f ? "Default Camera" : `Camera ${f + 1}`) }));
+      return (await b()).map((d, f) => ({
+        id: d.deviceId,
+        label: d.label || (0 === f ? 'Default Camera' : `Camera ${f + 1}`),
+      }))
     } finally {
-      c && (console.warn("Call listCameras after successfully starting a QR scanner to avoid creating a temporary video stream"), _e._stopVideoStream(c));
+      c &&
+        (console.warn(
+          'Call listCameras after successfully starting a QR scanner to avoid creating a temporary video stream'
+        ),
+        _e._stopVideoStream(c))
     }
   }
   async hasFlash() {
-    let a;
+    let a
     try {
       if (this.$video.srcObject) {
-        if (!(this.$video.srcObject instanceof MediaStream)) return false;
-        a = this.$video.srcObject;
-      } else a = (await this._getCameraStream()).stream;
-      return "torch" in a.getVideoTracks()[0].getSettings();
+        if (!(this.$video.srcObject instanceof MediaStream)) return false
+        a = this.$video.srcObject
+      } else a = (await this._getCameraStream()).stream
+      return 'torch' in a.getVideoTracks()[0].getSettings()
     } catch (b) {
-      return false;
+      return false
     } finally {
-      a && a !== this.$video.srcObject && (console.warn("Call hasFlash after successfully starting the scanner to avoid creating a temporary video stream"), _e._stopVideoStream(a));
+      a &&
+        a !== this.$video.srcObject &&
+        (console.warn(
+          'Call hasFlash after successfully starting the scanner to avoid creating a temporary video stream'
+        ),
+        _e._stopVideoStream(a))
     }
   }
   isFlashOn() {
-    return this._flashOn;
+    return this._flashOn
   }
   async toggleFlash() {
-    this._flashOn ? await this.turnFlashOff() : await this.turnFlashOn();
+    this._flashOn ? await this.turnFlashOff() : await this.turnFlashOn()
   }
   async turnFlashOn() {
-    if (!this._flashOn && !this._destroyed && (this._flashOn = true, this._active && !this._paused)) try {
-      if (!await this.hasFlash()) throw "No flash available";
-      await this.$video.srcObject.getVideoTracks()[0].applyConstraints({ advanced: [{ torch: true }] });
-    } catch (a) {
-      throw this._flashOn = false, a;
-    }
+    if (
+      !this._flashOn &&
+      !this._destroyed &&
+      ((this._flashOn = true), this._active && !this._paused)
+    )
+      try {
+        if (!(await this.hasFlash())) throw 'No flash available'
+        await this.$video.srcObject
+          .getVideoTracks()[0]
+          .applyConstraints({ advanced: [{ torch: true }] })
+      } catch (a) {
+        throw ((this._flashOn = false), a)
+      }
   }
   async turnFlashOff() {
-    this._flashOn && (this._flashOn = false, await this._restartVideoStream());
+    this._flashOn && ((this._flashOn = false), await this._restartVideoStream())
   }
   destroy() {
-    this.$video.removeEventListener("loadedmetadata", this._onLoadedMetaData);
-    this.$video.removeEventListener("play", this._onPlay);
-    document.removeEventListener(
-      "visibilitychange",
-      this._onVisibilityChange
-    );
-    window.removeEventListener("resize", this._updateOverlay);
-    this._destroyed = true;
-    this._flashOn = false;
-    this.stop();
-    _e._postWorkerMessage(this._qrEnginePromise, "close");
+    this.$video.removeEventListener('loadedmetadata', this._onLoadedMetaData)
+    this.$video.removeEventListener('play', this._onPlay)
+    document.removeEventListener('visibilitychange', this._onVisibilityChange)
+    window.removeEventListener('resize', this._updateOverlay)
+    this._destroyed = true
+    this._flashOn = false
+    this.stop()
+    _e._postWorkerMessage(this._qrEnginePromise, 'close')
   }
   async start() {
-    if (this._destroyed) throw Error("The QR scanner can not be started as it had been destroyed.");
+    if (this._destroyed)
+      throw Error('The QR scanner can not be started as it had been destroyed.')
     if (!this._active || this._paused) {
-      if ("https:" !== window.location.protocol && console.warn("The camera stream is only accessible if the page is transferred via https."), this._active = true, !document.hidden) if (this._paused = false, this.$video.srcObject) await this.$video.play();
-      else try {
-        let { stream: a, facingMode: b } = await this._getCameraStream();
-        !this._active || this._paused ? _e._stopVideoStream(a) : (this._setVideoMirror(b), this.$video.srcObject = a, await this.$video.play(), this._flashOn && (this._flashOn = false, this.turnFlashOn().catch(() => {
-        })));
-      } catch (a) {
-        if (!this._paused) throw this._active = false, a;
-      }
+      if (
+        ('https:' !== window.location.protocol &&
+          console.warn(
+            'The camera stream is only accessible if the page is transferred via https.'
+          ),
+        (this._active = true),
+        !document.hidden)
+      )
+        if (((this._paused = false), this.$video.srcObject))
+          await this.$video.play()
+        else
+          try {
+            let { stream: a, facingMode: b } = await this._getCameraStream()
+            !this._active || this._paused
+              ? _e._stopVideoStream(a)
+              : (this._setVideoMirror(b),
+                (this.$video.srcObject = a),
+                await this.$video.play(),
+                this._flashOn &&
+                  ((this._flashOn = false), this.turnFlashOn().catch(() => {})))
+          } catch (a) {
+            if (!this._paused) throw ((this._active = false), a)
+          }
     }
   }
   stop() {
-    this.pause();
-    this._active = false;
+    this.pause()
+    this._active = false
   }
   async pause(a = false) {
-    this._paused = true;
-    if (!this._active) return true;
-    this.$video.pause();
-    this.$overlay && (this.$overlay.style.display = "none");
+    this._paused = true
+    if (!this._active) return true
+    this.$video.pause()
+    this.$overlay && (this.$overlay.style.display = 'none')
     let b = () => {
-      this.$video.srcObject instanceof MediaStream && (_e._stopVideoStream(this.$video.srcObject), this.$video.srcObject = null);
-    };
-    if (a) return b(), true;
-    await new Promise((c) => setTimeout(c, 300));
-    if (!this._paused) return false;
-    b();
-    return true;
+      this.$video.srcObject instanceof MediaStream &&
+        (_e._stopVideoStream(this.$video.srcObject),
+        (this.$video.srcObject = null))
+    }
+    if (a) return (b(), true)
+    await new Promise((c) => setTimeout(c, 300))
+    if (!this._paused) return false
+    b()
+    return true
   }
   async setCamera(a) {
-    a !== this._preferredCamera && (this._preferredCamera = a, await this._restartVideoStream());
+    a !== this._preferredCamera &&
+      ((this._preferredCamera = a), await this._restartVideoStream())
   }
   static async scanImage(a, b, c, d, f = false, h = false) {
-    let m, n = false;
-    b && ("scanRegion" in b || "qrEngine" in b || "canvas" in b || "disallowCanvasResizing" in b || "alsoTryWithoutScanRegion" in b || "returnDetailedScanResult" in b) ? (m = b.scanRegion, c = b.qrEngine, d = b.canvas, f = b.disallowCanvasResizing || false, h = b.alsoTryWithoutScanRegion || false, n = true) : b || c || d || f || h ? console.warn("You're using a deprecated api for scanImage which will be removed in the future.") : console.warn("Note that the return type of scanImage will change in the future. To already switch to the new api today, you can pass returnDetailedScanResult: true.");
-    b = !!c;
+    let m,
+      n = false
+    b &&
+    ('scanRegion' in b ||
+      'qrEngine' in b ||
+      'canvas' in b ||
+      'disallowCanvasResizing' in b ||
+      'alsoTryWithoutScanRegion' in b ||
+      'returnDetailedScanResult' in b)
+      ? ((m = b.scanRegion),
+        (c = b.qrEngine),
+        (d = b.canvas),
+        (f = b.disallowCanvasResizing || false),
+        (h = b.alsoTryWithoutScanRegion || false),
+        (n = true))
+      : b || c || d || f || h
+        ? console.warn(
+            "You're using a deprecated api for scanImage which will be removed in the future."
+          )
+        : console.warn(
+            'Note that the return type of scanImage will change in the future. To already switch to the new api today, you can pass returnDetailedScanResult: true.'
+          )
+    b = !!c
     try {
-      let p, k;
-      [c, p] = await Promise.all([c || _e.createQrEngine(), _e._loadImage(a)]);
-      [d, k] = _e._drawToCanvas(p, m, d, f);
-      let q;
+      let p, k
+      ;[c, p] = await Promise.all([c || _e.createQrEngine(), _e._loadImage(a)])
+      ;[d, k] = _e._drawToCanvas(p, m, d, f)
+      let q
       if (c instanceof Worker) {
-        let g = c;
-        b || _e._postWorkerMessageSync(g, "inversionMode", "both");
+        let g = c
+        b || _e._postWorkerMessageSync(g, 'inversionMode', 'both')
         q = await new Promise((l, v) => {
-          let w, u, r, y = -1;
+          let w,
+            u,
+            r,
+            y = -1
           u = (t) => {
-            t.data.id === y && (g.removeEventListener("message", u), g.removeEventListener("error", r), clearTimeout(w), null !== t.data.data ? l({ data: t.data.data, cornerPoints: _e._convertPoints(t.data.cornerPoints, m) }) : v(_e.NO_QR_CODE_FOUND));
-          };
+            t.data.id === y &&
+              (g.removeEventListener('message', u),
+              g.removeEventListener('error', r),
+              clearTimeout(w),
+              null !== t.data.data
+                ? l({
+                    data: t.data.data,
+                    cornerPoints: _e._convertPoints(t.data.cornerPoints, m),
+                  })
+                : v(_e.NO_QR_CODE_FOUND))
+          }
           r = (t) => {
-            g.removeEventListener("message", u);
-            g.removeEventListener("error", r);
-            clearTimeout(w);
-            v("Scanner error: " + (t ? t.message || t : "Unknown Error"));
-          };
-          g.addEventListener("message", u);
-          g.addEventListener("error", r);
-          w = setTimeout(() => r("timeout"), 1e4);
-          let x = k.getImageData(0, 0, d.width, d.height);
-          y = _e._postWorkerMessageSync(g, "decode", x, [x.data.buffer]);
-        });
-      } else q = await Promise.race([new Promise((g, l) => window.setTimeout(() => l("Scanner error: timeout"), 1e4)), (async () => {
-        try {
-          var [g] = await c.detect(d);
-          if (!g) throw _e.NO_QR_CODE_FOUND;
-          return { data: g.rawValue, cornerPoints: _e._convertPoints(g.cornerPoints, m) };
-        } catch (l) {
-          g = l.message || l;
-          if (/not implemented|service unavailable/.test(g)) return _e._disableBarcodeDetector = true, _e.scanImage(a, { scanRegion: m, canvas: d, disallowCanvasResizing: f, alsoTryWithoutScanRegion: h });
-          throw `Scanner error: ${g}`;
-        }
-      })()]);
-      return n ? q : q.data;
+            g.removeEventListener('message', u)
+            g.removeEventListener('error', r)
+            clearTimeout(w)
+            v('Scanner error: ' + (t ? t.message || t : 'Unknown Error'))
+          }
+          g.addEventListener('message', u)
+          g.addEventListener('error', r)
+          w = setTimeout(() => r('timeout'), 1e4)
+          let x = k.getImageData(0, 0, d.width, d.height)
+          y = _e._postWorkerMessageSync(g, 'decode', x, [x.data.buffer])
+        })
+      } else
+        q = await Promise.race([
+          new Promise((g, l) =>
+            window.setTimeout(() => l('Scanner error: timeout'), 1e4)
+          ),
+          (async () => {
+            try {
+              var [g] = await c.detect(d)
+              if (!g) throw _e.NO_QR_CODE_FOUND
+              return {
+                data: g.rawValue,
+                cornerPoints: _e._convertPoints(g.cornerPoints, m),
+              }
+            } catch (l) {
+              g = l.message || l
+              if (/not implemented|service unavailable/.test(g))
+                return (
+                  (_e._disableBarcodeDetector = true),
+                  _e.scanImage(a, {
+                    scanRegion: m,
+                    canvas: d,
+                    disallowCanvasResizing: f,
+                    alsoTryWithoutScanRegion: h,
+                  })
+                )
+              throw `Scanner error: ${g}`
+            }
+          })(),
+        ])
+      return n ? q : q.data
     } catch (p) {
-      if (!m || !h) throw p;
-      let k = await _e.scanImage(a, { qrEngine: c, canvas: d, disallowCanvasResizing: f });
-      return n ? k : k.data;
+      if (!m || !h) throw p
+      let k = await _e.scanImage(a, {
+        qrEngine: c,
+        canvas: d,
+        disallowCanvasResizing: f,
+      })
+      return n ? k : k.data
     } finally {
-      b || _e._postWorkerMessage(c, "close");
+      b || _e._postWorkerMessage(c, 'close')
     }
   }
   setGrayscaleWeights(a, b, c, d = true) {
-    _e._postWorkerMessage(this._qrEnginePromise, "grayscaleWeights", {
+    _e._postWorkerMessage(this._qrEnginePromise, 'grayscaleWeights', {
       red: a,
       green: b,
       blue: c,
-      useIntegerApproximation: d
-    });
+      useIntegerApproximation: d,
+    })
   }
   setInversionMode(a) {
-    _e._postWorkerMessage(this._qrEnginePromise, "inversionMode", a);
+    _e._postWorkerMessage(this._qrEnginePromise, 'inversionMode', a)
   }
   static async createQrEngine(a) {
-    a && console.warn("Specifying a worker path is not required and not supported anymore.");
-    a = () => Promise.resolve().then(() => (init_qr_scanner_worker_min(), qr_scanner_worker_min_exports)).then((c) => c.createWorker());
-    if (!(!_e._disableBarcodeDetector && "BarcodeDetector" in window && BarcodeDetector.getSupportedFormats && (await BarcodeDetector.getSupportedFormats()).includes("qr_code"))) return a();
-    let b = navigator.userAgentData;
-    return b && b.brands.some(({ brand: c }) => /Chromium/i.test(c)) && /mac ?OS/i.test(b.platform) && await b.getHighEntropyValues(["architecture", "platformVersion"]).then(({ architecture: c, platformVersion: d }) => /arm/i.test(c || "arm") && 13 <= parseInt(d || "13")).catch(() => true) ? a() : new BarcodeDetector({ formats: ["qr_code"] });
+    a &&
+      console.warn(
+        'Specifying a worker path is not required and not supported anymore.'
+      )
+    a = () =>
+      Promise.resolve()
+        .then(
+          () => (init_qr_scanner_worker_min(), qr_scanner_worker_min_exports)
+        )
+        .then((c) => c.createWorker())
+    if (
+      !(
+        !_e._disableBarcodeDetector &&
+        'BarcodeDetector' in window &&
+        BarcodeDetector.getSupportedFormats &&
+        (await BarcodeDetector.getSupportedFormats()).includes('qr_code')
+      )
+    )
+      return a()
+    let b = navigator.userAgentData
+    return b &&
+      b.brands.some(({ brand: c }) => /Chromium/i.test(c)) &&
+      /mac ?OS/i.test(b.platform) &&
+      (await b
+        .getHighEntropyValues(['architecture', 'platformVersion'])
+        .then(
+          ({ architecture: c, platformVersion: d }) =>
+            /arm/i.test(c || 'arm') && 13 <= parseInt(d || '13')
+        )
+        .catch(() => true))
+      ? a()
+      : new BarcodeDetector({ formats: ['qr_code'] })
   }
   _onPlay() {
-    this._scanRegion = this._calculateScanRegion(this.$video);
-    this._updateOverlay();
-    this.$overlay && (this.$overlay.style.display = "");
-    this._scanFrame();
+    this._scanRegion = this._calculateScanRegion(this.$video)
+    this._updateOverlay()
+    this.$overlay && (this.$overlay.style.display = '')
+    this._scanFrame()
   }
   _onLoadedMetaData() {
-    this._scanRegion = this._calculateScanRegion(this.$video);
-    this._updateOverlay();
+    this._scanRegion = this._calculateScanRegion(this.$video)
+    this._updateOverlay()
   }
   _onVisibilityChange() {
-    document.hidden ? this.pause() : this._active && this.start();
+    document.hidden ? this.pause() : this._active && this.start()
   }
   _calculateScanRegion(a) {
-    let b = Math.round(2 / 3 * Math.min(a.videoWidth, a.videoHeight));
-    return { x: Math.round((a.videoWidth - b) / 2), y: Math.round((a.videoHeight - b) / 2), width: b, height: b, downScaledWidth: this._legacyCanvasSize, downScaledHeight: this._legacyCanvasSize };
+    let b = Math.round((2 / 3) * Math.min(a.videoWidth, a.videoHeight))
+    return {
+      x: Math.round((a.videoWidth - b) / 2),
+      y: Math.round((a.videoHeight - b) / 2),
+      width: b,
+      height: b,
+      downScaledWidth: this._legacyCanvasSize,
+      downScaledHeight: this._legacyCanvasSize,
+    }
   }
   _updateOverlay() {
     requestAnimationFrame(() => {
       if (this.$overlay) {
-        var a = this.$video, b = a.videoWidth, c = a.videoHeight, d = a.offsetWidth, f = a.offsetHeight, h = a.offsetLeft, m = a.offsetTop, n = window.getComputedStyle(a), p = n.objectFit, k = b / c, q = d / f;
+        var a = this.$video,
+          b = a.videoWidth,
+          c = a.videoHeight,
+          d = a.offsetWidth,
+          f = a.offsetHeight,
+          h = a.offsetLeft,
+          m = a.offsetTop,
+          n = window.getComputedStyle(a),
+          p = n.objectFit,
+          k = b / c,
+          q = d / f
         switch (p) {
-          case "none":
-            var g = b;
-            var l = c;
-            break;
-          case "fill":
-            g = d;
-            l = f;
-            break;
+          case 'none':
+            var g = b
+            var l = c
+            break
+          case 'fill':
+            g = d
+            l = f
+            break
           default:
-            ("cover" === p ? k > q : k < q) ? (l = f, g = l * k) : (g = d, l = g / k), "scale-down" === p && (g = Math.min(g, b), l = Math.min(l, c));
+            ;(('cover' === p ? k > q : k < q)
+              ? ((l = f), (g = l * k))
+              : ((g = d), (l = g / k)),
+              'scale-down' === p &&
+                ((g = Math.min(g, b)), (l = Math.min(l, c))))
         }
-        var [v, w] = n.objectPosition.split(" ").map((r, y) => {
-          const x = parseFloat(r);
-          return r.endsWith("%") ? (y ? f - l : d - g) * x / 100 : x;
-        });
-        n = this._scanRegion.width || b;
-        q = this._scanRegion.height || c;
-        p = this._scanRegion.x || 0;
-        var u = this._scanRegion.y || 0;
-        k = this.$overlay.style;
-        k.width = `${n / b * g}px`;
-        k.height = `${q / c * l}px`;
-        k.top = `${m + w + u / c * l}px`;
-        c = /scaleX\(-1\)/.test(a.style.transform);
-        k.left = `${h + (c ? d - v - g : v) + (c ? b - p - n : p) / b * g}px`;
-        k.transform = a.style.transform;
+        var [v, w] = n.objectPosition.split(' ').map((r, y) => {
+          const x = parseFloat(r)
+          return r.endsWith('%') ? ((y ? f - l : d - g) * x) / 100 : x
+        })
+        n = this._scanRegion.width || b
+        q = this._scanRegion.height || c
+        p = this._scanRegion.x || 0
+        var u = this._scanRegion.y || 0
+        k = this.$overlay.style
+        k.width = `${(n / b) * g}px`
+        k.height = `${(q / c) * l}px`
+        k.top = `${m + w + (u / c) * l}px`
+        c = /scaleX\(-1\)/.test(a.style.transform)
+        k.left = `${h + (c ? d - v - g : v) + ((c ? b - p - n : p) / b) * g}px`
+        k.transform = a.style.transform
       }
-    });
+    })
   }
   static _convertPoints(a, b) {
-    if (!b) return a;
-    let c = b.x || 0, d = b.y || 0, f = b.width && b.downScaledWidth ? b.width / b.downScaledWidth : 1;
-    b = b.height && b.downScaledHeight ? b.height / b.downScaledHeight : 1;
-    for (let h of a) h.x = h.x * f + c, h.y = h.y * b + d;
-    return a;
+    if (!b) return a
+    let c = b.x || 0,
+      d = b.y || 0,
+      f = b.width && b.downScaledWidth ? b.width / b.downScaledWidth : 1
+    b = b.height && b.downScaledHeight ? b.height / b.downScaledHeight : 1
+    for (let h of a) ((h.x = h.x * f + c), (h.y = h.y * b + d))
+    return a
   }
   _scanFrame() {
-    !this._active || this.$video.paused || this.$video.ended || ("requestVideoFrameCallback" in this.$video ? this.$video.requestVideoFrameCallback.bind(this.$video) : requestAnimationFrame)(async () => {
-      if (!(1 >= this.$video.readyState)) {
-        var a = Date.now() - this._lastScanTimestamp, b = 1e3 / this._maxScansPerSecond;
-        a < b && await new Promise((d) => setTimeout(d, b - a));
-        this._lastScanTimestamp = Date.now();
-        try {
-          var c = await _e.scanImage(this.$video, { scanRegion: this._scanRegion, qrEngine: this._qrEnginePromise, canvas: this.$canvas });
-        } catch (d) {
-          if (!this._active) return;
-          this._onDecodeError(d);
+    !this._active ||
+      this.$video.paused ||
+      this.$video.ended ||
+      ('requestVideoFrameCallback' in this.$video
+        ? this.$video.requestVideoFrameCallback.bind(this.$video)
+        : requestAnimationFrame)(async () => {
+        if (!(1 >= this.$video.readyState)) {
+          var a = Date.now() - this._lastScanTimestamp,
+            b = 1e3 / this._maxScansPerSecond
+          a < b && (await new Promise((d) => setTimeout(d, b - a)))
+          this._lastScanTimestamp = Date.now()
+          try {
+            var c = await _e.scanImage(this.$video, {
+              scanRegion: this._scanRegion,
+              qrEngine: this._qrEnginePromise,
+              canvas: this.$canvas,
+            })
+          } catch (d) {
+            if (!this._active) return
+            this._onDecodeError(d)
+          }
+          !_e._disableBarcodeDetector ||
+            (await this._qrEnginePromise) instanceof Worker ||
+            (this._qrEnginePromise = _e.createQrEngine())
+          c
+            ? (this._onDecode
+                ? this._onDecode(c)
+                : this._legacyOnDecode && this._legacyOnDecode(c.data),
+              this.$codeOutlineHighlight &&
+                (clearTimeout(this._codeOutlineHighlightRemovalTimeout),
+                (this._codeOutlineHighlightRemovalTimeout = void 0),
+                this.$codeOutlineHighlight.setAttribute(
+                  'viewBox',
+                  `${this._scanRegion.x || 0} ${this._scanRegion.y || 0} ${this._scanRegion.width || this.$video.videoWidth} ${this._scanRegion.height || this.$video.videoHeight}`
+                ),
+                this.$codeOutlineHighlight.firstElementChild.setAttribute(
+                  'points',
+                  c.cornerPoints.map(({ x: d, y: f }) => `${d},${f}`).join(' ')
+                ),
+                (this.$codeOutlineHighlight.style.display = '')))
+            : this.$codeOutlineHighlight &&
+              !this._codeOutlineHighlightRemovalTimeout &&
+              (this._codeOutlineHighlightRemovalTimeout = setTimeout(
+                () => (this.$codeOutlineHighlight.style.display = 'none'),
+                100
+              ))
         }
-        !_e._disableBarcodeDetector || await this._qrEnginePromise instanceof Worker || (this._qrEnginePromise = _e.createQrEngine());
-        c ? (this._onDecode ? this._onDecode(c) : this._legacyOnDecode && this._legacyOnDecode(c.data), this.$codeOutlineHighlight && (clearTimeout(this._codeOutlineHighlightRemovalTimeout), this._codeOutlineHighlightRemovalTimeout = void 0, this.$codeOutlineHighlight.setAttribute("viewBox", `${this._scanRegion.x || 0} ${this._scanRegion.y || 0} ${this._scanRegion.width || this.$video.videoWidth} ${this._scanRegion.height || this.$video.videoHeight}`), this.$codeOutlineHighlight.firstElementChild.setAttribute(
-          "points",
-          c.cornerPoints.map(({ x: d, y: f }) => `${d},${f}`).join(" ")
-        ), this.$codeOutlineHighlight.style.display = "")) : this.$codeOutlineHighlight && !this._codeOutlineHighlightRemovalTimeout && (this._codeOutlineHighlightRemovalTimeout = setTimeout(() => this.$codeOutlineHighlight.style.display = "none", 100));
-      }
-      this._scanFrame();
-    });
+        this._scanFrame()
+      })
   }
   _onDecodeError(a) {
-    a !== _e.NO_QR_CODE_FOUND && console.log(a);
+    a !== _e.NO_QR_CODE_FOUND && console.log(a)
   }
   async _getCameraStream() {
-    if (!navigator.mediaDevices) throw "Camera not found.";
-    let a = /^(environment|user)$/.test(this._preferredCamera) ? "facingMode" : "deviceId", b = [{ width: { min: 1024 } }, { width: { min: 768 } }, {}], c = b.map((d) => Object.assign({}, d, { [a]: { exact: this._preferredCamera } }));
-    for (let d of [...c, ...b]) try {
-      let f = await navigator.mediaDevices.getUserMedia({ video: d, audio: false }), h = this._getFacingMode(f) || (d.facingMode ? this._preferredCamera : "environment" === this._preferredCamera ? "user" : "environment");
-      return { stream: f, facingMode: h };
-    } catch (f) {
-    }
-    throw "Camera not found.";
+    if (!navigator.mediaDevices) throw 'Camera not found.'
+    let a = /^(environment|user)$/.test(this._preferredCamera)
+        ? 'facingMode'
+        : 'deviceId',
+      b = [{ width: { min: 1024 } }, { width: { min: 768 } }, {}],
+      c = b.map((d) =>
+        Object.assign({}, d, { [a]: { exact: this._preferredCamera } })
+      )
+    for (let d of [...c, ...b])
+      try {
+        let f = await navigator.mediaDevices.getUserMedia({
+            video: d,
+            audio: false,
+          }),
+          h =
+            this._getFacingMode(f) ||
+            (d.facingMode
+              ? this._preferredCamera
+              : 'environment' === this._preferredCamera
+                ? 'user'
+                : 'environment')
+        return { stream: f, facingMode: h }
+      } catch (f) {}
+    throw 'Camera not found.'
   }
   async _restartVideoStream() {
-    let a = this._paused;
-    await this.pause(true) && !a && this._active && await this.start();
+    let a = this._paused
+    ;(await this.pause(true)) && !a && this._active && (await this.start())
   }
   static _stopVideoStream(a) {
-    for (let b of a.getTracks()) b.stop(), a.removeTrack(b);
+    for (let b of a.getTracks()) (b.stop(), a.removeTrack(b))
   }
   _setVideoMirror(a) {
-    this.$video.style.transform = "scaleX(" + ("user" === a ? -1 : 1) + ")";
+    this.$video.style.transform = 'scaleX(' + ('user' === a ? -1 : 1) + ')'
   }
   _getFacingMode(a) {
-    return (a = a.getVideoTracks()[0]) ? /rear|back|environment/i.test(a.label) ? "environment" : /front|user|face/i.test(a.label) ? "user" : null : null;
+    return (a = a.getVideoTracks()[0])
+      ? /rear|back|environment/i.test(a.label)
+        ? 'environment'
+        : /front|user|face/i.test(a.label)
+          ? 'user'
+          : null
+      : null
   }
   static _drawToCanvas(a, b, c, d = false) {
-    c = c || document.createElement("canvas");
-    let f = b && b.x ? b.x : 0, h = b && b.y ? b.y : 0, m = b && b.width ? b.width : a.videoWidth || a.width, n = b && b.height ? b.height : a.videoHeight || a.height;
-    d || (d = b && b.downScaledWidth ? b.downScaledWidth : m, b = b && b.downScaledHeight ? b.downScaledHeight : n, c.width !== d && (c.width = d), c.height !== b && (c.height = b));
-    b = c.getContext("2d", { alpha: false });
-    b.imageSmoothingEnabled = false;
-    b.drawImage(a, f, h, m, n, 0, 0, c.width, c.height);
-    return [c, b];
+    c = c || document.createElement('canvas')
+    let f = b && b.x ? b.x : 0,
+      h = b && b.y ? b.y : 0,
+      m = b && b.width ? b.width : a.videoWidth || a.width,
+      n = b && b.height ? b.height : a.videoHeight || a.height
+    d ||
+      ((d = b && b.downScaledWidth ? b.downScaledWidth : m),
+      (b = b && b.downScaledHeight ? b.downScaledHeight : n),
+      c.width !== d && (c.width = d),
+      c.height !== b && (c.height = b))
+    b = c.getContext('2d', { alpha: false })
+    b.imageSmoothingEnabled = false
+    b.drawImage(a, f, h, m, n, 0, 0, c.width, c.height)
+    return [c, b]
   }
   static async _loadImage(a) {
-    if (a instanceof Image) return await _e._awaitImageLoad(a), a;
-    if (a instanceof HTMLVideoElement || a instanceof HTMLCanvasElement || a instanceof SVGImageElement || "OffscreenCanvas" in window && a instanceof OffscreenCanvas || "ImageBitmap" in window && a instanceof ImageBitmap) return a;
-    if (a instanceof File || a instanceof Blob || a instanceof URL || "string" === typeof a) {
-      let b = new Image();
-      b.src = a instanceof File || a instanceof Blob ? URL.createObjectURL(a) : a.toString();
+    if (a instanceof Image) return (await _e._awaitImageLoad(a), a)
+    if (
+      a instanceof HTMLVideoElement ||
+      a instanceof HTMLCanvasElement ||
+      a instanceof SVGImageElement ||
+      ('OffscreenCanvas' in window && a instanceof OffscreenCanvas) ||
+      ('ImageBitmap' in window && a instanceof ImageBitmap)
+    )
+      return a
+    if (
+      a instanceof File ||
+      a instanceof Blob ||
+      a instanceof URL ||
+      'string' === typeof a
+    ) {
+      let b = new Image()
+      b.src =
+        a instanceof File || a instanceof Blob
+          ? URL.createObjectURL(a)
+          : a.toString()
       try {
-        return await _e._awaitImageLoad(b), b;
+        return (await _e._awaitImageLoad(b), b)
       } finally {
-        (a instanceof File || a instanceof Blob) && URL.revokeObjectURL(b.src);
+        ;(a instanceof File || a instanceof Blob) && URL.revokeObjectURL(b.src)
       }
-    } else throw "Unsupported image type.";
+    } else throw 'Unsupported image type.'
   }
   static async _awaitImageLoad(a) {
-    a.complete && 0 !== a.naturalWidth || await new Promise((b, c) => {
-      let d = (f) => {
-        a.removeEventListener("load", d);
-        a.removeEventListener("error", d);
-        f instanceof ErrorEvent ? c("Image load error") : b();
-      };
-      a.addEventListener("load", d);
-      a.addEventListener("error", d);
-    });
+    ;(a.complete && 0 !== a.naturalWidth) ||
+      (await new Promise((b, c) => {
+        let d = (f) => {
+          a.removeEventListener('load', d)
+          a.removeEventListener('error', d)
+          f instanceof ErrorEvent ? c('Image load error') : b()
+        }
+        a.addEventListener('load', d)
+        a.addEventListener('error', d)
+      }))
   }
   static async _postWorkerMessage(a, b, c, d) {
-    return _e._postWorkerMessageSync(await a, b, c, d);
+    return _e._postWorkerMessageSync(await a, b, c, d)
   }
   static _postWorkerMessageSync(a, b, c, d) {
-    if (!(a instanceof Worker)) return -1;
-    let f = _e._workerMessageId++;
-    a.postMessage({ id: f, type: b, data: c }, d);
-    return f;
+    if (!(a instanceof Worker)) return -1
+    let f = _e._workerMessageId++
+    a.postMessage({ id: f, type: b, data: c }, d)
+    return f
   }
-};
-e.DEFAULT_CANVAS_SIZE = 400;
-e.NO_QR_CODE_FOUND = "No QR code found";
-e._disableBarcodeDetector = false;
-e._workerMessageId = 0;
-var qr_scanner_min_default = e;
+}
+e.DEFAULT_CANVAS_SIZE = 400
+e.NO_QR_CODE_FOUND = 'No QR code found'
+e._disableBarcodeDetector = false
+e._workerMessageId = 0
+var qr_scanner_min_default = e
 
 // dist/QR/scan/index.js
 async function scan() {
-  let hasCamera = false;
+  let hasCamera = false
   try {
-    hasCamera = await qr_scanner_min_default.hasCamera();
+    hasCamera = await qr_scanner_min_default.hasCamera()
   } catch (error) {
-    throw new QRError("CAMERA_CHECK_FAILED", getErrorMessage(error, "Unable to check camera availability"));
+    throw new QRError(
+      'CAMERA_CHECK_FAILED',
+      getErrorMessage(error, 'Unable to check camera availability')
+    )
   }
   if (!hasCamera)
-    throw new QRError("NO_CAMERA_AVAILABLE", "QR-Code scanning requires a camera");
-  const fadeMs = 333;
-  const dialog = document.createElement("dialog");
-  dialog.style.border = "none";
-  dialog.style.padding = "0";
-  dialog.style.background = "transparent";
-  dialog.style.borderRadius = "1rem";
-  dialog.style.outline = "none";
-  dialog.style.width = "min(80vw, 400px)";
-  dialog.style.aspectRatio = "1 / 1";
-  dialog.style.overflow = "hidden";
-  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs);
-  const dialogFade = attachFadeStyles(dialog, fadeMs);
-  const video = document.createElement("video");
-  video.setAttribute("playsinline", "true");
-  video.muted = true;
-  video.style.width = "100%";
-  video.style.height = "100%";
-  video.style.display = "block";
-  video.style.objectFit = "cover";
-  video.style.aspectRatio = "1 / 1";
-  const videoFade = attachFadeStyles(video, fadeMs);
-  dialog.append(video);
-  document.body.append(dialog);
-  dialog.showModal();
-  dialogBackdropFade.reveal();
-  dialogFade.reveal();
+    throw new QRError(
+      'NO_CAMERA_AVAILABLE',
+      'QR-Code scanning requires a camera'
+    )
+  const fadeMs = 333
+  const dialog = document.createElement('dialog')
+  dialog.style.border = 'none'
+  dialog.style.padding = '0'
+  dialog.style.background = 'transparent'
+  dialog.style.borderRadius = '1rem'
+  dialog.style.outline = 'none'
+  dialog.style.width = 'min(80vw, 400px)'
+  dialog.style.aspectRatio = '1 / 1'
+  dialog.style.overflow = 'hidden'
+  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs)
+  const dialogFade = attachFadeStyles(dialog, fadeMs)
+  const video = document.createElement('video')
+  video.setAttribute('playsinline', 'true')
+  video.muted = true
+  video.style.width = '100%'
+  video.style.height = '100%'
+  video.style.display = 'block'
+  video.style.objectFit = 'cover'
+  video.style.aspectRatio = '1 / 1'
+  const videoFade = attachFadeStyles(video, fadeMs)
+  dialog.append(video)
+  document.body.append(dialog)
+  dialog.showModal()
+  dialogBackdropFade.reveal()
+  dialogFade.reveal()
   return new Promise((resolve, reject) => {
-    const ac = new AbortController();
-    let settled = false;
-    let scanner;
-    let childrenVisible = false;
-    const childFades = /* @__PURE__ */ new Map();
+    const ac = new AbortController()
+    let settled = false
+    let scanner
+    let childrenVisible = false
+    const childFades = /* @__PURE__ */ new Map()
     const revealChildren = () => {
-      if (childrenVisible)
-        return;
-      childrenVisible = true;
-      videoFade.reveal();
-      for (const childFade of childFades.values())
-        childFade.reveal();
-    };
+      if (childrenVisible) return
+      childrenVisible = true
+      videoFade.reveal()
+      for (const childFade of childFades.values()) childFade.reveal()
+    }
     const registerChildFade = (node) => {
-      if (node === video)
-        return;
-      if (typeof node !== "object" || node === null || !("style" in node))
-        return;
-      const element = node;
-      if (childFades.has(element))
-        return;
-      const fade = attachFadeStyles(element, fadeMs);
-      childFades.set(element, fade);
-      if (childrenVisible)
-        fade.reveal();
-    };
+      if (node === video) return
+      if (typeof node !== 'object' || node === null || !('style' in node))
+        return
+      const element = node
+      if (childFades.has(element)) return
+      const fade = attachFadeStyles(element, fadeMs)
+      childFades.set(element, fade)
+      if (childrenVisible) fade.reveal()
+    }
     const unregisterChildFade = (node) => {
-      if (typeof node !== "object" || node === null || !("style" in node))
-        return;
-      const element = node;
-      const fade = childFades.get(element);
-      if (!fade)
-        return;
-      fade.detach();
-      childFades.delete(element);
-    };
-    const onVideoLoadedData = () => revealChildren();
-    const onVideoPlaying = () => revealChildren();
-    video.addEventListener("loadeddata", onVideoLoadedData, {
-      signal: ac.signal
-    });
-    video.addEventListener("playing", onVideoPlaying, { signal: ac.signal });
-    if (video.readyState >= 2)
-      revealChildren();
-    const childObserver = typeof globalThis.MutationObserver === "function" ? new globalThis.MutationObserver((records) => {
-      for (const record of records) {
-        for (const node of Array.from(record.addedNodes)) {
-          registerChildFade(node);
-        }
-        for (const node of Array.from(record.removedNodes)) {
-          unregisterChildFade(node);
-        }
-      }
-    }) : void 0;
-    childObserver?.observe(dialog, { childList: true });
+      if (typeof node !== 'object' || node === null || !('style' in node))
+        return
+      const element = node
+      const fade = childFades.get(element)
+      if (!fade) return
+      fade.detach()
+      childFades.delete(element)
+    }
+    const onVideoLoadedData = () => revealChildren()
+    const onVideoPlaying = () => revealChildren()
+    video.addEventListener('loadeddata', onVideoLoadedData, {
+      signal: ac.signal,
+    })
+    video.addEventListener('playing', onVideoPlaying, { signal: ac.signal })
+    if (video.readyState >= 2) revealChildren()
+    const childObserver =
+      typeof globalThis.MutationObserver === 'function'
+        ? new globalThis.MutationObserver((records) => {
+            for (const record of records) {
+              for (const node of Array.from(record.addedNodes)) {
+                registerChildFade(node)
+              }
+              for (const node of Array.from(record.removedNodes)) {
+                unregisterChildFade(node)
+              }
+            }
+          })
+        : void 0
+    childObserver?.observe(dialog, { childList: true })
     const finalize = (done) => {
-      if (settled)
-        return;
-      settled = true;
-      ac.abort();
-      childObserver?.disconnect();
-      window.removeEventListener("pointerup", onPointerUp);
-      window.removeEventListener("mouseup", onMouseUp);
-      window.removeEventListener("touchend", onTouchEnd);
-      window.removeEventListener("keydown", onKeyDown);
-      dialogBackdropFade.hide();
-      dialogFade.hide();
-      videoFade.hide();
-      for (const childFade of childFades.values())
-        childFade.hide();
+      if (settled) return
+      settled = true
+      ac.abort()
+      childObserver?.disconnect()
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('mouseup', onMouseUp)
+      window.removeEventListener('touchend', onTouchEnd)
+      window.removeEventListener('keydown', onKeyDown)
+      dialogBackdropFade.hide()
+      dialogFade.hide()
+      videoFade.hide()
+      for (const childFade of childFades.values()) childFade.hide()
       setTimeout(() => {
         try {
-          scanner?.stop();
-        } catch {
-        }
+          scanner?.stop()
+        } catch {}
         try {
-          scanner?.destroy();
-        } catch {
-        }
-        dialogBackdropFade.detach();
-        dialogFade.detach();
-        videoFade.detach();
-        for (const childFade of childFades.values())
-          childFade.detach();
-        childFades.clear();
+          scanner?.destroy()
+        } catch {}
+        dialogBackdropFade.detach()
+        dialogFade.detach()
+        videoFade.detach()
+        for (const childFade of childFades.values()) childFade.detach()
+        childFades.clear()
         try {
-          dialog.remove();
-        } catch {
-        }
-        done();
-      }, fadeMs);
-    };
+          dialog.remove()
+        } catch {}
+        done()
+      }, fadeMs)
+    }
     const rejectWithQRError = (error) => {
-      finalize(() => reject(error));
-    };
+      finalize(() => reject(error))
+    }
     const resolveWithData = (data) => {
-      finalize(() => resolve(data));
-    };
-    const abort = () => rejectWithQRError(new QRError("SCAN_CANCELLED", "QR-Code scanning was cancelled"));
-    const onPointerUp = () => abort();
-    const onMouseUp = () => abort();
-    const onTouchEnd = () => abort();
-    const onKeyDown = () => abort();
+      finalize(() => resolve(data))
+    }
+    const abort = () =>
+      rejectWithQRError(
+        new QRError('SCAN_CANCELLED', 'QR-Code scanning was cancelled')
+      )
+    const onPointerUp = () => abort()
+    const onMouseUp = () => abort()
+    const onTouchEnd = () => abort()
+    const onKeyDown = () => abort()
     setTimeout(() => {
-      window.addEventListener("pointerup", onPointerUp, { signal: ac.signal });
-      window.addEventListener("mouseup", onMouseUp, { signal: ac.signal });
-      window.addEventListener("touchend", onTouchEnd, { signal: ac.signal });
-      window.addEventListener("keydown", onKeyDown, { signal: ac.signal });
-      dialog.addEventListener("cancel", (e2) => {
-        e2.preventDefault();
-        abort();
-      }, { signal: ac.signal });
-      dialog.addEventListener("close", abort, { signal: ac.signal });
-    }, fadeMs);
-    scanner = new qr_scanner_min_default(video, (result) => {
-      resolveWithData(result.data);
-    }, {
-      preferredCamera: "environment",
-      returnDetailedScanResult: true,
-      highlightScanRegion: true,
-      highlightCodeOutline: true,
-      onDecodeError: () => {
+      window.addEventListener('pointerup', onPointerUp, { signal: ac.signal })
+      window.addEventListener('mouseup', onMouseUp, { signal: ac.signal })
+      window.addEventListener('touchend', onTouchEnd, { signal: ac.signal })
+      window.addEventListener('keydown', onKeyDown, { signal: ac.signal })
+      dialog.addEventListener(
+        'cancel',
+        (e2) => {
+          e2.preventDefault()
+          abort()
+        },
+        { signal: ac.signal }
+      )
+      dialog.addEventListener('close', abort, { signal: ac.signal })
+    }, fadeMs)
+    scanner = new qr_scanner_min_default(
+      video,
+      (result) => {
+        resolveWithData(result.data)
+      },
+      {
+        preferredCamera: 'environment',
+        returnDetailedScanResult: true,
+        highlightScanRegion: true,
+        highlightCodeOutline: true,
+        onDecodeError: () => {},
       }
-    });
+    )
     scanner.start().catch((error) => {
-      rejectWithQRError(new QRError("SCAN_START_FAILED", getErrorMessage(error, "Unable to start QR scanner")));
-    });
-  });
+      rejectWithQRError(
+        new QRError(
+          'SCAN_START_FAILED',
+          getErrorMessage(error, 'Unable to start QR scanner')
+        )
+      )
+    })
+  })
 }
 
 // dist/QR/class.js
@@ -2407,7 +2649,7 @@ var QR = class {
    * @throws {QRError} Thrown if `value` is not a string or QR encoding fails.
    */
   static display(value) {
-    return display(value);
+    return display(value)
   }
   /**
    * Opens a new tab containing an A4 print layout of card-sized QR codes for the specified string.
@@ -2419,7 +2661,7 @@ var QR = class {
    * @throws {QRError} Thrown if `value` is not a string or QR encoding fails.
    */
   static print(value) {
-    return print(value);
+    return print(value)
   }
   /**
    * Displays a modal dialog that streams the device camera and scans for a QR code.
@@ -2430,21 +2672,21 @@ var QR = class {
    * @throws {QRError} If camera availability cannot be checked, no camera is available, the scan is cancelled, or scanner startup fails.
    */
   static scan() {
-    return scan();
+    return scan()
   }
-};
+}
 
 // in-browser-testing-libs.js
-globalThis.qr = QR;
-document.getElementById("display-qr").addEventListener("pointerup", () => {
-  QR.display(document.getElementById("qr-value-input").value);
-});
-document.getElementById("print-qr").addEventListener("pointerup", () => {
-  QR.print(document.getElementById("qr-value-input").value);
-});
-document.getElementById("scan-qr").addEventListener("pointerup", async () => {
-  document.getElementById("qr-scan-output").textContent = await QR.scan();
-});
+globalThis.qr = QR
+document.getElementById('display-qr').addEventListener('pointerup', () => {
+  QR.display(document.getElementById('qr-value-input').value)
+})
+document.getElementById('print-qr').addEventListener('pointerup', () => {
+  QR.print(document.getElementById('qr-value-input').value)
+})
+document.getElementById('scan-qr').addEventListener('pointerup', async () => {
+  document.getElementById('qr-scan-output').textContent = await QR.scan()
+})
 /*! Bundled license information:
 
 qr/index.js:

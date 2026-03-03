@@ -64,7 +64,10 @@ export async function scan(): Promise<string> {
     let settled = false
     let scanner: QrScanner | undefined
     let childrenVisible = false
-    const childFades = new Map<HTMLElement, ReturnType<typeof attachFadeStyles>>()
+    const childFades = new Map<
+      HTMLElement,
+      ReturnType<typeof attachFadeStyles>
+    >()
 
     const revealChildren = (): void => {
       if (childrenVisible) return
