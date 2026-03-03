@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/z-base/qr/compare/v1.0.1...v1.0.2) (2026-03-03)
+
+
+### Bug Fixes
+
+* Added fade in and out(s) to dialogs and their children in scan and display methods for better ux ([fe20cc0](https://github.com/z-base/qr/commit/fe20cc068c9b05e5dba7b67cb9d8d07db39e1cb0))
+
 ## [1.0.1](https://github.com/z-base/qr/compare/v1.0.0...v1.0.1) (2026-03-03)
 
 
