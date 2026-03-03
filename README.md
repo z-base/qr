@@ -74,6 +74,7 @@ import { display, print, scan } from '@z-base/qr'
 - Opens a modal camera scanner.
 - Resolves with decoded QR payload.
 - Rejects with `QRError` when scanning cannot proceed or is cancelled.
+- Uses the same short interaction guard delay pattern as `display()` before close listeners activate.
 
 ## Errors
 
@@ -91,6 +92,7 @@ The package throws `QRError` with semantic `code` values:
 - This package is browser-first and UI-driven.
 - `scan()` requires camera permission and a compatible device/browser.
 - `print()` relies on popup/new-tab behavior and browser print support.
+- Dialog/content/backdrop fade transitions are best-effort and may vary slightly by engine capabilities.
 
 ## Tests
 
