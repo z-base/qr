@@ -61,7 +61,7 @@ test('display renders, binds close listeners, and cleans up idempotently', () =>
     assert.ok(dialog)
     assert.ok(img)
     assert.equal(dialog.showModalCalls, 1)
-    assert.equal(dom.timeoutCalls.includes(500), true)
+    assert.equal(dom.timeoutCalls.includes(333), true)
 
     assert.equal(typeof img.onload, 'function')
     img.onload()
@@ -77,6 +77,75 @@ test('display renders, binds close listeners, and cleans up idempotently', () =>
     assert.equal(qrCalls.length > 0, true)
     assert.deepEqual(qrCalls.at(-1), { output: 'svg', value: 'hello-world' })
   } finally {
+    dom.restore()
+  }
+})
+
+test('display handles already-complete image elements', () => {
+  resetQrStub()
+  const dom = installDomHarness()
+  const originalCreateElement = globalThis.document.createElement
+  globalThis.document.createElement = (tagName) => {
+    const element = originalCreateElement(tagName)
+    if (tagName === 'img') element.complete = true
+    return element
+  }
+  try {
+    display('already-complete')
+
+    const img = dom.getLastElement('img')
+    const dialog = dom.getLastElement('dialog')
+    assert.ok(img)
+    assert.ok(dialog)
+    assert.equal(dom.revokedObjectUrls.length >= 1, true)
+
+    dom.dispatchWindow('pointerup')
+    assert.equal(dialog.removed, true)
+  } finally {
+    dom.restore()
+  }
+})
+
+test('display ignores repeated close requests while fade-out is in progress', () => {
+  resetQrStub()
+  const dom = installDomHarness()
+  const originalSetTimeout = globalThis.setTimeout
+  const pending = []
+  let timeoutCalls = 0
+
+  let closeDelayQueued = false
+  globalThis.setTimeout = (callback, delay, ...args) => {
+    timeoutCalls += 1
+
+    if (delay === 0) {
+      callback(...args)
+      return timeoutCalls
+    }
+
+    if (!closeDelayQueued) {
+      closeDelayQueued = true
+      callback(...args)
+      return timeoutCalls
+    }
+
+    pending.push(() => callback(...args))
+    return timeoutCalls
+  }
+
+  try {
+    display('close-guard')
+
+    const dialog = dom.getLastElement('dialog')
+    assert.ok(dialog)
+
+    dom.dispatchWindow('pointerup')
+    dom.dispatchWindow('pointerup')
+
+    for (const run of pending) run()
+
+    assert.equal(dialog.removeCalls, 1)
+  } finally {
+    globalThis.setTimeout = originalSetTimeout
     dom.restore()
   }
 })
@@ -377,6 +446,149 @@ test('scan handles keydown cancellation and decode error callback execution', as
     )
   } finally {
     dom.restore()
+  }
+})
+
+test('scan tracks dynamic child overlays with dedupe and removal cleanup', async () => {
+  resetQrScannerStub()
+  configureQrScannerStub({ hasCameraResult: true, autoDecode: false })
+
+  const originalMutationObserver = globalThis.MutationObserver
+  const originalRequestAnimationFrame = globalThis.requestAnimationFrame
+  const observers = []
+
+  class FakeMutationObserver {
+    constructor(callback) {
+      this.callback = callback
+      this.disconnected = false
+      observers.push(this)
+    }
+
+    observe() {}
+
+    disconnect() {
+      this.disconnected = true
+    }
+
+    emit(records) {
+      this.callback(records)
+    }
+  }
+
+  globalThis.MutationObserver = FakeMutationObserver
+  globalThis.requestAnimationFrame = (callback) => {
+    callback()
+    return 1
+  }
+
+  const dom = installDomHarness()
+  const originalCreateElement = globalThis.document.createElement
+  globalThis.document.createElement = (tagName) => {
+    const element = originalCreateElement(tagName)
+    if (tagName === 'video') element.readyState = 2
+    return element
+  }
+
+  try {
+    const promise = scan()
+    await Promise.resolve()
+
+    const video = dom.getLastElement('video')
+    const observer = observers.at(-1)
+
+    assert.ok(video)
+    assert.ok(observer)
+
+    const overlay = { style: {} }
+    observer.emit([
+      { addedNodes: [video, {}, overlay, overlay], removedNodes: [] },
+    ])
+    observer.emit([{ addedNodes: [], removedNodes: [overlay] }])
+
+    video.dispatch('loadeddata')
+    video.dispatch('playing')
+
+    dom.dispatchWindow('keydown')
+    await assert.rejects(
+      () => promise,
+      (error) => {
+        assertQRErrorCode(error, 'SCAN_CANCELLED')
+        return true
+      }
+    )
+
+    assert.equal(observer.disconnected, true)
+  } finally {
+    dom.restore()
+    globalThis.MutationObserver = originalMutationObserver
+    globalThis.requestAnimationFrame = originalRequestAnimationFrame
+  }
+})
+
+test('scan reveals pre-registered child fades and handles unknown removals', async () => {
+  resetQrScannerStub()
+  configureQrScannerStub({ hasCameraResult: true, autoDecode: false })
+
+  const originalMutationObserver = globalThis.MutationObserver
+  const observers = []
+
+  class FakeMutationObserver {
+    constructor(callback) {
+      this.callback = callback
+      this.disconnected = false
+      observers.push(this)
+    }
+
+    observe() {}
+
+    disconnect() {
+      this.disconnected = true
+    }
+
+    emit(records) {
+      this.callback(records)
+    }
+  }
+
+  globalThis.MutationObserver = FakeMutationObserver
+
+  const dom = installDomHarness()
+  try {
+    const promise = scan()
+    await Promise.resolve()
+
+    const video = dom.getLastElement('video')
+    const observer = observers.at(-1)
+
+    assert.ok(video)
+    assert.ok(observer)
+
+    const keepOverlay = { style: {} }
+    const removeOverlay = { style: {} }
+    const unknownOverlay = { style: {} }
+
+    observer.emit([
+      {
+        addedNodes: [keepOverlay, removeOverlay],
+        removedNodes: [{}, unknownOverlay, removeOverlay],
+      },
+    ])
+
+    video.dispatch('loadeddata')
+
+    dom.dispatchWindow('keydown')
+    await assert.rejects(
+      () => promise,
+      (error) => {
+        assertQRErrorCode(error, 'SCAN_CANCELLED')
+        return true
+      }
+    )
+
+    assert.equal(observer.disconnected, true)
+  } finally {
+    dom.restore()
+    globalThis.MutationObserver = originalMutationObserver
   }
 })
 

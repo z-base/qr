@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 
 import { QRError } from '../../dist/.errors/class.js'
-import { getErrorMessage } from '../../dist/.helpers/index.js'
+import { getErrorMessage } from '../../dist/.helpers/getErrorMessage/index.js'
 
 test('getErrorMessage returns Error.message when available', () => {
   const message = getErrorMessage(new Error('boom'), 'fallback')
