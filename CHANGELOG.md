@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/z-base/qr/compare/v1.0.0...v1.0.1) (2026-03-03)
+
+
+### Bug Fixes
+
+* scan method dialog background color to transparent ([9d1073a](https://github.com/z-base/qr/commit/9d1073ad15f807f2d14ab502033bc1afc1b989e9))
+
 ## 1.0.0 (2026-03-01)
 
 
