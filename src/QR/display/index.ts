@@ -1,6 +1,9 @@
 import encodeQR from 'qr'
 import { QRError } from '../../.errors/class.js'
-import { attachFadeStyles } from '../../.helpers/fade/index.js'
+import {
+  attachDialogBackdropFade,
+  attachFadeStyles,
+} from '../../.helpers/fade/index.js'
 import { getErrorMessage } from '../../.helpers/index.js'
 
 /**
@@ -31,6 +34,7 @@ export function display(value: string): void {
   dialog.style.justifyContent = 'center'
   dialog.style.outline = 'none'
   dialog.style.overflow = 'hidden'
+  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs)
   const dialogFade = attachFadeStyles(dialog, fadeMs)
 
   let svgText = ''
@@ -59,6 +63,7 @@ export function display(value: string): void {
   dialog.append(img)
   document.body.append(dialog)
   dialog.showModal()
+  dialogBackdropFade.reveal()
   dialogFade.reveal()
 
   const ac = new AbortController()
@@ -78,6 +83,7 @@ export function display(value: string): void {
     img.onload = null
     URL.revokeObjectURL(url)
 
+    dialogBackdropFade.detach()
     dialogFade.detach()
     imgFade.detach()
     dialog.remove()
@@ -87,6 +93,7 @@ export function display(value: string): void {
     if (closing || cleaned) return
     closing = true
 
+    dialogBackdropFade.hide()
     dialogFade.hide()
     imgFade.hide()
 

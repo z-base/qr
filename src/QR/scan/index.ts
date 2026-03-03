@@ -1,6 +1,9 @@
 import QrScanner from 'qr-scanner'
 import { QRError } from '../../.errors/class.js'
-import { attachFadeStyles } from '../../.helpers/fade/index.js'
+import {
+  attachDialogBackdropFade,
+  attachFadeStyles,
+} from '../../.helpers/fade/index.js'
 import { getErrorMessage } from '../../.helpers/index.js'
 
 /**
@@ -39,6 +42,7 @@ export async function scan(): Promise<string> {
   dialog.style.width = 'min(80vw, 400px)'
   dialog.style.aspectRatio = '1 / 1'
   dialog.style.overflow = 'hidden'
+  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs)
   const dialogFade = attachFadeStyles(dialog, fadeMs)
 
   const video = document.createElement('video')
@@ -54,6 +58,7 @@ export async function scan(): Promise<string> {
   dialog.append(video)
   document.body.append(dialog)
   dialog.showModal()
+  dialogBackdropFade.reveal()
   dialogFade.reveal()
 
   return new Promise<string>((resolve, reject) => {
@@ -109,6 +114,7 @@ export async function scan(): Promise<string> {
       window.removeEventListener('touchend', onTouchEnd)
       window.removeEventListener('keydown', onKeyDown)
 
+      dialogBackdropFade.hide()
       dialogFade.hide()
       videoFade.hide()
       for (const childFade of childFades) childFade.hide()
@@ -121,6 +127,7 @@ export async function scan(): Promise<string> {
           scanner?.destroy()
         } catch {}
 
+        dialogBackdropFade.detach()
         dialogFade.detach()
         videoFade.detach()
         for (const childFade of childFades) childFade.detach()

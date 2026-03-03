@@ -1486,6 +1486,33 @@ function attachFadeStyles(element, durationMs) {
     }
   };
 }
+function attachDialogBackdropFade(dialog, durationMs) {
+  let animation;
+  const animateBackdrop = (from, to) => {
+    if (typeof dialog.animate !== "function")
+      return;
+    try {
+      animation?.cancel();
+      animation = dialog.animate([{ opacity: from }, { opacity: to }], {
+        duration: durationMs,
+        easing: "ease",
+        fill: "forwards",
+        pseudoElement: "::backdrop"
+      });
+    } catch {
+    }
+  };
+  return {
+    reveal: () => animateBackdrop(0, 1),
+    hide: () => animateBackdrop(1, 0),
+    detach: () => {
+      try {
+        animation?.cancel();
+      } catch {
+      }
+    }
+  };
+}
 
 // dist/.helpers/index.js
 function getErrorMessage(error, fallback) {
@@ -1512,6 +1539,7 @@ function display(value) {
   dialog.style.justifyContent = "center";
   dialog.style.outline = "none";
   dialog.style.overflow = "hidden";
+  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs);
   const dialogFade = attachFadeStyles(dialog, fadeMs);
   let svgText = "";
   try {
@@ -1531,6 +1559,7 @@ function display(value) {
   dialog.append(img);
   document.body.append(dialog);
   dialog.showModal();
+  dialogBackdropFade.reveal();
   dialogFade.reveal();
   const ac = new AbortController();
   let cleaned = false;
@@ -1546,6 +1575,7 @@ function display(value) {
     window.removeEventListener("keydown", onKeyDown);
     img.onload = null;
     URL.revokeObjectURL(url);
+    dialogBackdropFade.detach();
     dialogFade.detach();
     imgFade.detach();
     dialog.remove();
@@ -1554,6 +1584,7 @@ function display(value) {
     if (closing || cleaned)
       return;
     closing = true;
+    dialogBackdropFade.hide();
     dialogFade.hide();
     imgFade.hide();
     setTimeout(() => {
@@ -2135,6 +2166,7 @@ async function scan() {
   dialog.style.width = "min(80vw, 400px)";
   dialog.style.aspectRatio = "1 / 1";
   dialog.style.overflow = "hidden";
+  const dialogBackdropFade = attachDialogBackdropFade(dialog, fadeMs);
   const dialogFade = attachFadeStyles(dialog, fadeMs);
   const video = document.createElement("video");
   video.setAttribute("playsinline", "true");
@@ -2148,6 +2180,7 @@ async function scan() {
   dialog.append(video);
   document.body.append(dialog);
   dialog.showModal();
+  dialogBackdropFade.reveal();
   dialogFade.reveal();
   return new Promise((resolve, reject) => {
     const ac = new AbortController();
@@ -2199,6 +2232,7 @@ async function scan() {
       window.removeEventListener("mouseup", onMouseUp);
       window.removeEventListener("touchend", onTouchEnd);
       window.removeEventListener("keydown", onKeyDown);
+      dialogBackdropFade.hide();
       dialogFade.hide();
       videoFade.hide();
       for (const childFade of childFades)
@@ -2212,6 +2246,7 @@ async function scan() {
           scanner?.destroy();
         } catch {
         }
+        dialogBackdropFade.detach();
         dialogFade.detach();
         videoFade.detach();
         for (const childFade of childFades)
